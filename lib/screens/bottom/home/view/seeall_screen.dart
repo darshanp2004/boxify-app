@@ -1,3 +1,4 @@
+import 'package:boxify/custom_widgets/card.dart';
 import 'package:boxify/custom_widgets/text.dart';
 import 'package:boxify/screens/bottom/home/cubit/homescreen_cubit.dart';
 import 'package:boxify/screens/bottom/home/cubit/homescreen_state.dart';
@@ -7,7 +8,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../../Utils/image_resources.dart';
-import '../../../../custom_widgets/card.dart';
 import '../../../../utils/string.dart';
 
 class SeeAllScreen extends StatefulWidget {

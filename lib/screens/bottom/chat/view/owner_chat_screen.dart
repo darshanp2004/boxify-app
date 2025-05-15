@@ -15,14 +15,13 @@ class OwnerChatScreen extends StatefulWidget {
 }
 
 class _OwnerChatScreenState extends State<OwnerChatScreen> {
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       backgroundColor: Color(0xFFF3F4F8),
       appBar: AppBar(
+        surfaceTintColor: Colors.transparent,
         automaticallyImplyLeading: false,
         backgroundColor: Color(0xFFFFFFFF),
         toolbarHeight: 80.h,
@@ -97,60 +96,62 @@ class _OwnerChatScreenState extends State<OwnerChatScreen> {
           ),
         ],
       ),
-      body: BlocBuilder<OwnerChatCubit, OwnerChatState>(
-        builder: (context, state) {
-          if (state is ChatLoading) {
-            return Center(child: CircularProgressIndicator());
-          } else if (state is ChatLoaded) {
-            return ListView.builder(
-              padding: EdgeInsets.only(top: 40.h,),
-              itemCount: state.messages.length,
-              itemBuilder: (context, index) {
-                state.isSender = (index % 2 == 0);
-                return Align(
-                  alignment:
-                      state.isSender
-                          ? Alignment.centerRight
-                          : Alignment.centerLeft,
-                  child: Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 16.w,
-                      vertical: 15.h,
-                    ),
-                    margin: EdgeInsets.symmetric(
-                      vertical: 10.h,
-                      horizontal: 20.w,
-                    ),
-                    constraints: BoxConstraints(
-                      maxWidth: MediaQuery.of(context).size.width * 0.75,
-                    ),
-                    decoration: BoxDecoration(
-                      color:
-                          state.isSender
-                              ? Color(0xFF0E7AFF)
-                              : Color(0xFFE2E4E9),
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(state.isSender ? 20.r : 0),
-                        topRight: Radius.circular(20.r),
-                        bottomLeft: Radius.circular(20.r),
-                        bottomRight: Radius.circular(state.isSender ? 0 : 20.r),
+      body: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).unfocus();
+        },
+        child: BlocBuilder<OwnerChatCubit, OwnerChatState>(
+          builder: (context, state) {
+            if (state is ChatLoading) {
+              return Center(child: CircularProgressIndicator());
+            } else if (state is ChatLoaded) {
+              context.read<OwnerChatCubit>().scrollToBottom();
+              return ListView.builder(
+                controller: context.read<OwnerChatCubit>().scrollController,
+                padding: EdgeInsets.only(top: 20.h,bottom: 5.h),
+                itemCount: state.messages.length,
+                itemBuilder: (context, index) {
+                  final isSender = state.senderFlags[index];
+                  return Align(
+                    alignment:
+                        isSender ? Alignment.centerRight : Alignment.centerLeft,
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 20.w,
+                        vertical: 15.h,
+                      ),
+                      margin: EdgeInsets.symmetric(
+                        vertical: 5.h,
+                        horizontal: 20.w,
+                      ),
+                      constraints: BoxConstraints(
+                        maxWidth: MediaQuery.of(context).size.width * 0.75,
+                      ),
+                      decoration: BoxDecoration(
+                        color: isSender ? Color(0xFF0E7AFF) : Color(0xFFE2E4E9),
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(isSender ? 20.r : 0),
+                          topRight: Radius.circular(20.r),
+                          bottomLeft: Radius.circular(20.r),
+                          bottomRight: Radius.circular(isSender ? 0 : 20.r),
+                        ),
+                      ),
+                      child: CustomText(
+                        data: state.messages[index],
+                        fontSize: 15.sp,
+                        color: isSender ? Colors.white : null,
                       ),
                     ),
-                    child: CustomText(
-                      data: state.messages[index],
-                      fontSize: 15.sp,
-                      color: state.isSender ? Colors.white : null,
-                    ),
-                  ),
-                );
-              },
-            );
-          } else if (state is ChatError) {
-            return Center(child: Text(state.message));
-          } else {
-            return SizedBox();
-          }
-        },
+                  );
+                },
+              );
+            } else if (state is ChatError) {
+              return Center(child: Text(state.message));
+            } else {
+              return SizedBox();
+            }
+          },
+        ),
       ),
       bottomNavigationBar: Padding(
         padding: EdgeInsets.only(
@@ -165,7 +166,8 @@ class _OwnerChatScreenState extends State<OwnerChatScreen> {
               child: Stack(
                 children: [
                   TextField(
-                    controller: context.read<OwnerChatCubit>().messageController,
+                    controller:
+                        context.read<OwnerChatCubit>().messageController,
                     decoration: InputDecoration(
                       filled: true,
                       fillColor: Color(0xFFF3F4F8),
@@ -183,14 +185,14 @@ class _OwnerChatScreenState extends State<OwnerChatScreen> {
                         borderSide: BorderSide(color: Color(0XFFD2D4DA)),
                       ),
                       isDense: true,
-                      contentPadding: EdgeInsets.only(top: 25.h, left: 20.w),
+                      contentPadding: EdgeInsets.only(top: 25.h, left: 20.w,right: 60.w),
                     ),
                   ),
                   Positioned(
                     top: 5,
                     right: 5,
                     child: GestureDetector(
-                      onTap: () => context.read<OwnerChatCubit>().messageController.clear(),
+                      onTap: () => context.read<OwnerChatCubit>().sendMessage(),
                       child: Container(
                         height: 40.h,
                         width: 40.w,

@@ -1,10 +1,6 @@
-import 'package:boxify/screens/auth/sign_in/cubit/signin_screen_cubit.dart';
-import 'package:boxify/screens/auth/sign_up/cubit/signup_screen_cubit.dart';
-import 'package:boxify/screens/bottom/home/cubit/homescreen_cubit.dart';
 import 'package:boxify/screens/splash/view/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:toastification/toastification.dart';
 
@@ -12,16 +8,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
-  runApp(
-    MultiBlocProvider(
-      providers: [
-        BlocProvider(create: (context) => SignInCubit()),
-        BlocProvider(create: (context) => SignUpCubit()),
-        BlocProvider(create: (context) => HomeCubit()),
-      ],
-      child: MyApp(),
-    ),
-  );
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
