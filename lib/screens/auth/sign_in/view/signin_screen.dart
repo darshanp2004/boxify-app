@@ -1,0 +1,133 @@
+import 'package:boxify/custom_widgets/elevatedbutton.dart';
+import 'package:boxify/custom_widgets/text.dart';
+import 'package:boxify/utils/string.dart';
+import 'package:flutter/material.dart';
+import 'package:boxify/custom_widgets/textfield.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../../../Utils/image_resources.dart';
+import '../cubit/signin_screen_cubit.dart';
+import '../cubit/signin_screen_state.dart';
+
+
+class SignInScreen extends StatefulWidget {
+  const SignInScreen({super.key});
+
+  @override
+  State<SignInScreen> createState() => _SignInScreenState();
+}
+
+class _SignInScreenState extends State<SignInScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<SignInCubit, SignInState>(
+      builder: (context, state) {
+        var cubit = context.read<SignInCubit>();
+        return Scaffold(
+          body: SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                vertical: 100.h,
+                horizontal: 30.w,
+              ),
+              child: Form(
+                key: context.read<SignInCubit>().formKey,
+                child: Column(
+                  children: [
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: Row(
+                        children: [
+                          CustomText(data: welcomeText,fontSize: 32.sp),
+                          SizedBox(width: 10.w),
+                          Padding(
+                            padding: EdgeInsets.only(bottom: 7.0),
+                            child: Image.asset(
+                              wavingHand,
+                              height: 25.h,
+                              width: 30.w,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 50.h),
+                    CustomTextField(
+                      controller: cubit.emailController,
+                      hintText: emailOrUser,
+                      icon: userIcon,
+                      validator: cubit.validateEmail,
+                    ),
+                    SizedBox(height: 10.h),
+                    CustomTextField(
+                      controller: cubit.passwordController,
+                      hintText: pass,
+                      icon: lockIcon,
+                      obscureText: true,
+                      validator: cubit.validatePassword,
+                    ),
+                    SizedBox(height: 5.h),
+                    Align(
+                      alignment: Alignment.bottomRight,
+                      child: CustomText(data:forgotPassText),
+                    ),
+                    SizedBox(height: 15.h),
+                    CustomElevatedButton(
+                      text: logIn,
+                      onPressed: () {
+                        cubit.validateInputs(context);
+                      },
+                      backgroundColor: Color(0XFF0E7AFF),
+                      textColor: Color(0XFFFFFFFF),
+                    ),
+                    SizedBox(height: 10.h),
+                    CustomElevatedButton(
+                      text: signUp,
+                      onPressed: () {
+                        cubit.navigateToSignUp(context);
+                      },
+                      textColor: Color(0XFF1E1E1E),
+                    ),
+                    SizedBox(height: 30.h),
+                    Row(
+                      children: [
+                        Expanded(child: Divider()),
+                        Padding(
+                          padding: EdgeInsets.only(
+                            left: 8.w,
+                            right: 8.w,
+                          ),
+                          child: CustomText(data: or,color: Color(0XFF1E1E1E),)
+                        ),
+                        Expanded(child: Divider()),
+                      ],
+                    ),
+                    SizedBox(height: 30.h),
+                    CustomElevatedButton(
+                      text: appleLogin,
+                      icon: appleIcon,
+                      iconHeight: 20.h,
+                      iconWidth: 35.w,
+                      onPressed: () {},
+                      textColor: Color(0XFF1E1E1E),
+                    ),
+                    SizedBox(height: 10.h),
+                    CustomElevatedButton(
+                      text: googleLogin,
+                      icon: googleIcon,
+                      iconHeight: 30.h,
+                      iconWidth: 35.w,
+                      onPressed: () {},
+                      textColor: Color(0XFF1E1E1E),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+}

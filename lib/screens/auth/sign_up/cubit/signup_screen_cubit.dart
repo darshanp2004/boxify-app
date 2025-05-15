@@ -1,0 +1,69 @@
+import 'package:boxify/screens/auth/sign_up/cubit/signup_screen_state.dart';
+import 'package:boxify/screens/bottom/bottom_navigation/view/bottom_navigation_screen.dart';
+import 'package:boxify/screens/bottom/home/view/home_screen.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+
+import '../../../../utils/string.dart';
+import '../view/signup_screen.dart';
+
+class SignUpCubit extends Cubit<SignUpState> {
+  SignUpCubit() : super(const SignUpState());
+
+  final userNameController = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
+
+
+  String? validateUsername(String? value) {
+    if (value == null || value.isEmpty) {
+      return userValidator;
+    }
+    return null;
+  }
+
+  String? validateEmail(String? value) {
+    final isEmailValid = RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value!);
+
+    if (value.isEmpty) {
+      return emailValidator;
+    }
+    if (!isEmailValid) {
+      return invalidEmail;
+    }
+    return null;
+  }
+
+  String? validatePassword(String? value) {
+    final isPasswordValid = (value)!.length >= 8;
+
+    if ( value.isEmpty) {
+      return passwordValidator;
+    }
+    if (!isPasswordValid) {
+      return invalidPass;
+    }
+    return null;
+  }
+
+  String? validateConfirmPassword(String? value) {
+    if (passwordController.text != confirmPasswordController.text) {
+      return passNotMatch;
+    }
+    return null;
+  }
+
+  Future<void> validateInputs(BuildContext context) async {
+    if (formKey.currentState!.validate()) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => BottomNavigationScreen()),
+      );
+    }
+  }
+}
