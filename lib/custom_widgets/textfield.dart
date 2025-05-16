@@ -1,3 +1,4 @@
+import 'package:boxify/utils/string.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -26,6 +27,7 @@ class CustomTextField extends StatelessWidget {
       validator: validator,
       decoration: InputDecoration(
         hintText: hintText,
+        hintStyle: TextStyle(fontFamily: fontFamily,fontSize: 16.sp,color: Color(0xFF1E1E1E)),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15.r),
           borderSide: BorderSide(

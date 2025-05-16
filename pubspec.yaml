@@ -96,6 +96,10 @@ flutter:
      fonts:
        - asset: assets/fonts/Lexend-Regular.ttf
          weight: 400
+   - family: Koulen
+     fonts:
+       - asset: assets/fonts/Koulen-Regular.ttf
+         weight: 400
   #         style: italic
   #   - family: Trajan Pro
   #     fonts:

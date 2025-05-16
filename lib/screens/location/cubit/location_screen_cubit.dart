@@ -10,7 +10,7 @@ class LocationCubit extends Cubit<LocationState> {
   static LocationCubit get(context) => BlocProvider.of(context);
 
   List<String> suggestions = [];
-  List<String> initialSuggestions = [place, place, place, place];
+  List<String> initialSuggestions = [area, area, area, area];
   final TextEditingController searchController = TextEditingController();
 
   Future<void> showSuggestions() async {

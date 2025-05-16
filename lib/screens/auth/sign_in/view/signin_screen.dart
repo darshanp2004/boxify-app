@@ -41,7 +41,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         alignment: Alignment.topLeft,
                         child: Row(
                           children: [
-                            CustomText(data: welcomeText, fontSize: 32.sp),
+                            CustomText(data: welcomeText, fontSize: 32.sp,fontFamily: koulen,),
                             SizedBox(width: 10.w),
                             Padding(
                               padding: EdgeInsets.only(bottom: 7.0),
@@ -72,7 +72,7 @@ class _SignInScreenState extends State<SignInScreen> {
                       SizedBox(height: 5.h),
                       Align(
                         alignment: Alignment.bottomRight,
-                        child: CustomText(data: forgotPassText),
+                        child: CustomText(data: forgotPassText,fontSize: 14.sp,),
                       ),
                       SizedBox(height: 15.h),
                       CustomElevatedButton(
@@ -82,6 +82,8 @@ class _SignInScreenState extends State<SignInScreen> {
                         },
                         backgroundColor: Color(0XFF0E7AFF),
                         textColor: Color(0XFFFFFFFF),
+                        fontWeight: FontWeight.w800,
+                        borderColor: Colors.transparent,
                       ),
                       SizedBox(height: 10.h),
                       CustomElevatedButton(
@@ -90,6 +92,7 @@ class _SignInScreenState extends State<SignInScreen> {
                           signInCubit.navigateToSignUp(context);
                         },
                         textColor: Color(0XFF1E1E1E),
+                        fontWeight: FontWeight.w800,
                       ),
                       SizedBox(height: 30.h),
                       Row(
@@ -109,8 +112,7 @@ class _SignInScreenState extends State<SignInScreen> {
                       CustomElevatedButton(
                         text: appleLogin,
                         icon: appleIcon,
-                        iconHeight: 20.h,
-                        iconWidth: 35.w,
+                        fontWeight: FontWeight.w700,
                         onPressed: () {},
                         textColor: Color(0XFF1E1E1E),
                       ),
@@ -118,8 +120,7 @@ class _SignInScreenState extends State<SignInScreen> {
                       CustomElevatedButton(
                         text: googleLogin,
                         icon: googleIcon,
-                        iconHeight: 30.h,
-                        iconWidth: 35.w,
+                        fontWeight: FontWeight.w700,
                         onPressed: () {},
                         textColor: Color(0XFF1E1E1E),
                       ),

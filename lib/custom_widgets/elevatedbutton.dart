@@ -1,4 +1,5 @@
 import 'package:boxify/custom_widgets/text.dart';
+import 'package:boxify/utils/string.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -10,8 +11,6 @@ class CustomElevatedButton extends StatelessWidget {
   final double? height;
   final double? width;
   final double? fontSize;
-  final double? iconHeight;
-  final double? iconWidth;
   final String? icon;
   final Color? borderColor;
   final FontWeight? fontWeight;
@@ -24,8 +23,6 @@ class CustomElevatedButton extends StatelessWidget {
     this.textColor,
     this.height = 60,
     this.width = 400,
-    this.iconHeight,
-    this.iconWidth,
     this.icon,
     this.borderColor,
     this.fontSize,
@@ -51,8 +48,14 @@ class CustomElevatedButton extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             if (icon != null)
-              Image.asset(icon!, width: iconWidth, height: iconHeight),
-            CustomText(data: text, color: textColor, fontSize: fontSize,fontWeight:fontWeight ,),
+              Padding(
+                padding: EdgeInsets.only(bottom: 2.h),
+                child: Transform.scale(
+                    scale: 0.72,
+                    child: Image.asset(icon!)),
+              ),
+            SizedBox(width: 5.w,),
+            CustomText(data: text, color: textColor, fontSize: fontSize,fontWeight:fontWeight ,fontFamily:fontFamily,),
           ],
         ),
       ),
