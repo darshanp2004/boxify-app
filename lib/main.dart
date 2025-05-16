@@ -1,4 +1,3 @@
-import 'package:boxify/screens/location/cubit/location_screen_cubit.dart';
 import 'package:boxify/screens/splash/view/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
