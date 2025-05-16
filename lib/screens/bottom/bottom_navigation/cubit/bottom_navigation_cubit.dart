@@ -18,6 +18,7 @@ class BottomNavigationCubit extends Cubit<BottomNavigationState> {
       ],
     ),
   );
+  static BottomNavigationCubit get(context) => BlocProvider.of(context);
 
   void updateIndex(int newIndex) {
     emit(state.copyWith(currentIndex: newIndex));

@@ -22,77 +22,59 @@ class _BookingScreenState extends State<BookingScreen>
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context)=>BookingCubit()..initController(this),
+      create: (context) => BookingCubit()..initController(this),
       child: DefaultTabController(
         length: 3,
-        child: Scaffold(
-          backgroundColor: Color(0xFFF3F4F8),
-          appBar: AppBar(
-            toolbarHeight: 100.h,
-            backgroundColor: Color(0xFFF3F4F8),
-            title: Padding(
-              padding: EdgeInsets.only(left: 15.w, top: 30.h),
-              child: CustomText(
-                data: bookingText,
-                fontWeight: FontWeight.w800,
-                fontSize: 25.sp,
-              ),
-            ),
-            bottom: PreferredSize(
-              preferredSize: Size.fromHeight(50.h),
-              child: BlocBuilder<BookingCubit, BookingState>(
-                builder: (context, state) {
-                  return Padding(
+        child: BlocConsumer<BookingCubit, BookingState>(
+          listener: (BuildContext context, BookingState state) {  },
+          builder: (context, state) {
+            final bookingCubit= BookingCubit.get(context);
+            final cards = bookingCubit.cards;
+            return Scaffold(
+              backgroundColor: const Color(0xFFF3F4F8),
+              appBar: AppBar(
+                toolbarHeight: 100.h,
+                backgroundColor: const Color(0xFFF3F4F8),
+                title: Padding(
+                  padding: EdgeInsets.only(left: 15.w, top: 30.h),
+                  child: CustomText(
+                    data: bookingText,
+                    fontWeight: FontWeight.w800,
+                    fontSize: 25.sp,
+                  ),
+                ),
+                bottom: PreferredSize(
+                  preferredSize: Size.fromHeight(50.h),
+                  child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 25.w),
                     child: TabBar(
-                      controller: context.read<BookingCubit>().tabController,
+                      controller: bookingCubit.tabController,
                       splashFactory: NoSplash.splashFactory,
                       labelPadding: EdgeInsets.zero,
                       dividerColor: Colors.transparent,
-                      indicator: BoxDecoration(),
-                      onTap: (index) {
-                        context.read<BookingCubit>().onTabSelected(index);
-                      },
+                      indicator: const BoxDecoration(),
+                      onTap: bookingCubit.onTabSelected,
                       tabs: [
-                        Tab(
-                          child: Button(
-                            text: upcoming,
-                            isSelected: state.selectedIndex == 0,
-                          ),
-                        ),
-                        Tab(
-                          child: Button(
-                            text: history,
-                            isSelected: state.selectedIndex == 1,
-                          ),
-                        ),
-                        Tab(
-                          child: Button(
-                            text: cancelled,
-                            isSelected: state.selectedIndex == 2,
-                          ),
-                        ),
+                        Tab(child: Button(text: upcoming, isSelected: state.selectedIndex == 0)),
+                        Tab(child: Button(text: history, isSelected: state.selectedIndex == 1)),
+                        Tab(child: Button(text: cancelled, isSelected: state.selectedIndex == 2)),
                       ],
                     ),
-                  );
-                },
+                  ),
+                ),
               ),
-            ),
-          ),
-          body: Column(
-            children: [
-              SizedBox(height: 25.h),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 25.w),
-                child: Divider(),
-              ),
-              Expanded(
-                child: BlocBuilder<BookingCubit, BookingState>(
-                  builder: (context, state) {
-                    final cards = context.read<BookingCubit>().cards;
-                    return TabBarView(
-                      controller: context.read<BookingCubit>().tabController,
+              body: Column(
+                children: [
+                  SizedBox(height: 25.h),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 25.w),
+                    child: const Divider(),
+                  ),
+                  Expanded(
+                    child: TabBarView(
+                      controller: bookingCubit.tabController,
                       children: [
+                        // Upcoming bookings
                         ListView.builder(
                           padding: EdgeInsets.only(top: 25.h),
                           itemCount: 6,
@@ -105,7 +87,7 @@ class _BookingScreenState extends State<BookingScreen>
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => BookingInfoScreen(),
+                                      builder: (context) => const BookingInfoScreen(),
                                     ),
                                   );
                                 },
@@ -120,6 +102,7 @@ class _BookingScreenState extends State<BookingScreen>
                             );
                           },
                         ),
+                        // History bookings
                         ListView.builder(
                           padding: EdgeInsets.only(top: 25.h),
                           itemCount: 3,
@@ -137,18 +120,20 @@ class _BookingScreenState extends State<BookingScreen>
                             );
                           },
                         ),
+                        // Cancelled
                         Center(child: CustomText(data: noCancelled)),
                       ],
-                    );
-                  },
-                ),
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
+            );
+          },
         ),
       ),
     );
   }
+
 }
 
 class Button extends StatelessWidget {

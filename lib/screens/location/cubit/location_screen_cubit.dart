@@ -7,6 +7,8 @@ import 'location_screen_state.dart';
 class LocationCubit extends Cubit<LocationState> {
   LocationCubit() : super(LocationInitial());
 
+  static LocationCubit get(context) => BlocProvider.of(context);
+
   List<String> suggestions = [];
   List<String> initialSuggestions = [place, place, place, place];
   final TextEditingController searchController = TextEditingController();

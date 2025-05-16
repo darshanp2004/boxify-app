@@ -20,102 +20,101 @@ class SeeAllScreen extends StatefulWidget {
 }
 
 class _SeeAllScreenState extends State<SeeAllScreen> {
-  @override
-  void initState() {
-    super.initState();
-    BlocProvider.of<HomeCubit>(context).loadCards();
-  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Color(0XFFF3F4F8),
-      appBar: AppBar(
-        toolbarHeight: 70.h,
-          surfaceTintColor: Colors.transparent,
-          backgroundColor: Color(0XFFFFFFFF),
-        title: Padding(
-          padding:  EdgeInsets.symmetric(horizontal: 80.w),
-          child: CustomText(data: widget.category??"",fontWeight: FontWeight.bold,)
+    return BlocProvider(
+      create: (context)=>HomeCubit()..loadCards(),
+      child: Scaffold(
+        backgroundColor: Color(0XFFF3F4F8),
+        appBar: AppBar(
+          toolbarHeight: 70.h,
+            surfaceTintColor: Colors.transparent,
+            backgroundColor: Color(0XFFFFFFFF),
+          title: Padding(
+            padding:  EdgeInsets.symmetric(horizontal: 80.w),
+            child: CustomText(data: widget.category??"",fontWeight: FontWeight.bold,)
+          ),
         ),
-      ),
-      body: SingleChildScrollView(
-        physics: ScrollPhysics(),
-        child: Column(
-          children: [
-            Padding(
-              padding: EdgeInsets.only(
-                left: 25.w,
-                right: 25.w,
-                top: 20.h,
-                bottom: 10.h,
-              ),
-              child: SizedBox(
-                height: 45.h,
-                width: 340.w,
-                child: SearchBar(
-                  hintText: searchHint,
-                  hintStyle: WidgetStatePropertyAll(
-                    TextStyle(  color: Color(0XFF999999), fontSize: 12.sp,
-                      fontFamily: 'FontMain',
-                      fontWeight: FontWeight.w400,),
-                  ),
-                  trailing: [SvgPicture.asset(searchIcon)],
-                  backgroundColor: WidgetStatePropertyAll(Color(0XFFFFFFFF)),
-                  elevation: WidgetStatePropertyAll(0),
-                  shape: WidgetStatePropertyAll(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.r),
+        body: SingleChildScrollView(
+          physics: ScrollPhysics(),
+          child: Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(
+                  left: 25.w,
+                  right: 25.w,
+                  top: 20.h,
+                  bottom: 10.h,
+                ),
+                child: SizedBox(
+                  height: 45.h,
+                  width: 340.w,
+                  child: SearchBar(
+                    hintText: searchHint,
+                    hintStyle: WidgetStatePropertyAll(
+                      TextStyle(  color: Color(0XFF999999), fontSize: 12.sp,
+                        fontFamily: 'FontMain',
+                        fontWeight: FontWeight.w400,),
+                    ),
+                    trailing: [SvgPicture.asset(searchIcon)],
+                    backgroundColor: WidgetStatePropertyAll(Color(0XFFFFFFFF)),
+                    elevation: WidgetStatePropertyAll(0),
+                    shape: WidgetStatePropertyAll(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.r),
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-            BlocBuilder<HomeCubit, HomeState>(
-              builder: (context, state) {
-                if (state is CardInitial) {
-                  return Center(child: CircularProgressIndicator());
-                }
-                if (state is CardsLoaded) {
-                  return SizedBox(
-                    child: ListView.builder(
-                      physics: NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: 6,
-                      itemBuilder: (context, index) {
-                        final card =
-                            widget.category == "Cricket"
-                                ? state.cricketCard[0]
-                                : widget.category == "Football"
-                                ? state.footballCard[0]
-                                : state.tennisCard[0];
-                        return Padding(
-                          padding: EdgeInsets.only(
-                            left: 25.w,
-                            right: 25.w,
-                            top: 10.h,
-                            bottom: 10.h,
-                          ),
-                          child: SportCard(
-                            image: card["image"]!,
-                            title: card["title"]!,
-                            price: card["price"]!,
-                            place: card["place"]!,
-                            distance: card["distance"]!,
-                            ratings: card["ratings"]!,
-                          ),
-                        );
-                      },
-                    ),
-                  );
-                }
-                if (state is CardError) {
-                  return Center(child: CustomText( data: state.message,));
-                }
-                return SizedBox();
-              },
-            ),
-          ],
+              BlocConsumer<HomeCubit, HomeState>(
+                listener: (BuildContext context, HomeState state) {  },
+                builder: (context, state) {
+                  if (state is CardInitial) {
+                    return Center(child: CircularProgressIndicator());
+                  }
+                  if (state is CardsLoaded) {
+                    return SizedBox(
+                      child: ListView.builder(
+                        physics: NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: 6,
+                        itemBuilder: (context, index) {
+                          final card =
+                              widget.category == "Cricket"
+                                  ? state.cricketCard[0]
+                                  : widget.category == "Football"
+                                  ? state.footballCard[0]
+                                  : state.tennisCard[0];
+                          return Padding(
+                            padding: EdgeInsets.only(
+                              left: 25.w,
+                              right: 25.w,
+                              top: 10.h,
+                              bottom: 10.h,
+                            ),
+                            child: SportCard(
+                              image: card["image"]!,
+                              title: card["title"]!,
+                              price: card["price"]!,
+                              place: card["place"]!,
+                              distance: card["distance"]!,
+                              ratings: card["ratings"]!,
+                            ),
+                          );
+                        },
+                      ),
+                    );
+                  }
+                  if (state is CardError) {
+                    return Center(child: CustomText( data: state.message,));
+                  }
+                  return SizedBox();
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

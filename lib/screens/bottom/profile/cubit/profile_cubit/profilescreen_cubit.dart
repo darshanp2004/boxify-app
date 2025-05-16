@@ -7,6 +7,7 @@ class ProfileCubit extends Cubit<ProfileState> {
     locationEnabled: false,
     notificationsEnabled: true,
   ));
+  static ProfileCubit get(context) => BlocProvider.of(context);
 
   void toggleLocation(bool value) {
     emit(state.copyWith(locationEnabled: value));

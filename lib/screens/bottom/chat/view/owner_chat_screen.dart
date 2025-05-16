@@ -6,6 +6,7 @@ import 'package:boxify/utils/string.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class OwnerChatScreen extends StatefulWidget {
   const OwnerChatScreen({super.key});
@@ -17,6 +18,7 @@ class OwnerChatScreen extends StatefulWidget {
 class _OwnerChatScreenState extends State<OwnerChatScreen> {
   @override
   Widget build(BuildContext context) {
+    final chatCubit = OwnerChatCubit.get(context);
     return Scaffold(
       resizeToAvoidBottomInset: true,
       backgroundColor: Color(0xFFF3F4F8),
@@ -100,15 +102,16 @@ class _OwnerChatScreenState extends State<OwnerChatScreen> {
         onTap: () {
           FocusScope.of(context).unfocus();
         },
-        child: BlocBuilder<OwnerChatCubit, OwnerChatState>(
+        child: BlocConsumer<OwnerChatCubit, OwnerChatState>(
+          listener: (BuildContext context, OwnerChatState state) {},
           builder: (context, state) {
             if (state is ChatLoading) {
               return Center(child: CircularProgressIndicator());
             } else if (state is ChatLoaded) {
-              context.read<OwnerChatCubit>().scrollToBottom();
+              chatCubit.scrollToBottom();
               return ListView.builder(
-                controller: context.read<OwnerChatCubit>().scrollController,
-                padding: EdgeInsets.only(top: 20.h,bottom: 5.h),
+                controller: chatCubit.scrollController,
+                padding: EdgeInsets.only(top: 20.h, bottom: 5.h),
                 itemCount: state.messages.length,
                 itemBuilder: (context, index) {
                   final isSender = state.senderFlags[index];
@@ -167,7 +170,7 @@ class _OwnerChatScreenState extends State<OwnerChatScreen> {
                 children: [
                   TextField(
                     controller:
-                        context.read<OwnerChatCubit>().messageController,
+                    chatCubit.messageController,
                     decoration: InputDecoration(
                       filled: true,
                       fillColor: Color(0xFFF3F4F8),
@@ -185,14 +188,18 @@ class _OwnerChatScreenState extends State<OwnerChatScreen> {
                         borderSide: BorderSide(color: Color(0XFFD2D4DA)),
                       ),
                       isDense: true,
-                      contentPadding: EdgeInsets.only(top: 25.h, left: 20.w,right: 60.w),
+                      contentPadding: EdgeInsets.only(
+                        top: 25.h,
+                        left: 20.w,
+                        right: 60.w,
+                      ),
                     ),
                   ),
                   Positioned(
                     top: 5,
                     right: 5,
                     child: GestureDetector(
-                      onTap: () => context.read<OwnerChatCubit>().sendMessage(),
+                      onTap: () =>chatCubit.sendMessage(),
                       child: Container(
                         height: 40.h,
                         width: 40.w,

@@ -1,11 +1,14 @@
 import 'package:bloc/bloc.dart';
 import 'package:boxify/utils/image_resources.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'homescreen_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
   HomeCubit() : super(CardInitial());
+
+  static HomeCubit get(context) => BlocProvider.of(context);
 
   void loadCards() {
     List<Map<String, String>> cricketCard = [

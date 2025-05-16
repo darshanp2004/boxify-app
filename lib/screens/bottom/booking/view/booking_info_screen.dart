@@ -30,7 +30,8 @@ class _BookingInfoScreenState extends State<BookingInfoScreen> {
           title: CustomText(data: yourBookings, fontWeight: FontWeight.w700),
         ),
         body: SingleChildScrollView(
-          child: BlocBuilder<BookingInfoCubit, BookingInfoState>(
+          child: BlocConsumer<BookingInfoCubit, BookingInfoState>(
+            listener: (BuildContext context, BookingInfoState state) {  },
             builder: (context, state) {
               if (state is BookingInfoLoading) {
                 return Center(child: CircularProgressIndicator());

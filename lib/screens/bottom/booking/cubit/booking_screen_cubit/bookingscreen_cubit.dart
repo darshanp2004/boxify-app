@@ -8,6 +8,8 @@ import 'bookingscreen_state.dart';
 class BookingCubit extends Cubit<BookingState> {
   BookingCubit() : super(BookingState(selectedIndex: 0));
 
+  static BookingCubit get(context) => BlocProvider.of(context);
+
   late TabController? tabController;
 
   final List<CardModel> cards = [

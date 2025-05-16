@@ -20,9 +20,10 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => BottomNavigationCubit(),
-      child: BlocBuilder<BottomNavigationCubit, BottomNavigationState>(
+      child: BlocConsumer<BottomNavigationCubit, BottomNavigationState>(
+        listener: (BuildContext context, BottomNavigationState state) {  },
         builder: (context, state) {
-          var cubit = context.read<BottomNavigationCubit>();
+          var bottomNavigationCubit = BottomNavigationCubit.get(context);
           return Scaffold(
             body: state.screens[state.currentIndex],
             bottomNavigationBar: Theme(
@@ -32,7 +33,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
                 child: BottomNavigationBar(
                   currentIndex: state.currentIndex,
                   onTap: (index) {
-                    cubit.updateIndex(index);
+                    bottomNavigationCubit.updateIndex(index);
                   },
                   selectedItemColor: Color(0XFF0E7AFF),
                   unselectedItemColor: Color(0XFF999999),

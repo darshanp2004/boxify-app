@@ -6,6 +6,9 @@ import 'booking_info_state.dart';
 class BookingInfoCubit extends Cubit<BookingInfoState> {
   BookingInfoCubit() : super(BookingInfoInitial());
 
+  static BookingInfoCubit get(context) => BlocProvider.of(context);
+
+
   void loadBookings() async {
     emit(BookingInfoLoading());
 

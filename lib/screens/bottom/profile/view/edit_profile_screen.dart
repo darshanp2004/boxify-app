@@ -23,8 +23,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       create: (context) => EditProfileCubit(),
       child: Scaffold(
         backgroundColor: Color(0xFFF3F4F8),
-        body: BlocBuilder<EditProfileCubit, EditProfileState>(
+        body: BlocConsumer<EditProfileCubit, EditProfileState>(
+          listener: (BuildContext context, EditProfileState state) {},
           builder: (context, state) {
+            var editProfileCubit = EditProfileCubit.get(context);
             return SingleChildScrollView(
               child: Column(
                 children: [
@@ -87,7 +89,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     padding: EdgeInsets.only(left: 120.w, top: 20.h),
                     child: IconButton(
                       onPressed: () {
-                        context.read<EditProfileCubit>().pickImageFromGallery();
+                        editProfileCubit.pickImageFromGallery();
                       },
                       icon: Icon(Icons.edit),
                     ),
@@ -96,8 +98,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 30.w),
                     child: CustomTextField(
-                      controller:
-                          context.read<EditProfileCubit>().usernameController,
+                      controller: editProfileCubit.usernameController,
                       hintText: userName,
                       icon: userIcon,
                     ),
@@ -106,8 +107,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 30.w),
                     child: CustomTextField(
-                      controller:
-                          context.read<EditProfileCubit>().emailController,
+                      controller: editProfileCubit.emailController,
                       hintText: email,
                       icon: emailIcon,
                     ),

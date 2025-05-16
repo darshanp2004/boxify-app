@@ -13,6 +13,8 @@ class EditProfileCubit extends Cubit<EditProfileState> {
   EditProfileCubit()
       : super(EditProfileState(username: '', email: '', image: null));
 
+  static EditProfileCubit get(context) => BlocProvider.of(context);
+
   void updateImage(File image) {
     emit(state.copyWith(image: image));
   }

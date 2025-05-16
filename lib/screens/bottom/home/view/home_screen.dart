@@ -23,11 +23,10 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context)=>HomeCubit()..loadCards(),
+      create: (context) => HomeCubit()..loadCards(),
       child: Scaffold(
         backgroundColor: Color(0xFFF3F4F8),
         appBar: AppBar(
@@ -76,7 +75,9 @@ class _HomeScreenState extends State<HomeScreen> {
           actions: [
             GestureDetector(
               onTap: () async {
-                BlocProvider.of<HomeCubit>(context).checkPermission(Permission.notification, context);
+                BlocProvider.of<HomeCubit>(
+                  context,
+                ).checkPermission(Permission.notification, context);
               },
               child: Image.asset(notificationIcon, height: 24.h, width: 24.w),
             ),
@@ -96,7 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   },
                   child: Padding(
                     padding: EdgeInsets.all(2.w),
-                    child: Image.asset(profileImage,fit: BoxFit.cover,),
+                    child: Image.asset(profileImage, fit: BoxFit.cover),
                   ),
                 ),
               ),
@@ -143,7 +144,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                       trailing: [SvgPicture.asset(searchIcon)],
-                      backgroundColor: WidgetStatePropertyAll(Color(0xFFFFFFFF)),
+                      backgroundColor: WidgetStatePropertyAll(
+                        Color(0xFFFFFFFF),
+                      ),
                       elevation: WidgetStatePropertyAll(0),
                       shape: WidgetStatePropertyAll(
                         RoundedRectangleBorder(
@@ -154,7 +157,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 SizedBox(height: 25.h),
-                BlocBuilder<HomeCubit, HomeState>(
+                BlocConsumer<HomeCubit, HomeState>(
+                  listener: (BuildContext context, HomeState state) {},
                   builder: (context, state) {
                     if (state is CardsLoaded) {
                       return Padding(
@@ -176,7 +180,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               ChoiceButton(
                                 imagePath: footBall,
                                 label: "Football",
-                                isSelected: state.selectedCategory == "Football",
+                                isSelected:
+                                    state.selectedCategory == "Football",
                                 onTap:
                                     () => context
                                         .read<HomeCubit>()
@@ -215,11 +220,15 @@ class _HomeScreenState extends State<HomeScreen> {
                             context,
                             MaterialPageRoute(
                               builder:
-                                  (context) => SeeAllScreen(category: "Cricket"),
+                                  (context) =>
+                                      SeeAllScreen(category: "Cricket"),
                             ),
                           );
                         },
-                        child: CustomText(data: seeAll, color: Color(0xFF0E7AFF)),
+                        child: CustomText(
+                          data: seeAll,
+                          color: Color(0xFF0E7AFF),
+                        ),
                       ),
                       Icon(Icons.chevron_right, color: Colors.blue),
                     ],
@@ -277,11 +286,15 @@ class _HomeScreenState extends State<HomeScreen> {
                             context,
                             MaterialPageRoute(
                               builder:
-                                  (context) => SeeAllScreen(category: "Football"),
+                                  (context) =>
+                                      SeeAllScreen(category: "Football"),
                             ),
                           );
                         },
-                        child: CustomText(data: seeAll, color: Color(0xFF0E7AFF)),
+                        child: CustomText(
+                          data: seeAll,
+                          color: Color(0xFF0E7AFF),
+                        ),
                       ),
                       Icon(Icons.chevron_right, color: Colors.blue),
                     ],
@@ -325,7 +338,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   padding: EdgeInsets.symmetric(horizontal: 25.w),
                   child: Row(
                     children: [
-                      CustomText(data: tennisVenue, fontWeight: FontWeight.w800),
+                      CustomText(
+                        data: tennisVenue,
+                        fontWeight: FontWeight.w800,
+                      ),
                       Spacer(),
                       GestureDetector(
                         onTap: () {
@@ -337,7 +353,10 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                           );
                         },
-                        child: CustomText(data: seeAll, color: Color(0xFF0E7AFF)),
+                        child: CustomText(
+                          data: seeAll,
+                          color: Color(0xFF0E7AFF),
+                        ),
                       ),
                       Icon(Icons.chevron_right, color: Colors.blue),
                     ],

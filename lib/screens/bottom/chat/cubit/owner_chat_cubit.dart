@@ -6,6 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class OwnerChatCubit extends Cubit<OwnerChatState> {
   OwnerChatCubit() : super(ChatInitial());
 
+  static OwnerChatCubit get(context) => BlocProvider.of(context);
+
   final TextEditingController messageController = TextEditingController();
   final ScrollController scrollController = ScrollController();
 

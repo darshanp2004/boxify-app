@@ -76,8 +76,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ],
           ),
         ),
-        body: BlocBuilder<ProfileCubit,ProfileState>(
+        body: BlocConsumer<ProfileCubit,ProfileState>(
+          listener: (BuildContext context, ProfileState state) {  },
           builder: (context,state) {
+            var profileCubit=ProfileCubit.get(context);
             return Column(
               children: [
                 SizedBox(height: 30.h),
@@ -92,7 +94,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       value: state.locationEnabled,
                       activeColor: Colors.blue,
                       onChanged: (value) {
-                       context.read<ProfileCubit>().toggleLocation(value);
+                        profileCubit.toggleLocation(value);
                       },
                     ),
                   ),
@@ -107,7 +109,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       value: state.notificationsEnabled,
                       activeColor: Colors.blue,
                       onChanged: (value) {
-                        context.read<ProfileCubit>().toggleNotifications(value);
+                        profileCubit.toggleNotifications(value);
                       },
                     ),
                   ),
@@ -160,7 +162,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ListTile(iconPath: deleteIcon, title: deleteAccount)
               ],
             );
-          }
+          },
         ),
       ),
     );
