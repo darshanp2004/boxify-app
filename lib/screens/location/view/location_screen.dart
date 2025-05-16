@@ -26,7 +26,7 @@ class _LocationScreenState extends State<LocationScreen> {
         child: BlocConsumer<LocationCubit, LocationState>(
           listener: (BuildContext context, state) {},
           builder: (BuildContext context, Object? state) {
-            var locCubit=LocationCubit.get(context);
+            var locCubit = LocationCubit.get(context);
             return Scaffold(
               backgroundColor: Color(0xFFF3F4F8),
               body: SingleChildScrollView(

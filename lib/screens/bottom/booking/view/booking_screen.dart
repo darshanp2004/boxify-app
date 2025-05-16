@@ -18,7 +18,6 @@ class BookingScreen extends StatefulWidget {
 
 class _BookingScreenState extends State<BookingScreen>
     with TickerProviderStateMixin {
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -26,49 +25,19 @@ class _BookingScreenState extends State<BookingScreen>
       child: DefaultTabController(
         length: 3,
         child: BlocConsumer<BookingCubit, BookingState>(
-          listener: (BuildContext context, BookingState state) {  },
+          listener: (BuildContext context, BookingState state) {},
           builder: (context, state) {
-            final bookingCubit= BookingCubit.get(context);
+            final bookingCubit = BookingCubit.get(context);
             final cards = bookingCubit.cards;
             return Scaffold(
-              backgroundColor: const Color(0xFFF3F4F8),
-              appBar: AppBar(
-                toolbarHeight: 100.h,
-                backgroundColor: const Color(0xFFF3F4F8),
-                title: Padding(
-                  padding: EdgeInsets.only(left: 15.w, top: 30.h),
-                  child: CustomText(
-                    data: bookingText,
-                    fontWeight: FontWeight.w800,
-                    fontSize: 25.sp,
-                  ),
-                ),
-                bottom: PreferredSize(
-                  preferredSize: Size.fromHeight(50.h),
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 25.w),
-                    child: TabBar(
-                      controller: bookingCubit.tabController,
-                      splashFactory: NoSplash.splashFactory,
-                      labelPadding: EdgeInsets.zero,
-                      dividerColor: Colors.transparent,
-                      indicator: const BoxDecoration(),
-                      onTap: bookingCubit.onTabSelected,
-                      tabs: [
-                        Tab(child: Button(text: upcoming, isSelected: state.selectedIndex == 0)),
-                        Tab(child: Button(text: history, isSelected: state.selectedIndex == 1)),
-                        Tab(child: Button(text: cancelled, isSelected: state.selectedIndex == 2)),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
+              backgroundColor: Color(0xFFF3F4F8),
+              appBar: appBar(bookingCubit, state),
               body: Column(
                 children: [
                   SizedBox(height: 25.h),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 25.w),
-                    child: const Divider(),
+                    child: Divider(),
                   ),
                   Expanded(
                     child: TabBarView(
@@ -87,7 +56,7 @@ class _BookingScreenState extends State<BookingScreen>
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => const BookingInfoScreen(),
+                                      builder: (context) => BookingInfoScreen(),
                                     ),
                                   );
                                 },
@@ -133,8 +102,10 @@ class _BookingScreenState extends State<BookingScreen>
       ),
     );
   }
-
 }
+
+
+
 
 class Button extends StatelessWidget {
   final String text;
@@ -163,6 +134,8 @@ class Button extends StatelessWidget {
     );
   }
 }
+
+
 
 class Card extends StatelessWidget {
   final String title;
@@ -270,4 +243,56 @@ class Card extends StatelessWidget {
       ),
     );
   }
+}
+
+
+// AppBar
+
+AppBar appBar(BookingCubit bookingCubit, BookingState state) {
+  return AppBar(
+    toolbarHeight: 100.h,
+    backgroundColor: Color(0xFFF3F4F8),
+    title: Padding(
+      padding: EdgeInsets.only(left: 15.w, top: 30.h),
+      child: CustomText(
+        data: bookingText,
+        fontWeight: FontWeight.w800,
+        fontSize: 25.sp,
+      ),
+    ),
+    bottom: PreferredSize(
+      preferredSize: Size.fromHeight(50.h),
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 25.w),
+        child: TabBar(
+          controller: bookingCubit.tabController,
+          splashFactory: NoSplash.splashFactory,
+          labelPadding: EdgeInsets.zero,
+          dividerColor: Colors.transparent,
+          indicator: BoxDecoration(),
+          onTap: bookingCubit.onTabSelected,
+          tabs: [
+            Tab(
+              child: Button(
+                text: upcoming,
+                isSelected: state.selectedIndex == 0,
+              ),
+            ),
+            Tab(
+              child: Button(
+                text: history,
+                isSelected: state.selectedIndex == 1,
+              ),
+            ),
+            Tab(
+              child: Button(
+                text: cancelled,
+                isSelected: state.selectedIndex == 2,
+              ),
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
 }

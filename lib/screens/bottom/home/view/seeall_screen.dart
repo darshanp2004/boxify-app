@@ -53,7 +53,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                   child: SearchBar(
                     hintText: searchHint,
                     hintStyle: WidgetStatePropertyAll(
-                      TextStyle(  color: Color(0XFF999999), fontSize: 12.sp,
+                      TextStyle(color: Color(0XFF999999), fontSize: 12.sp,
                         fontFamily: 'FontMain',
                         fontWeight: FontWeight.w400,),
                     ),

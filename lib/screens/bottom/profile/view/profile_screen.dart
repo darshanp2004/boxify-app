@@ -20,66 +20,17 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context)=>ProfileCubit(),
+      create: (context) => ProfileCubit(),
       child: Scaffold(
         backgroundColor: Color(0xFFF3F4F8),
-        appBar: AppBar(
-          backgroundColor: Color(0xFFFFFFFF),
-          toolbarHeight: 100.h,
-          surfaceTintColor: Colors.transparent,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(bottom: Radius.circular(40.r)),
-          ),
-          title: Row(
-            children: [
-              Padding(
-                padding: EdgeInsets.only(left: 15.w),
-                child: Container(
-                  height: 50.h,
-                  padding: EdgeInsets.all(3),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Color(0xFFD2D4DA)),
-                    color: Colors.white,
-                    shape: BoxShape.circle,
-                  ),
-                  child: Image.asset(profileImage, fit: BoxFit.cover),
-                ),
-              ),
-              SizedBox(width: 15.w),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  CustomText(
-                    data: name,
-                    fontWeight: FontWeight.w800,
-                    fontSize: 15.sp,
-                  ),
-                  SizedBox(height: 2.h),
-                  CustomText(data: city, fontSize: 10.sp),
-                ],
-              ),
-              SizedBox(width: 120.w),
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => EditProfileScreen()),
-                  );
-                },
-                child: Image.asset(editIcon, height: 25.h, width: 25.w),
-              ),
-            ],
-          ),
-        ),
-        body: BlocConsumer<ProfileCubit,ProfileState>(
-          listener: (BuildContext context, ProfileState state) {  },
-          builder: (context,state) {
-            var profileCubit=ProfileCubit.get(context);
+        appBar: appBar(context),
+        body: BlocConsumer<ProfileCubit, ProfileState>(
+          listener: (BuildContext context, ProfileState state) {},
+          builder: (context, state) {
+            var profileCubit = ProfileCubit.get(context);
             return Column(
               children: [
                 SizedBox(height: 30.h),
@@ -124,21 +75,30 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   iconPath: inviteFriendsIcon,
                   title: friendInvite,
                   trailing: Image.asset(
-                      rightArrowIcon, height: 20.h, width: 10.w),
+                    rightArrowIcon,
+                    height: 20.h,
+                    width: 10.w,
+                  ),
                 ),
                 SizedBox(height: 5.h),
                 ListTile(
                   iconPath: helpSupportIcon,
                   title: helpAndSupport,
                   trailing: Image.asset(
-                      rightArrowIcon, height: 20.h, width: 10.w),
+                    rightArrowIcon,
+                    height: 20.h,
+                    width: 10.w,
+                  ),
                 ),
                 SizedBox(height: 5.h),
                 ListTile(
                   iconPath: privacyIcon,
                   title: privacy,
                   trailing: Image.asset(
-                      rightArrowIcon, height: 20.h, width: 10.w),
+                    rightArrowIcon,
+                    height: 20.h,
+                    width: 10.w,
+                  ),
                 ),
                 SizedBox(height: 15.h),
                 Padding(
@@ -148,18 +108,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 SizedBox(height: 15.h),
                 GestureDetector(
                   onTap: () async {
-                    SharedPreferences prefs = await SharedPreferences
-                        .getInstance();
+                    SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
                     prefs.clear();
                     Navigator.of(context).pushAndRemoveUntil(
                       MaterialPageRoute(builder: (context) => SignInScreen()),
-                          (route) => false,
+                      (route) => false,
                     );
                   },
                   child: ListTile(iconPath: logoutIcon, title: logout),
                 ),
                 SizedBox(height: 15.h),
-                ListTile(iconPath: deleteIcon, title: deleteAccount)
+                ListTile(iconPath: deleteIcon, title: deleteAccount),
               ],
             );
           },
@@ -231,4 +191,57 @@ class ListTile extends StatelessWidget {
       ),
     );
   }
+}
+
+// AppBar
+
+AppBar appBar(BuildContext context) {
+  return AppBar(
+    backgroundColor: Color(0xFFFFFFFF),
+    toolbarHeight: 100.h,
+    surfaceTintColor: Colors.transparent,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(bottom: Radius.circular(40.r)),
+    ),
+    title: Row(
+      children: [
+        Padding(
+          padding: EdgeInsets.only(left: 15.w),
+          child: Container(
+            height: 50.h,
+            padding: EdgeInsets.all(3),
+            decoration: BoxDecoration(
+              border: Border.all(color: Color(0xFFD2D4DA)),
+              color: Colors.white,
+              shape: BoxShape.circle,
+            ),
+            child: Image.asset(profileImage, fit: BoxFit.cover),
+          ),
+        ),
+        SizedBox(width: 15.w),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            CustomText(
+              data: name,
+              fontWeight: FontWeight.w800,
+              fontSize: 15.sp,
+            ),
+            SizedBox(height: 2.h),
+            CustomText(data: city, fontSize: 10.sp),
+          ],
+        ),
+        SizedBox(width: 120.w),
+        GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => EditProfileScreen()),
+            );
+          },
+          child: Image.asset(editIcon, height: 25.h, width: 25.w),
+        ),
+      ],
+    ),
+  );
 }

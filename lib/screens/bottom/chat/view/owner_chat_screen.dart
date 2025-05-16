@@ -22,82 +22,7 @@ class _OwnerChatScreenState extends State<OwnerChatScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       backgroundColor: Color(0xFFF3F4F8),
-      appBar: AppBar(
-        surfaceTintColor: Colors.transparent,
-        automaticallyImplyLeading: false,
-        backgroundColor: Color(0xFFFFFFFF),
-        toolbarHeight: 80.h,
-        title: Row(
-          children: [
-            Transform.scale(
-              scale: 0.4,
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.of(context).pop();
-                },
-                child: Image.asset(leftArrowIcon),
-              ),
-            ),
-            SizedBox(width: 5.w),
-            Container(
-              height: 50.h,
-              decoration: BoxDecoration(
-                border: Border.all(color: Color(0xFFD2D4DA)),
-                color: Colors.white,
-                shape: BoxShape.circle,
-              ),
-              child: Padding(
-                padding: EdgeInsets.all(2.w),
-                child: Image.asset(chatProfileImage, fit: BoxFit.cover),
-              ),
-            ),
-            SizedBox(width: 10.w),
-            CustomText(
-              data: owner,
-              fontWeight: FontWeight.w800,
-              fontSize: 18.sp,
-            ),
-          ],
-        ),
-        actions: [
-          Padding(
-            padding: EdgeInsets.only(right: 10.w),
-            child: PopupMenuButton(
-              color: Colors.white,
-              offset: Offset(0, 50),
-              itemBuilder:
-                  (BuildContext context) => <PopupMenuEntry>[
-                    PopupMenuItem(
-                      child: Row(
-                        children: [
-                          Icon(Icons.delete),
-                          SizedBox(width: 10.w),
-                          CustomText(
-                            data: clearChat,
-                            fontWeight: FontWeight.w700,
-                            fontSize: 18.sp,
-                          ),
-                        ],
-                      ),
-                    ),
-                    PopupMenuItem(
-                      child: Row(
-                        children: [
-                          Icon(Icons.block),
-                          SizedBox(width: 10.w),
-                          CustomText(
-                            data: blockUser,
-                            fontWeight: FontWeight.w700,
-                            fontSize: 18.sp,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-            ),
-          ),
-        ],
-      ),
+      appBar:appBar(context),
       body: GestureDetector(
         onTap: () {
           FocusScope.of(context).unfocus();
@@ -222,4 +147,85 @@ class _OwnerChatScreenState extends State<OwnerChatScreen> {
       ),
     );
   }
+}
+
+
+// AppBar
+
+AppBar appBar(BuildContext context) {
+  return AppBar(
+    surfaceTintColor: Colors.transparent,
+    automaticallyImplyLeading: false,
+    backgroundColor: Color(0xFFFFFFFF),
+    toolbarHeight: 80.h,
+    title: Row(
+      children: [
+        Transform.scale(
+          scale: 0.4,
+          child: GestureDetector(
+            onTap: () {
+              Navigator.of(context).pop();
+            },
+            child: Image.asset(leftArrowIcon),
+          ),
+        ),
+        SizedBox(width: 5.w),
+        Container(
+          height: 50.h,
+          decoration: BoxDecoration(
+            border: Border.all(color: Color(0xFFD2D4DA)),
+            color: Colors.white,
+            shape: BoxShape.circle,
+          ),
+          child: Padding(
+            padding: EdgeInsets.all(2.w),
+            child: Image.asset(chatProfileImage, fit: BoxFit.cover),
+          ),
+        ),
+        SizedBox(width: 10.w),
+        CustomText(
+          data: owner,
+          fontWeight: FontWeight.w800,
+          fontSize: 18.sp,
+        ),
+      ],
+    ),
+    actions: [
+      Padding(
+        padding: EdgeInsets.only(right: 10.w),
+        child: PopupMenuButton(
+          color: Colors.white,
+          offset: Offset(0, 50),
+          itemBuilder: (BuildContext context) => <PopupMenuEntry>[
+            PopupMenuItem(
+              child: Row(
+                children: [
+                  Icon(Icons.delete),
+                  SizedBox(width: 10.w),
+                  CustomText(
+                    data: clearChat,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 18.sp,
+                  ),
+                ],
+              ),
+            ),
+            PopupMenuItem(
+              child: Row(
+                children: [
+                  Icon(Icons.block),
+                  SizedBox(width: 10.w),
+                  CustomText(
+                    data: blockUser,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 18.sp,
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    ],
+  );
 }
