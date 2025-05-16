@@ -27,102 +27,104 @@ class _ProfileScreenState extends State<ProfileScreen> {
       child: Scaffold(
         backgroundColor: Color(0xFFF3F4F8),
         appBar: appBar(context),
-        body: BlocConsumer<ProfileCubit, ProfileState>(
-          listener: (BuildContext context, ProfileState state) {},
-          builder: (context, state) {
-            var profileCubit = ProfileCubit.get(context);
-            return Column(
-              children: [
-                SizedBox(height: 30.h),
-                ListTile(
-                  iconPath: locationIcon,
-                  title: location,
-                  iconHeight: 30,
-                  iconWidth: 30,
-                  trailing: Transform.scale(
-                    scale: 0.8,
-                    child: Switch(
-                      value: state.locationEnabled,
-                      activeColor: Colors.blue,
-                      onChanged: (value) {
-                        profileCubit.toggleLocation(value);
-                      },
+        body: SingleChildScrollView(
+          child: BlocConsumer<ProfileCubit, ProfileState>(
+            listener: (BuildContext context, ProfileState state) {},
+            builder: (context, state) {
+              var profileCubit = ProfileCubit.get(context);
+              return Column(
+                children: [
+                  SizedBox(height: 30.h),
+                  ListTile(
+                    iconPath: locationIcon,
+                    title: location,
+                    iconHeight: 30,
+                    iconWidth: 30,
+                    trailing: Transform.scale(
+                      scale: 0.8,
+                      child: Switch(
+                        value: state.locationEnabled,
+                        activeColor: Colors.blue,
+                        onChanged: (value) {
+                          profileCubit.toggleLocation(value);
+                        },
+                      ),
                     ),
                   ),
-                ),
-                SizedBox(height: 5.h),
-                ListTile(
-                  iconPath: notificationIcon,
-                  title: notification,
-                  trailing: Transform.scale(
-                    scale: 0.8,
-                    child: Switch(
-                      value: state.notificationsEnabled,
-                      activeColor: Colors.blue,
-                      onChanged: (value) {
-                        profileCubit.toggleNotifications(value);
-                      },
+                  SizedBox(height: 5.h),
+                  ListTile(
+                    iconPath: notificationIcon,
+                    title: notification,
+                    trailing: Transform.scale(
+                      scale: 0.8,
+                      child: Switch(
+                        value: state.notificationsEnabled,
+                        activeColor: Colors.blue,
+                        onChanged: (value) {
+                          profileCubit.toggleNotifications(value);
+                        },
+                      ),
                     ),
                   ),
-                ),
-                SizedBox(height: 15.h),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 25.w),
-                  child: Divider(),
-                ),
-                SizedBox(height: 15.h),
-                ListTile(
-                  iconPath: inviteFriendsIcon,
-                  title: friendInvite,
-                  trailing: Image.asset(
-                    rightArrowIcon,
-                    height: 20.h,
-                    width: 10.w,
+                  SizedBox(height: 15.h),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 25.w),
+                    child: Divider(),
                   ),
-                ),
-                SizedBox(height: 5.h),
-                ListTile(
-                  iconPath: helpSupportIcon,
-                  title: helpAndSupport,
-                  trailing: Image.asset(
-                    rightArrowIcon,
-                    height: 20.h,
-                    width: 10.w,
+                  SizedBox(height: 15.h),
+                  ListTile(
+                    iconPath: inviteFriendsIcon,
+                    title: friendInvite,
+                    trailing: Image.asset(
+                      rightArrowIcon,
+                      height: 20.h,
+                      width: 10.w,
+                    ),
                   ),
-                ),
-                SizedBox(height: 5.h),
-                ListTile(
-                  iconPath: privacyIcon,
-                  title: privacy,
-                  trailing: Image.asset(
-                    rightArrowIcon,
-                    height: 20.h,
-                    width: 10.w,
+                  SizedBox(height: 5.h),
+                  ListTile(
+                    iconPath: helpSupportIcon,
+                    title: helpAndSupport,
+                    trailing: Image.asset(
+                      rightArrowIcon,
+                      height: 20.h,
+                      width: 10.w,
+                    ),
                   ),
-                ),
-                SizedBox(height: 15.h),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 25.w),
-                  child: Divider(),
-                ),
-                SizedBox(height: 15.h),
-                GestureDetector(
-                  onTap: () async {
-                    SharedPreferences prefs =
-                        await SharedPreferences.getInstance();
-                    prefs.clear();
-                    Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(builder: (context) => SignInScreen()),
-                      (route) => false,
-                    );
-                  },
-                  child: ListTile(iconPath: logoutIcon, title: logout),
-                ),
-                SizedBox(height: 15.h),
-                ListTile(iconPath: deleteIcon, title: deleteAccount),
-              ],
-            );
-          },
+                  SizedBox(height: 5.h),
+                  ListTile(
+                    iconPath: privacyIcon,
+                    title: privacy,
+                    trailing: Image.asset(
+                      rightArrowIcon,
+                      height: 20.h,
+                      width: 10.w,
+                    ),
+                  ),
+                  SizedBox(height: 15.h),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 25.w),
+                    child: Divider(),
+                  ),
+                  SizedBox(height: 15.h),
+                  GestureDetector(
+                    onTap: () async {
+                      SharedPreferences prefs =
+                          await SharedPreferences.getInstance();
+                      prefs.clear();
+                      Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(builder: (context) => SignInScreen()),
+                        (route) => false,
+                      );
+                    },
+                    child: ListTile(iconPath: logoutIcon, title: logout),
+                  ),
+                  SizedBox(height: 15.h),
+                  ListTile(iconPath: deleteIcon, title: deleteAccount),
+                ],
+              );
+            },
+          ),
         ),
       ),
     );

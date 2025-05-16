@@ -128,24 +128,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   SizedBox(
                     height: 200.h,
                     child: state is CardsLoaded
-                        ? ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: 4,
-                      itemBuilder: (context, index) {
-                        final card = state.cricketCard[0];
-                        return Padding(
-                          padding: EdgeInsets.only(left: 25.w),
-                          child: SportCard(
-                            image: card[image]!,
-                            title: card[title]!,
-                            price: card[price]!,
-                            place: card[place]!,
-                            distance: card[distance]!,
-                            ratings: card[ratings]!,
-                          ),
-                        );
-                      },
-                    )
+                        ? sportCardList(state.cricketCard)
                         :  SizedBox(),
                   ),
                   SizedBox(height: 15.h,),
@@ -173,24 +156,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   SizedBox(
                     height: 200.h,
                     child: state is CardsLoaded
-                        ? ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: 4,
-                      itemBuilder: (context, index) {
-                        final card = state.footballCard[0];
-                        return Padding(
-                          padding: EdgeInsets.only(left: 25.w),
-                          child: SportCard(
-                            image: card[image]!,
-                            title: card[title]!,
-                            price: card[price]!,
-                            place: card[place]!,
-                            distance: card[distance]!,
-                            ratings: card[ratings]!,
-                          ),
-                        );
-                      },
-                    )
+                        ? sportCardList(state.footballCard)
                         :  SizedBox(),
                   ),
                   SizedBox(height: 15.h,),
@@ -218,24 +184,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   SizedBox(
                     height: 200.h,
                     child: state is CardsLoaded
-                        ? ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: 4,
-                      itemBuilder: (context, index) {
-                        final card = state.tennisCard[0];
-                        return Padding(
-                          padding: EdgeInsets.only(left: 25.w),
-                          child: SportCard(
-                            image: card[image]!,
-                            title: card[title]!,
-                            price: card[price]!,
-                            place: card[place]!,
-                            distance: card[distance]!,
-                            ratings: card[ratings]!,
-                          ),
-                        );
-                      },
-                    )
+                        ? sportCardList(state.tennisCard)
                         :  SizedBox(),
                   ),
                 ],
@@ -315,3 +264,26 @@ AppBar appBar(BuildContext context, BottomNavigationCubit bottomNavCubit, HomeCu
   );
 }
 
+
+// SportCard List
+
+Widget sportCardList(List<Map<String, String>> cards){
+  return ListView.builder(
+    scrollDirection: Axis.horizontal,
+    itemCount: 4,
+    itemBuilder: (context, index) {
+      final card = cards[0];
+      return Padding(
+        padding: EdgeInsets.only(left: 25.w),
+        child: SportCard(
+          image: card[image]!,
+          title: card[title]!,
+          price: card[price]!,
+          place: card[place]!,
+          distance: card[distance]!,
+          ratings: card[ratings]!,
+        ),
+      );
+    },
+  );
+}

@@ -22,8 +22,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => SignUpCubit(),
-      child: BlocBuilder<SignUpCubit, SignUpState>(
+      child: BlocConsumer<SignUpCubit, SignUpState>(
+        listener: (BuildContext context, SignUpState state) {},
         builder: (context, state) {
+          var signUpCubit = SignUpCubit.get(context);
           return Scaffold(
             body: SingleChildScrollView(
               child: Padding(
@@ -32,7 +34,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   horizontal: 30.w,
                 ),
                 child: Form(
-                  key: context.read<SignUpCubit>().formKey,
+                  key: signUpCubit.formKey,
                   child: Column(
                     children: [
                       Align(
@@ -45,45 +47,39 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                       SizedBox(height: 50.h),
                       CustomTextField(
-                        controller:
-                            context.read<SignUpCubit>().userNameController,
+                        controller: signUpCubit.userNameController,
                         hintText: userName,
                         icon: userIcon,
-                        validator: context.read<SignUpCubit>().validateUsername,
+                        validator: signUpCubit.validateUsername,
                       ),
                       SizedBox(height: 10.h),
                       CustomTextField(
-                        controller: context.read<SignUpCubit>().emailController,
+                        controller: signUpCubit.emailController,
                         hintText: email,
                         icon: emailIcon,
-                        validator: context.read<SignUpCubit>().validateEmail,
+                        validator: signUpCubit.validateEmail,
                       ),
                       SizedBox(height: 10.h),
                       CustomTextField(
-                        controller:
-                            context.read<SignUpCubit>().passwordController,
+                        controller: signUpCubit.passwordController,
                         hintText: pass,
                         icon: lockIcon,
                         obscureText: true,
-                        validator: context.read<SignUpCubit>().validatePassword,
+                        validator: signUpCubit.validatePassword,
                       ),
                       SizedBox(height: 10.h),
                       CustomTextField(
-                        controller:
-                            context
-                                .read<SignUpCubit>()
-                                .confirmPasswordController,
+                        controller: signUpCubit.confirmPasswordController,
                         hintText: confirmPass,
                         icon: lockIcon,
                         obscureText: true,
-                        validator:
-                            context.read<SignUpCubit>().validateConfirmPassword,
+                        validator: signUpCubit.validateConfirmPassword,
                       ),
                       SizedBox(height: 40.h),
                       CustomElevatedButton(
                         text: signUp,
                         onPressed: () {
-                          context.read<SignUpCubit>().validateInputs(context);
+                          signUpCubit.validateInputs(context);
                         },
                         backgroundColor: Color(0XFF0E7AFF),
                         textColor: Color(0XFFFFFFFF),

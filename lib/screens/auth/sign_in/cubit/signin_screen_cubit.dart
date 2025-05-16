@@ -10,6 +10,8 @@ import '../../sign_up/view/signup_screen.dart';
 class SignInCubit extends Cubit<SignInState> {
   SignInCubit() : super(SignInState());
 
+  static SignInCubit get(context) => BlocProvider.of(context);
+
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final formKey = GlobalKey<FormState>();

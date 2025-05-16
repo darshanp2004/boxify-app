@@ -10,7 +10,6 @@ import '../../../../Utils/image_resources.dart';
 import '../cubit/signin_screen_cubit.dart';
 import '../cubit/signin_screen_state.dart';
 
-
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
 
@@ -22,10 +21,11 @@ class _SignInScreenState extends State<SignInScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context)=>SignInCubit(),
-      child: BlocBuilder<SignInCubit, SignInState>(
+      create: (context) => SignInCubit(),
+      child: BlocConsumer<SignInCubit, SignInState>(
+        listener: (BuildContext context, SignInState state) {},
         builder: (context, state) {
-          var cubit = context.read<SignInCubit>();
+          var signInCubit = SignInCubit.get(context);
           return Scaffold(
             body: SingleChildScrollView(
               child: Padding(
@@ -34,14 +34,14 @@ class _SignInScreenState extends State<SignInScreen> {
                   horizontal: 30.w,
                 ),
                 child: Form(
-                  key: context.read<SignInCubit>().formKey,
+                  key: signInCubit.formKey,
                   child: Column(
                     children: [
                       Align(
                         alignment: Alignment.topLeft,
                         child: Row(
                           children: [
-                            CustomText(data: welcomeText,fontSize: 32.sp),
+                            CustomText(data: welcomeText, fontSize: 32.sp),
                             SizedBox(width: 10.w),
                             Padding(
                               padding: EdgeInsets.only(bottom: 7.0),
@@ -56,29 +56,29 @@ class _SignInScreenState extends State<SignInScreen> {
                       ),
                       SizedBox(height: 50.h),
                       CustomTextField(
-                        controller: cubit.emailController,
+                        controller: signInCubit.emailController,
                         hintText: emailOrUser,
                         icon: userIcon,
-                        validator: cubit.validateEmail,
+                        validator: signInCubit.validateEmail,
                       ),
                       SizedBox(height: 10.h),
                       CustomTextField(
-                        controller: cubit.passwordController,
+                        controller: signInCubit.passwordController,
                         hintText: pass,
                         icon: lockIcon,
                         obscureText: true,
-                        validator: cubit.validatePassword,
+                        validator: signInCubit.validatePassword,
                       ),
                       SizedBox(height: 5.h),
                       Align(
                         alignment: Alignment.bottomRight,
-                        child: CustomText(data:forgotPassText),
+                        child: CustomText(data: forgotPassText),
                       ),
                       SizedBox(height: 15.h),
                       CustomElevatedButton(
                         text: logIn,
                         onPressed: () {
-                          cubit.validateInputs(context);
+                          signInCubit.validateInputs(context);
                         },
                         backgroundColor: Color(0XFF0E7AFF),
                         textColor: Color(0XFFFFFFFF),
@@ -87,7 +87,7 @@ class _SignInScreenState extends State<SignInScreen> {
                       CustomElevatedButton(
                         text: signUp,
                         onPressed: () {
-                          cubit.navigateToSignUp(context);
+                          signInCubit.navigateToSignUp(context);
                         },
                         textColor: Color(0XFF1E1E1E),
                       ),
@@ -96,11 +96,11 @@ class _SignInScreenState extends State<SignInScreen> {
                         children: [
                           Expanded(child: Divider()),
                           Padding(
-                            padding: EdgeInsets.only(
-                              left: 8.w,
-                              right: 8.w,
+                            padding: EdgeInsets.only(left: 8.w, right: 8.w),
+                            child: CustomText(
+                              data: or,
+                              color: Color(0XFF1E1E1E),
                             ),
-                            child: CustomText(data: or,color: Color(0XFF1E1E1E),)
                           ),
                           Expanded(child: Divider()),
                         ],

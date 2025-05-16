@@ -43,53 +43,8 @@ class _BookingScreenState extends State<BookingScreen>
                     child: TabBarView(
                       controller: bookingCubit.tabController,
                       children: [
-                        // Upcoming bookings
-                        ListView.builder(
-                          padding: EdgeInsets.only(top: 25.h),
-                          itemCount: 6,
-                          itemBuilder: (context, index) {
-                            final card = cards[0];
-                            return Padding(
-                              padding: EdgeInsets.only(bottom: 15.h),
-                              child: GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => BookingInfoScreen(),
-                                    ),
-                                  );
-                                },
-                                child: Card(
-                                  title: card.title,
-                                  date: card.date,
-                                  time: card.time,
-                                  imagePath: card.image,
-                                  isExpired: false,
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                        // History bookings
-                        ListView.builder(
-                          padding: EdgeInsets.only(top: 25.h),
-                          itemCount: 3,
-                          itemBuilder: (context, index) {
-                            final card = cards[0];
-                            return Padding(
-                              padding: EdgeInsets.only(bottom: 15.h),
-                              child: Card(
-                                title: card.title,
-                                date: card.date,
-                                time: card.time,
-                                imagePath: card.image,
-                                isExpired: true,
-                              ),
-                            );
-                          },
-                        ),
-                        // Cancelled
+                        upcomingList(cards),
+                        historyList(cards),
                         Center(child: CustomText(data: noCancelled)),
                       ],
                     ),
@@ -103,9 +58,6 @@ class _BookingScreenState extends State<BookingScreen>
     );
   }
 }
-
-
-
 
 class Button extends StatelessWidget {
   final String text;
@@ -134,8 +86,6 @@ class Button extends StatelessWidget {
     );
   }
 }
-
-
 
 class Card extends StatelessWidget {
   final String title;
@@ -245,7 +195,6 @@ class Card extends StatelessWidget {
   }
 }
 
-
 // AppBar
 
 AppBar appBar(BookingCubit bookingCubit, BookingState state) {
@@ -294,5 +243,56 @@ AppBar appBar(BookingCubit bookingCubit, BookingState state) {
         ),
       ),
     ),
+  );
+}
+
+
+// ListView
+
+Widget upcomingList(List cards) {
+  return ListView.builder(
+    padding: EdgeInsets.only(top: 25.h),
+    itemCount: 6,
+    itemBuilder: (context, index) {
+      final card = cards[0];
+      return Padding(
+        padding: EdgeInsets.only(bottom: 15.h),
+        child: GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => BookingInfoScreen()),
+            );
+          },
+          child: Card(
+            title: card.title,
+            date: card.date,
+            time: card.time,
+            imagePath: card.image,
+            isExpired: false,
+          ),
+        ),
+      );
+    },
+  );
+}
+
+Widget historyList(List cards) {
+  return ListView.builder(
+    padding: EdgeInsets.only(top: 25.h),
+    itemCount: 3,
+    itemBuilder: (context, index) {
+      final card = cards[0];
+      return Padding(
+        padding: EdgeInsets.only(bottom: 15.h),
+        child: Card(
+          title: card.title,
+          date: card.date,
+          time: card.time,
+          imagePath: card.image,
+          isExpired: true,
+        ),
+      );
+    },
   );
 }

@@ -54,7 +54,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                     hintText: searchHint,
                     hintStyle: WidgetStatePropertyAll(
                       TextStyle(color: Color(0XFF999999), fontSize: 12.sp,
-                        fontFamily: 'FontMain',
+                        fontFamily: fontFamily,
                         fontWeight: FontWeight.w400,),
                     ),
                     trailing: [SvgPicture.asset(searchIcon)],
@@ -82,9 +82,9 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                         itemCount: 6,
                         itemBuilder: (context, index) {
                           final card =
-                              widget.category == "Cricket"
+                              widget.category == cricket
                                   ? state.cricketCard[0]
-                                  : widget.category == "Football"
+                                  : widget.category == football
                                   ? state.footballCard[0]
                                   : state.tennisCard[0];
                           return Padding(
@@ -95,12 +95,12 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                               bottom: 10.h,
                             ),
                             child: SportCard(
-                              image: card["image"]!,
-                              title: card["title"]!,
-                              price: card["price"]!,
-                              place: card["place"]!,
-                              distance: card["distance"]!,
-                              ratings: card["ratings"]!,
+                              image: card[image]!,
+                              title: card[title]!,
+                              price: card[price]!,
+                              place: card[place]!,
+                              distance: card[distance]!,
+                              ratings: card[ratings]!,
                             ),
                           );
                         },
@@ -120,3 +120,5 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
     );
   }
 }
+
+// CategoryList

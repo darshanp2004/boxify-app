@@ -12,6 +12,7 @@ import '../view/signup_screen.dart';
 
 class SignUpCubit extends Cubit<SignUpState> {
   SignUpCubit() : super(const SignUpState());
+  static SignUpCubit get(context) => BlocProvider.of(context);
 
   final userNameController = TextEditingController();
   final emailController = TextEditingController();
