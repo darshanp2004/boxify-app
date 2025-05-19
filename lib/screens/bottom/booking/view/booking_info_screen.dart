@@ -1,5 +1,6 @@
 import 'package:boxify/custom_widgets/elevatedbutton.dart';
 import 'package:boxify/custom_widgets/text.dart';
+import 'package:boxify/screens/bottom/booking/view/booking_venue_screen.dart';
 import 'package:boxify/screens/bottom/booking/cubit/booking_info_cubit/booking_info_cubit.dart';
 import 'package:boxify/screens/bottom/booking/cubit/booking_info_cubit/booking_info_state.dart';
 import 'package:boxify/screens/bottom/chat/cubit/owner_chat_cubit.dart';
@@ -31,7 +32,7 @@ class _BookingInfoScreenState extends State<BookingInfoScreen> {
         ),
         body: SingleChildScrollView(
           child: BlocConsumer<BookingInfoCubit, BookingInfoState>(
-            listener: (BuildContext context, BookingInfoState state) {  },
+            listener: (BuildContext context, BookingInfoState state) {},
             builder: (context, state) {
               if (state is BookingInfoLoading) {
                 return Center(child: CircularProgressIndicator());
@@ -57,38 +58,45 @@ class _BookingInfoScreenState extends State<BookingInfoScreen> {
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 25.w),
                       child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          CustomElevatedButton(
-                            text: chatWithOwner,
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder:
-                                      (context) => BlocProvider(
-                                        create:
-                                            (context) =>
-                                                OwnerChatCubit()..loadChat(),
-                                        child: OwnerChatScreen(),
-                                      ),
-                                ),
-                              );
-                            },
-                            width: 180.w,
-                            fontSize: 14.sp,
-                            backgroundColor: Color(0xFF0E7AFF),
-                            borderColor: Colors.transparent,
-                            textColor: Colors.white,
+                          Expanded(
+                            flex: 2,
+                            child: CustomElevatedButton(
+                              text: chatWithOwner,
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder:
+                                        (context) => BlocProvider(
+                                          create:
+                                              (context) =>
+                                                  OwnerChatCubit()..loadChat(),
+                                          child: OwnerChatScreen(),
+                                        ),
+                                  ),
+                                );
+                              },
+                              width: 180.w,
+                              fontSize: 14.sp,
+                              backgroundColor: Color(0xFF0E7AFF),
+                              borderColor: Colors.transparent,
+                              textColor: Colors.white,
+                            ),
                           ),
-                          Spacer(),
-                          CustomElevatedButton(
-                            text: getDirection,
-                            onPressed: () {},
-                            width: 180.w,
-                            fontSize: 14.sp,
-                            backgroundColor: Color(0xFF0E7AFF),
-                            borderColor: Colors.transparent,
-                            textColor: Colors.white,
+                          SizedBox(width: 5.w,),
+                          Expanded(
+                            flex: 2,
+                            child: CustomElevatedButton(
+                              text: getDirection,
+                              onPressed: () {},
+                              width: 180.w,
+                              fontSize: 14.sp,
+                              backgroundColor: Color(0xFF0E7AFF),
+                              borderColor: Colors.transparent,
+                              textColor: Colors.white,
+                            ),
                           ),
                         ],
                       ),
@@ -143,85 +151,93 @@ class BookingInfoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 308.h,
-      width: 340.w,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(15.r),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Align(
-            alignment: Alignment.topCenter,
-            child: SizedBox(
-              height: 150.h,
-              width: 340.w,
-              child: ClipRRect(
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(10.r),
-                  topRight: Radius.circular(10.r),
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => BookingVenueScreen()),
+        );
+      },
+      child: Container(
+        height: 308.h,
+        width: 340.w,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(15.r),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Align(
+              alignment: Alignment.topCenter,
+              child: SizedBox(
+                height: 150.h,
+                width: 340.w,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(10.r),
+                    topRight: Radius.circular(10.r),
+                  ),
+                  child: Image.asset(boxCricket, fit: BoxFit.cover),
                 ),
-                child: Image.asset(boxCricket, fit: BoxFit.cover),
               ),
             ),
-          ),
-          SizedBox(height: 10.h),
-          Padding(
-            padding: EdgeInsets.only(left: 15.w),
-            child: CustomText(
-              data: title,
-              fontSize: 25.sp,
-              fontWeight: FontWeight.w800,
+            SizedBox(height: 10.h),
+            Padding(
+              padding: EdgeInsets.only(left: 15.w),
+              child: CustomText(
+                data: title,
+                fontSize: 25.sp,
+                fontWeight: FontWeight.w800,
+              ),
             ),
-          ),
-          SizedBox(height: 10.h),
-          Padding(
-            padding: EdgeInsets.only(left: 15.w),
-            child: Row(
-              children: [
-                Image.asset(courtIcon, height: 16.h, width: 16.w),
-                SizedBox(width: 10.w),
-                CustomText(
-                  data: court,
-                  fontWeight: FontWeight.w700,
-                  color: Color(0xFF636363),
-                ),
-              ],
+            SizedBox(height: 10.h),
+            Padding(
+              padding: EdgeInsets.only(left: 15.w),
+              child: Row(
+                children: [
+                  Image.asset(courtIcon, height: 16.h, width: 16.w),
+                  SizedBox(width: 10.w),
+                  CustomText(
+                    data: court,
+                    fontWeight: FontWeight.w700,
+                    color: Color(0xFF636363),
+                  ),
+                ],
+              ),
             ),
-          ),
-          SizedBox(height: 10.h),
-          Padding(
-            padding: EdgeInsets.only(left: 15.w),
-            child: Row(
-              children: [
-                Image.asset(calenderIcon, height: 16.h, width: 16.w),
-                SizedBox(width: 10.w),
-                CustomText(
-                  data: date,
-                  fontWeight: FontWeight.w700,
-                  color: Color(0xFF636363),
-                ),
-              ],
+            SizedBox(height: 10.h),
+            Padding(
+              padding: EdgeInsets.only(left: 15.w),
+              child: Row(
+                children: [
+                  Image.asset(calenderIcon, height: 16.h, width: 16.w),
+                  SizedBox(width: 10.w),
+                  CustomText(
+                    data: date,
+                    fontWeight: FontWeight.w700,
+                    color: Color(0xFF636363),
+                  ),
+                ],
+              ),
             ),
-          ),
-          SizedBox(height: 10.h),
-          Padding(
-            padding: EdgeInsets.only(left: 15.w),
-            child: Row(
-              children: [
-                Image.asset(clockIcon, height: 16.h, width: 16.w),
-                SizedBox(width: 10.w),
-                CustomText(
-                  data: time,
-                  fontWeight: FontWeight.w700,
-                  color: Color(0xFF636363),
-                ),
-              ],
+            SizedBox(height: 10.h),
+            Padding(
+              padding: EdgeInsets.only(left: 15.w),
+              child: Row(
+                children: [
+                  Image.asset(clockIcon, height: 16.h, width: 16.w),
+                  SizedBox(width: 10.w),
+                  CustomText(
+                    data: time,
+                    fontWeight: FontWeight.w700,
+                    color: Color(0xFF636363),
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
