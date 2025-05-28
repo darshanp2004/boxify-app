@@ -3,7 +3,7 @@ import 'package:boxify/custom_widgets/text.dart';
 import 'package:boxify/custom_widgets/textfield.dart';
 import 'package:boxify/screens/password/forgot_password/cubit/new_password_cubit/new_password_cubit.dart';
 import 'package:boxify/screens/password/forgot_password/cubit/new_password_cubit/new_password_state.dart';
-import 'package:boxify/screens/password/forgot_password/view/forgot_password_success.dart';
+import 'package:boxify/screens/password/forgot_password/view/forgot_password_success_screen.dart';
 import 'package:boxify/utils/string.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -67,7 +67,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => ForgotPasswordSuccess(),
+                          builder: (context) => ForgotPasswordSuccessScreen(),
                         ),
                       );
                     },

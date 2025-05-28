@@ -1,4 +1,4 @@
-import 'package:boxify/screens/password/change_password/view/change_password_success.dart';
+import 'package:boxify/screens/password/change_password/view/change_password_success_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -17,7 +17,7 @@ class ChangePasswordCubit extends Cubit<ChangePasswordState> {
   void submitChangePassword(BuildContext context) {
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => ChangePasswordSuccess()),
+      MaterialPageRoute(builder: (context) => ChangePasswordSuccessScreen()),
     );
   }
 }
