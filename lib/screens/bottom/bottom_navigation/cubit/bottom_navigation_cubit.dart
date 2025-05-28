@@ -1,4 +1,4 @@
-import 'package:boxify/screens/explore/view/explore_screen.dart';
+import 'package:boxify/screens/bottom/explore/view/explore_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../booking/view/booking_screen.dart';

@@ -184,7 +184,7 @@ AppBar appBar(BuildContext context) {
         ),
         SizedBox(width: 10.w),
         CustomText(
-          data: owner,
+          data: urbanOwner,
           fontWeight: FontWeight.w800,
           fontSize: 18.sp,
         ),

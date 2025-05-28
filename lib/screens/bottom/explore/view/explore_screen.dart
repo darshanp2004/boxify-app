@@ -1,7 +1,7 @@
 import 'package:boxify/custom_widgets/text.dart';
 import 'package:boxify/screens/bottom/bottom_navigation/cubit/bottom_navigation_cubit.dart';
-import 'package:boxify/screens/explore/cubit/explore_screen_cubit.dart';
-import 'package:boxify/screens/explore/cubit/explore_screen_state.dart';
+import 'package:boxify/screens/bottom/explore/cubit/explore_screen_cubit.dart';
+import 'package:boxify/screens/bottom/explore/cubit/explore_screen_state.dart';
 import 'package:boxify/screens/location/view/location_screen.dart';
 import 'package:boxify/utils/string.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +12,8 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
-import '../../../utils/image_resources.dart';
+import '../../../../utils/image_resources.dart';
+
 
 class ExploreScreen extends StatefulWidget {
   const ExploreScreen({super.key});

@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:boxify/custom_widgets/elevatedbutton.dart';
 import 'package:boxify/custom_widgets/text.dart';
 import 'package:boxify/screens/bottom/booking/cubit/booking_info_cubit/booking_info_cubit.dart';
@@ -242,6 +244,7 @@ class BookingInfoCard extends StatelessWidget {
   }
 }
 
+
 // Cancel Dialog
 
 class CancelBookingDialog extends StatelessWidget {
@@ -249,76 +252,79 @@ class CancelBookingDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Dialog(
-      backgroundColor: Colors.white,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.r)),
-      child: SizedBox(
-        height: 300.h,
-        child: Padding(
-          padding: EdgeInsets.only(top: 25.h, bottom: 5.h),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset(warningIcon, height: 75.h, width: 75.h),
-              SizedBox(height: 10.h),
-              CustomText(
-                data: wantCancelBooking,
-                color: Color(0xFFE43939),
-                fontSize: 20.sp,
-                fontWeight: FontWeight.w900,
-              ),
-              CustomText(
-                data: boxCricketName,
-                fontWeight: FontWeight.w700,
-                fontSize: 10.sp,
-              ),
-              SizedBox(height: 20.h),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 30.w),
-                child: CustomText(
-                  data: areYouSure,
-                  fontSize: 18.sp,
-                  fontWeight: FontWeight.w700,
+    return BackdropFilter(
+      filter: ImageFilter.blur(sigmaX: 10,sigmaY: 10),
+      child: Dialog(
+        backgroundColor: Colors.white,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.r)),
+        child: SizedBox(
+          height: 300.h,
+          child: Padding(
+            padding: EdgeInsets.only(top: 25.h, bottom: 5.h),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(warningIcon, height: 75.h, width: 75.h),
+                SizedBox(height: 10.h),
+                CustomText(
+                  data: wantCancelBooking,
+                  color: Color(0xFFE43939),
+                  fontSize: 20.sp,
+                  fontWeight: FontWeight.w900,
                 ),
-              ),
-              Spacer(),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 5.w),
-                child: Container(
-                  height: 50.h,
-                  width: 400.w,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15.r),
-                    color: Colors.grey[100],
+                CustomText(
+                  data: boxCricketName,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 10.sp,
+                ),
+                SizedBox(height: 20.h),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 30.w),
+                  child: CustomText(
+                    data: areYouSure,
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.w700,
                   ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      CustomText(
-                        data: yes,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 15.sp,
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(vertical: 15.w),
-                        child: VerticalDivider(),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: CustomText(
-                          data: no,
+                ),
+                Spacer(),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 5.w),
+                  child: Container(
+                    height: 50.h,
+                    width: 400.w,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15.r),
+                      color: Colors.grey[100],
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        CustomText(
+                          data: yes,
                           fontWeight: FontWeight.w700,
                           fontSize: 15.sp,
-                          color: Color(0xFF0E7AFF),
                         ),
-                      ),
-                    ],
+                        Padding(
+                          padding: EdgeInsets.symmetric(vertical: 15.w),
+                          child: VerticalDivider(),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: CustomText(
+                            data: no,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 15.sp,
+                            color: Color(0xFF0E7AFF),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

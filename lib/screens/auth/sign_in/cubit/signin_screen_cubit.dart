@@ -51,10 +51,4 @@ class SignInCubit extends Cubit<SignInState> {
     }
   } 
 
-  void navigateToSignUp(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => SignUpScreen()),
-    );
-  }
 }
