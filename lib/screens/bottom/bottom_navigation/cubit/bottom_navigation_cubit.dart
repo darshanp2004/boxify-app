@@ -1,3 +1,4 @@
+import 'package:boxify/screens/explore/view/explore_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../booking/view/booking_screen.dart';
@@ -13,6 +14,7 @@ class BottomNavigationCubit extends Cubit<BottomNavigationState> {
       currentIndex: 0,
       screens: [
         HomeScreen(),
+        ExploreScreen(),
         BookingScreen(),
         ProfileScreen(),
       ],

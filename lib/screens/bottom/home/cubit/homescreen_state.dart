@@ -8,7 +8,6 @@ class CardsLoaded extends HomeState {
   final List<Map<String, String>> tennisCard;
   final String selectedCategory;
 
-
   CardsLoaded(this.cricketCard, this.footballCard, this.tennisCard,{this.selectedCategory="Cricket"});
 
   CardsLoaded copyWith({String? selectedCategory}) {

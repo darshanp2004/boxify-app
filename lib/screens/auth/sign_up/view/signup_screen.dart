@@ -27,6 +27,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         builder: (context, state) {
           var signUpCubit = SignUpCubit.get(context);
           return Scaffold(
+            backgroundColor: Color(0xFFF3F4F8),
             body: SingleChildScrollView(
               child: Padding(
                 padding: EdgeInsets.symmetric(
@@ -86,6 +87,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         textColor: Color(0XFFFFFFFF),
                         borderColor: Colors.transparent,
                         fontWeight: FontWeight.w800,
+                        fontSize: 12.sp,
                       ),
                       SizedBox(height: 30.h),
                       Row(
@@ -108,6 +110,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         onPressed: () {},
                         textColor: Color(0XFF1E1E1E),
                         fontWeight: FontWeight.w700,
+                        fontSize: 12.sp,
+                        borderColor: Color(0xFFD2D4DA),
                       ),
                       SizedBox(height: 10.h),
                       CustomElevatedButton(
@@ -116,6 +120,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         onPressed: () {},
                         textColor: Color(0XFF1E1E1E),
                         fontWeight: FontWeight.w700,
+                        fontSize: 12.sp,
+                        borderColor: Color(0xFFD2D4DA),
                       ),
                     ],
                   ),

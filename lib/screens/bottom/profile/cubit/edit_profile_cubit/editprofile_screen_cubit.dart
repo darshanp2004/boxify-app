@@ -9,9 +9,10 @@ class EditProfileCubit extends Cubit<EditProfileState> {
   TextEditingController usernameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   File? selectedImage;
+  final List<String> genderOptions = ['Male', 'Female', 'Other'];
 
   EditProfileCubit()
-      : super(EditProfileState(username: '', email: '', image: null));
+      : super(EditProfileState(username: '', email: '', image: null,gender: ''));
 
   static EditProfileCubit get(context) => BlocProvider.of(context);
 
@@ -31,6 +32,14 @@ class EditProfileCubit extends Cubit<EditProfileState> {
 
   void updateDetails({required String username, required String email}) {
     emit(state.copyWith(username: username, email: email));
+  }
+
+  void updateGender(String gender) {
+    emit(state.copyWith(gender: gender));
+  }
+
+  void updateBirthDate(DateTime date) {
+    emit(state.copyWith(birthDate: date));
   }
 
 }

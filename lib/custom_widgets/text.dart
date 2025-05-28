@@ -82,7 +82,7 @@ class CustomText extends StatelessWidget {
     this.decorationStyle,
     this.decorationThickness,
     this.debugLabel,
-    this.fontFamily = 'FontMain',
+    this.fontFamily = 'AndersonGrotesk',
     this.fontFamilyFallback,
     this.package,
   });

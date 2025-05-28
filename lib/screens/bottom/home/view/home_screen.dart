@@ -4,7 +4,7 @@ import 'package:boxify/custom_widgets/text.dart';
 import 'package:boxify/screens/bottom/bottom_navigation/cubit/bottom_navigation_cubit.dart';
 import 'package:boxify/screens/bottom/home/cubit/homescreen_cubit.dart';
 import 'package:boxify/screens/bottom/home/cubit/homescreen_state.dart';
-import 'package:boxify/screens/bottom/home/view/seeall_screen.dart';
+import 'package:boxify/screens/bottom/home/view/see_all_screen.dart';
 import 'package:boxify/screens/location/view/location_screen.dart';
 import 'package:boxify/utils/string.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +16,7 @@ import 'package:permission_handler/permission_handler.dart';
 import '../../../../utils/image_resources.dart';
 
 class HomeScreen extends StatefulWidget {
-   const HomeScreen({super.key});
+  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -30,11 +30,11 @@ class _HomeScreenState extends State<HomeScreen> {
       child: BlocConsumer<HomeCubit, HomeState>(
         listener: (context, state) {},
         builder: (BuildContext context, HomeState state) {
-          var bottomNavCubit=BottomNavigationCubit.get(context);
-          var homeCubit=HomeCubit.get(context);
+          var bottomNavCubit = BottomNavigationCubit.get(context);
+          var homeCubit = HomeCubit.get(context);
           return Scaffold(
-            backgroundColor:  Color(0xFFF3F4F8),
-            appBar:appBar(context, bottomNavCubit, homeCubit),
+            backgroundColor: Color(0xFFF3F4F8),
+            appBar: appBar(context, bottomNavCubit, homeCubit),
             body: SingleChildScrollView(
               padding: EdgeInsets.only(bottom: 30.h),
               child: Column(
@@ -42,31 +42,44 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   Padding(
                     padding: EdgeInsets.only(left: 25.w, top: 15.h),
-                    child: CustomText(data: helloText, fontWeight: FontWeight.w400, color:  Color(0xFF999999)),
+                    child: CustomText(
+                      data: helloText,
+                      fontWeight: FontWeight.w400,
+                      color: Color(0xFF999999),
+                    ),
                   ),
                   Padding(
                     padding: EdgeInsets.only(left: 25.w),
-                    child: CustomText(data: findArena, fontSize: 20.sp, fontWeight: FontWeight.w800, color:  Color(0xFF1E1E1E)),
+                    child: CustomText(
+                      data: findArena,
+                      fontSize: 20.sp,
+                      fontWeight: FontWeight.w800,
+                      color: Color(0xFF1E1E1E),
+                    ),
                   ),
                   SizedBox(height: 10.h),
                   Padding(
-                    padding: EdgeInsets.only(left: 25.w),
+                    padding: EdgeInsets.symmetric(horizontal: 25.w),
                     child: SizedBox(
                       height: 45.h,
                       width: 340.w,
                       child: SearchBar(
                         hintText: searchHint,
-                        hintStyle: WidgetStatePropertyAll(TextStyle(
-                          color:  Color(0xFF999999),
-                          fontFamily: fontFamily,
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w400,
-                        )),
+                        hintStyle: WidgetStatePropertyAll(
+                          TextStyle(
+                            color: Color(0xFF999999),
+                            fontFamily: andersonGrotesk,
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
                         trailing: [SvgPicture.asset(searchIcon)],
-                        backgroundColor:  WidgetStatePropertyAll(Colors.white),
-                        elevation:  WidgetStatePropertyAll(0),
+                        backgroundColor: WidgetStatePropertyAll(Color(0xFFFFFFFF)),
+                        elevation: WidgetStatePropertyAll(0),
                         shape: WidgetStatePropertyAll(
-                          RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.r)),
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.r),
+                          ),
                         ),
                       ),
                     ),
@@ -74,7 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   SizedBox(height: 25.h),
                   if (state is CardsLoaded)
                     Padding(
-                      padding: EdgeInsets.only(left: 25.w),
+                      padding: EdgeInsets.symmetric(horizontal: 25.w),
                       child: SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
                         child: Row(
@@ -108,84 +121,125 @@ class _HomeScreenState extends State<HomeScreen> {
                     padding: EdgeInsets.symmetric(horizontal: 25.w),
                     child: Row(
                       children: [
-                        CustomText(data: venueNear, fontWeight: FontWeight.w800),
-                         Spacer(),
+                        CustomText(
+                          data: venueNear,
+                          fontWeight: FontWeight.w800,
+                        ),
+                        Spacer(),
                         GestureDetector(
                           onTap: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => SeeAllScreen(category: cricket)));
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder:
+                                    (context) =>
+                                        SeeAllScreen(category: cricket),
+                              ),
+                            );
                           },
                           child: Row(
                             children: [
-                              CustomText(data: seeAll, color:  Color(0xFF0E7AFF)),
-                               Icon(Icons.chevron_right, color: Colors.blue),
+                              CustomText(
+                                data: seeAll,
+                                color: Color(0xFF0E7AFF),
+                              ),
+                              Icon(Icons.chevron_right, color: Colors.blue),
                             ],
                           ),
                         ),
                       ],
                     ),
                   ),
-                  SizedBox(height: 10.h,),
+                  SizedBox(height: 10.h),
                   SizedBox(
                     height: 200.h,
-                    child: state is CardsLoaded
-                        ? sportCardList(state.cricketCard)
-                        :  SizedBox(),
+                    child:
+                        state is CardsLoaded
+                            ? sportCardList(state.cricketCard)
+                            : SizedBox(),
                   ),
-                  SizedBox(height: 15.h,),
+                  SizedBox(height: 15.h),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 25.w),
                     child: Row(
                       children: [
-                        CustomText(data: footballVenue, fontWeight: FontWeight.w800),
-                         Spacer(),
+                        CustomText(
+                          data: footballVenue,
+                          fontWeight: FontWeight.w800,
+                        ),
+                        Spacer(),
                         GestureDetector(
                           onTap: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => SeeAllScreen(category: football)));
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder:
+                                    (context) =>
+                                        SeeAllScreen(category: football),
+                              ),
+                            );
                           },
                           child: Row(
                             children: [
-                              CustomText(data: seeAll, color:  Color(0xFF0E7AFF)),
-                               Icon(Icons.chevron_right, color: Colors.blue),
+                              CustomText(
+                                data: seeAll,
+                                color: Color(0xFF0E7AFF),
+                              ),
+                              Icon(Icons.chevron_right, color: Colors.blue),
                             ],
                           ),
                         ),
                       ],
                     ),
                   ),
-                  SizedBox(height: 10.h,),
+                  SizedBox(height: 10.h),
                   SizedBox(
                     height: 200.h,
-                    child: state is CardsLoaded
-                        ? sportCardList(state.footballCard)
-                        :  SizedBox(),
+                    child:
+                        state is CardsLoaded
+                            ? sportCardList(state.footballCard)
+                            : SizedBox(),
                   ),
-                  SizedBox(height: 15.h,),
+                  SizedBox(height: 15.h),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 25.w),
                     child: Row(
                       children: [
-                        CustomText(data: tennisVenue, fontWeight: FontWeight.w800),
-                         Spacer(),
+                        CustomText(
+                          data: tennisVenue,
+                          fontWeight: FontWeight.w800,
+                        ),
+                        Spacer(),
                         GestureDetector(
                           onTap: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => SeeAllScreen(category: tennis)));
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder:
+                                    (context) => SeeAllScreen(category: tennis),
+                              ),
+                            );
                           },
                           child: Row(
                             children: [
-                              CustomText(data: seeAll, color:  Color(0xFF0E7AFF)),
-                               Icon(Icons.chevron_right, color: Colors.blue),
+                              CustomText(
+                                data: seeAll,
+                                color: Color(0xFF0E7AFF),
+                              ),
+                              Icon(Icons.chevron_right, color: Colors.blue),
                             ],
                           ),
                         ),
                       ],
                     ),
                   ),
-                  SizedBox(height: 10.h,),
+                  SizedBox(height: 10.h),
                   SizedBox(
                     height: 200.h,
-                    child: state is CardsLoaded
-                        ? sportCardList(state.tennisCard)
-                        :  SizedBox(),
+                    child:
+                        state is CardsLoaded
+                            ? sportCardList(state.tennisCard)
+                            : SizedBox(),
                   ),
                 ],
               ),
@@ -197,10 +251,13 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-
 // AppBar
 
-AppBar appBar(BuildContext context, BottomNavigationCubit bottomNavCubit, HomeCubit homeCubit) {
+AppBar appBar(
+  BuildContext context,
+  BottomNavigationCubit bottomNavCubit,
+  HomeCubit homeCubit,
+) {
   return AppBar(
     surfaceTintColor: Colors.transparent,
     toolbarHeight: 70.h,
@@ -211,7 +268,10 @@ AppBar appBar(BuildContext context, BottomNavigationCubit bottomNavCubit, HomeCu
     ),
     title: GestureDetector(
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => LocationScreen()));
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => LocationScreen()),
+        );
       },
       child: Hero(
         tag: tag1,
@@ -220,10 +280,19 @@ AppBar appBar(BuildContext context, BottomNavigationCubit bottomNavCubit, HomeCu
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CustomText(data: location, color: Color(0xFF999999), fontSize: 15.sp, fontWeight: FontWeight.w400),
+              CustomText(
+                data: location,
+                color: Color(0xFF999999),
+                fontSize: 15.sp,
+                fontWeight: FontWeight.w400,
+              ),
               Row(
                 children: [
-                  CustomText(data: area, fontWeight: FontWeight.w800, fontSize: 15.sp),
+                  CustomText(
+                    data: area,
+                    fontWeight: FontWeight.w800,
+                    fontSize: 15.sp,
+                  ),
                   Icon(Icons.keyboard_arrow_down),
                 ],
               ),
@@ -251,7 +320,7 @@ AppBar appBar(BuildContext context, BottomNavigationCubit bottomNavCubit, HomeCu
           ),
           child: GestureDetector(
             onTap: () {
-              bottomNavCubit.updateIndex(2);
+              bottomNavCubit.updateIndex(3);
             },
             child: Padding(
               padding: EdgeInsets.all(2.w),
@@ -267,7 +336,7 @@ AppBar appBar(BuildContext context, BottomNavigationCubit bottomNavCubit, HomeCu
 
 // SportCard List
 
-Widget sportCardList(List<Map<String, String>> cards){
+Widget sportCardList(List<Map<String, String>> cards) {
   return ListView.builder(
     scrollDirection: Axis.horizontal,
     itemCount: 4,

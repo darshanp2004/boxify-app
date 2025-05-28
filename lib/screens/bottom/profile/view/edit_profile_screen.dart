@@ -56,30 +56,31 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                   state.image != null
                                       ? FileImage(state.image!)
                                       : AssetImage(profileImage),
-                              radius: 60.r,
+                              radius: 57.r,
                             ),
                           ),
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.only(top: 45.h),
-                        child: IconButton(
-                          onPressed: () {
-                            Navigator.of(context).pop();
+                        padding: EdgeInsets.only(top: 60.h, left: 20.w),
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context);
                           },
-                          icon: Icon(
-                            Icons.arrow_back_outlined,
-                            color: Colors.black,
+                          child: Image.asset(
+                            leftArrowIcon,
+                            height: 24.h,
+                            width: 24.w,
                           ),
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.only(top: 60.h),
+                        padding: EdgeInsets.only(top: 55.h, right: 140.w),
                         child: Center(
                           child: CustomText(
                             data: editProfile,
-                            fontWeight: FontWeight.w700,
-                            fontSize: 18.sp,
+                            fontWeight: FontWeight.w800,
+                            fontSize: 25.sp,
                           ),
                         ),
                       ),
@@ -101,26 +102,152 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       controller: editProfileCubit.usernameController,
                       hintText: userName,
                       icon: userIcon,
+                      fillColor: Color(0xFFFFFFFF),
+                      fontSize: 12.sp,
                     ),
                   ),
-                  SizedBox(height: 20.h),
+                  SizedBox(height: 10.h),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 30.w),
                     child: CustomTextField(
                       controller: editProfileCubit.emailController,
                       hintText: email,
                       icon: emailIcon,
+                      fillColor: Color(0xFFFFFFFF),
+                      fontSize: 12.sp,
                     ),
                   ),
-                  SizedBox(height: 20.h),
-                  ElevatedButton(
-                    style: ButtonStyle(
-                      backgroundColor: WidgetStatePropertyAll(Colors.white),
+                  SizedBox(height: 15.h),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 30.w),
+                    child: Row(
+                      children: [
+                        Container(
+                          height: 50.h,
+                          width: 160.w,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15.r),
+                            color: Color(0xFFFFFFFF),
+                            border: Border.all(color: Color(0xFFD2D4DA)),
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.only(left: 15.w, top: 5.h),
+                            child: DropdownButton<String>(
+                              value:
+                                  (state.gender.isNotEmpty)
+                                      ? state.gender
+                                      : null,
+                              hint: CustomText(
+                                data: gender,
+                                fontSize: 12.sp,
+                                color: Colors.black,
+                              ),
+                              icon: Padding(
+                                padding: EdgeInsets.only(
+                                  bottom: 5.h,
+                                  right: 10.w,
+                                ),
+                                child: Icon(
+                                  Icons.keyboard_arrow_down_sharp,
+                                  size: 30,
+                                  color: Color(0xFFB3B5BD),
+                                ),
+                              ),
+                              isExpanded: true,
+                              underline: SizedBox(),
+                              dropdownColor: Colors.white,
+                              onChanged: (String? newValue) {
+                                if (newValue != null) {
+                                  editProfileCubit.updateGender(newValue);
+                                }
+                              },
+                              items:
+                                  editProfileCubit.genderOptions
+                                      .map<DropdownMenuItem<String>>((
+                                        String value,
+                                      ) {
+                                        return DropdownMenuItem<String>(
+                                          value: value,
+                                          child: CustomText(
+                                            data: value,
+                                            fontSize: 12.sp,
+                                          ),
+                                        );
+                                      })
+                                      .toList(),
+                            ),
+                          ),
+                        ),
+                        Spacer(),
+                        Container(
+                          height: 50.h,
+                          width: 160.w,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15.r),
+                            color: Color(0xFFFFFFFF),
+                            border: Border.all(color: Color(0xFFD2D4DA)),
+                          ),
+                          child: Row(
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(left: 15.w, top: 5.h),
+                                child: CustomText(
+                                  data:
+                                      state.birthDate != null
+                                          ? '${state.birthDate?.day}/${state.birthDate?.month}/${state.birthDate?.year}'
+                                          : birthDate,
+                                  fontSize: 12.sp,
+                                ),
+                              ),
+                              Spacer(),
+                              IconButton(
+                                onPressed: () async {
+                                  final DateTime? pickedDate =
+                                      await showDatePicker(
+                                        context: context,
+                                        initialDate: DateTime.now(),
+                                        firstDate: DateTime(1900),
+                                        lastDate: DateTime.now(),
+                                      );
+                                  if (pickedDate != null) {
+                                    editProfileCubit.updateBirthDate(
+                                      pickedDate,
+                                    );
+                                  }
+                                },
+                                icon: Icon(
+                                  Icons.calendar_today_outlined,
+                                  size: 20,
+                                  color: Color(0xFFB3B5BD),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
-                    onPressed: () {
-                      FocusScope.of(context).unfocus();
+                  ),
+                  SizedBox(height: 40.h),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
                     },
-                    child: CustomText(data: saveChanges),
+                    child: Container(
+                      height: 50.h,
+                      width: 329.w,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.r),
+                        color: Color(0xFF0E7AFF),
+                      ),
+                      child: Center(
+                        child: CustomText(
+                          data: saveChanges,
+                          fontWeight: FontWeight.w800,
+                          fontSize: 14.sp,
+                          color: Color(0xFFF3F4F8),
+                        ),
+                      ),
+                    ),
                   ),
                 ],
               ),

@@ -1,4 +1,4 @@
-import 'package:boxify/screens/bottom/booking/view/booking_venue_screen.dart';
+import 'package:boxify/screens/direction/view/direction_screen.dart';
 import 'package:boxify/screens/splash/view/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

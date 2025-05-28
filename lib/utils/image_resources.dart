@@ -45,3 +45,24 @@ const String changingRoomIcon="assets/images/changingroom.png";
 const String cafeIcon="assets/images/cafe.png";
 const String accessibilityIcon="assets/images/accessibility.png";
 const String heartIcon="assets/images/Heart.png";
+const String starSharp="assets/images/star_sharp.png";
+const String exclamation="assets/images/exclamation.png";
+const String okIcon="assets/images/ok.png";
+const String exploreIcon="assets/images/explore.png";
+const String cricketImage="assets/images/cricketImage.png";
+const String footBallImage="assets/images/footballImage.png";
+const String tennisImage="assets/images/tennisImage.png";
+const String tableTennisImage="assets/images/tableTennisImage.png";
+const String basketBallImage="assets/images/basketBallImage.png";
+const String hockeyImage="assets/images/hockeyImage.png";
+const String badmintonImage="assets/images/badmintonImage.png";
+const String golfImage="assets/images/golfImage.png";
+const String baseBallImage="assets/images/baseBallImage.png";
+
+
+
+
+
+
+
+

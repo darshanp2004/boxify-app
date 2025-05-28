@@ -1,6 +1,8 @@
+import 'package:boxify/custom_widgets/elevatedbutton.dart';
 import 'package:boxify/custom_widgets/text.dart';
 import 'package:boxify/screens/bottom/booking/cubit/booking_venue_cubit/booking_venue_cubit.dart';
 import 'package:boxify/screens/bottom/booking/cubit/booking_venue_cubit/booking_venue_state.dart';
+import 'package:boxify/screens/bottom/booking/view/booking_process_screen.dart';
 import 'package:boxify/utils/image_resources.dart';
 import 'package:boxify/utils/string.dart';
 import 'package:flutter/material.dart';
@@ -18,25 +20,31 @@ class _BookingVenueScreenState extends State<BookingVenueScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => BookingVenueCubit()..loadSlots(),
+      create: (context) => BookingVenueCubit()..initializeSlots(),
       child: BlocConsumer<BookingVenueCubit, BookingVenueState>(
         listener: (BuildContext context, BookingVenueState state) {},
         builder: (BuildContext context, BookingVenueState state) {
           final bookingVenueCubit = BookingVenueCubit.get(context);
+          final amenities = bookingVenueCubit.amenitiesList;
           return Scaffold(
             backgroundColor: Color(0xFFF3F4F8),
             body: CustomScrollView(
-              physics: BouncingScrollPhysics(),
               slivers: [
                 SliverAppBar(
+                  surfaceTintColor: Colors.transparent,
                   automaticallyImplyLeading: false,
                   backgroundColor: Colors.transparent,
                   expandedHeight: 200.h,
+                  pinned: true,
                   flexibleSpace: FlexibleSpaceBar(
                     background: Stack(
-                      fit: StackFit.expand,
                       children: [
-                        Image.asset(boxCricket, fit: BoxFit.cover),
+                        Image.asset(
+                          boxCricket,
+                          height: double.infinity,
+                          width: double.infinity,
+                          fit: BoxFit.cover,
+                        ),
                         Positioned(
                           top: 15.h,
                           right: 300.w,
@@ -194,133 +202,12 @@ class _BookingVenueScreenState extends State<BookingVenueScreen> {
                         Divider(),
                         SizedBox(height: 5.h),
                         CustomText(
-                          data: amenities,
+                          data: amenitiesText,
                           fontSize: 18.sp,
                           fontWeight: FontWeight.w800,
                         ),
                         SizedBox(height: 15.h),
-                        SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Column(
-                                children: [
-                                  Container(
-                                    height: 65.h,
-                                    width: 65.h,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(35.r),
-                                      color: Color(0xFFFFFFFF),
-                                    ),
-                                    child: Transform.scale(
-                                      scale: 0.4,
-                                      child: Image.asset(parkingIcon),
-                                    ),
-                                  ),
-                                  SizedBox(height: 10.h),
-                                  CustomText(
-                                    data: parking,
-                                    color: Color(0xFF636363),
-                                    fontSize: 12.sp,
-                                  ),
-                                ],
-                              ),
-                              SizedBox(width: 15.w),
-                              Column(
-                                children: [
-                                  Container(
-                                    height: 65.h,
-                                    width: 65.h,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(35.r),
-                                      color: Color(0xFFFFFFFF),
-                                    ),
-                                    child: Transform.scale(
-                                      scale: 0.4,
-                                      child: Image.asset(restRoomIcon),
-                                    ),
-                                  ),
-                                  SizedBox(height: 10.h),
-                                  CustomText(
-                                    data: restRoom,
-                                    color: Color(0xFF636363),
-                                    fontSize: 12.sp,
-                                  ),
-                                ],
-                              ),
-                              SizedBox(width: 15.w),
-                              Column(
-                                children: [
-                                  Container(
-                                    height: 65.h,
-                                    width: 65.h,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(35.r),
-                                      color: Color(0xFFFFFFFF),
-                                    ),
-                                    child: Transform.scale(
-                                      scale: 0.4,
-                                      child: Image.asset(changingRoomIcon),
-                                    ),
-                                  ),
-                                  SizedBox(height: 10.h),
-                                  CustomText(
-                                    data: changingRoom,
-                                    color: Color(0xFF636363),
-                                    fontSize: 12.sp,
-                                  ),
-                                ],
-                              ),
-                              SizedBox(width: 15.w),
-                              Column(
-                                children: [
-                                  Container(
-                                    height: 65.h,
-                                    width: 65.h,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(35.r),
-                                      color: Color(0xFFFFFFFF),
-                                    ),
-                                    child: Transform.scale(
-                                      scale: 0.4,
-                                      child: Image.asset(cafeIcon),
-                                    ),
-                                  ),
-                                  SizedBox(height: 10.h),
-                                  CustomText(
-                                    data: cafe,
-                                    color: Color(0xFF636363),
-                                    fontSize: 12.sp,
-                                  ),
-                                ],
-                              ),
-                              SizedBox(width: 15.w),
-                              Column(
-                                children: [
-                                  Container(
-                                    height: 65.h,
-                                    width: 65.h,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(35.r),
-                                      color: Color(0xFFFFFFFF),
-                                    ),
-                                    child: Transform.scale(
-                                      scale: 0.4,
-                                      child: Image.asset(accessibilityIcon),
-                                    ),
-                                  ),
-                                  SizedBox(height: 10.h),
-                                  CustomText(
-                                    data: accessibility,
-                                    color: Color(0xFF636363),
-                                    fontSize: 12.sp,
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
+                        amenitiesList(amenities),
                         SizedBox(height: 15.h),
                         CustomText(
                           data: aboutVenue,
@@ -364,23 +251,23 @@ class _BookingVenueScreenState extends State<BookingVenueScreen> {
                             CustomText(
                               data: courtOne,
                               fontWeight: FontWeight.w800,
-                              fontSize: 18.sp,
+                              fontSize: 15.sp,
                             ),
                             SizedBox(width: 10.w),
                             CustomText(
                               data: avlTime,
                               color: Color(0xFF0E7AFF),
-                              fontSize: 18.sp,
+                              fontSize: 15.sp,
                             ),
                           ],
                         ),
                         SizedBox(height: 10.h),
-                        if (state is BookingVenueSlots)
+                        if (state is BookingSlots)
                           GridView.builder(
                             padding: EdgeInsets.zero,
                             shrinkWrap: true,
                             physics: NeverScrollableScrollPhysics(),
-                            itemCount: state.allSlots[courtOne]?.length ?? 0,
+                            itemCount: state.allSlots[courtOne]?.length,
                             gridDelegate:
                                 SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: 6,
@@ -395,7 +282,11 @@ class _BookingVenueScreenState extends State<BookingVenueScreen> {
                                     slot,
                                   ) ??
                                   false;
-                              final isSelected = state.selectedSlots[courtOne]?.contains(slot) ?? false;
+                              final isSelected =
+                                  state.selectedSlots[courtOne]?.contains(
+                                    slot,
+                                  ) ??
+                                  false;
                               return GestureDetector(
                                 onTap: () {
                                   if (!isDisabled) {
@@ -448,23 +339,23 @@ class _BookingVenueScreenState extends State<BookingVenueScreen> {
                             CustomText(
                               data: courtTwo,
                               fontWeight: FontWeight.w800,
-                              fontSize: 18.sp,
+                              fontSize: 15.sp,
                             ),
                             SizedBox(width: 10.w),
                             CustomText(
                               data: avlTime,
                               color: Color(0xFF0E7AFF),
-                              fontSize: 18.sp,
+                              fontSize: 15.sp,
                             ),
                           ],
                         ),
                         SizedBox(height: 10.h),
-                        if (state is BookingVenueSlots)
+                        if (state is BookingSlots)
                           GridView.builder(
                             padding: EdgeInsets.zero,
                             shrinkWrap: true,
                             physics: NeverScrollableScrollPhysics(),
-                            itemCount: state.allSlots[courtTwo]?.length ?? 0,
+                            itemCount: state.allSlots[courtTwo]?.length,
                             gridDelegate:
                                 SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: 6,
@@ -479,7 +370,11 @@ class _BookingVenueScreenState extends State<BookingVenueScreen> {
                                     slot,
                                   ) ??
                                   false;
-                              final isSelected = state.selectedSlots[courtTwo]?.contains(slot) ?? false;
+                              final isSelected =
+                                  state.selectedSlots[courtTwo]?.contains(
+                                    slot,
+                                  ) ??
+                                  false;
                               return GestureDetector(
                                 onTap: () {
                                   if (!isDisabled) {
@@ -551,22 +446,27 @@ class _BookingVenueScreenState extends State<BookingVenueScreen> {
                       child: Image.asset(heartIcon),
                     ),
                   ),
-                  Container(
-                    width: 250.w,
-                    height: 50.h,
-                    decoration: BoxDecoration(
-                      color: Color(0xFF0E7AFF),
-                      borderRadius: BorderRadius.circular(10.r),
-                    ),
-                    child: Center(
-                      child: CustomText(
-                        data: bookNow,
-                        fontWeight: FontWeight.w800,
-                        fontSize: 18.sp,
-                        color: Color(0xFFF3F4F8),
+                   GestureDetector(
+                     onTap: (){
+                       Navigator.push(context, MaterialPageRoute(builder: (context)=>BookingProcessScreen()));
+                     },
+                     child: Container(
+                        width: 250.w,
+                        height: 50.h,
+                        decoration: BoxDecoration(
+                          color: Color(0xFF0E7AFF),
+                          borderRadius: BorderRadius.circular(10.r),
+                        ),
+                        child: Center(
+                          child: CustomText(
+                            data: bookNow,
+                            fontWeight: FontWeight.w800,
+                            fontSize: 15.sp,
+                            color: Color(0xFFF3F4F8),
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
+                   ),
                 ],
               ),
             ),
@@ -575,4 +475,44 @@ class _BookingVenueScreenState extends State<BookingVenueScreen> {
       ),
     );
   }
+}
+
+// Amenities list
+
+Widget amenitiesList(List<Map<String, String>> amenities) {
+  return SizedBox(
+    height: 110.h,
+    child: ListView.builder(
+      scrollDirection: Axis.horizontal,
+      itemCount: amenities.length,
+      itemBuilder: (context, index) {
+        final amenity = amenities[index];
+        return Padding(
+          padding: EdgeInsets.only(right: 15.w),
+          child: Column(
+            children: [
+              Container(
+                height: 55.h,
+                width: 55.w,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(35.r),
+                  color: Colors.white,
+                ),
+                child: Transform.scale(
+                  scale: 0.4,
+                  child: Image.asset(amenity["icon"]!, fit: BoxFit.contain),
+                ),
+              ),
+              SizedBox(height: 10.h),
+              Text(
+                amenity["label"]!,
+                style: TextStyle(fontSize: 10.sp, color: Color(0xFF636363)),
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
+        );
+      },
+    ),
+  );
 }

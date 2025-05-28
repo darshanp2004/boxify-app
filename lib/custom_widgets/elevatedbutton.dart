@@ -14,6 +14,7 @@ class CustomElevatedButton extends StatelessWidget {
   final String? icon;
   final Color? borderColor;
   final FontWeight? fontWeight;
+  final double? borderRadius;
 
   const CustomElevatedButton({
     super.key,
@@ -21,12 +22,13 @@ class CustomElevatedButton extends StatelessWidget {
     required this.onPressed,
     this.backgroundColor,
     this.textColor,
-    this.height = 60,
-    this.width = 400,
+    this.height = 50,
+    this.width = 329,
     this.icon,
     this.borderColor,
     this.fontSize,
-    this.fontWeight
+    this.fontWeight,
+    this.borderRadius
   });
 
   @override
@@ -36,11 +38,11 @@ class CustomElevatedButton extends StatelessWidget {
       width: width?.w,
       child: OutlinedButton(
         style: ElevatedButton.styleFrom(
-          side: borderColor != null ? BorderSide(color: borderColor!) : null,
+          side: borderColor != null ? BorderSide(color: borderColor!) : BorderSide(color: Colors.transparent),
           backgroundColor: backgroundColor,
           padding: EdgeInsets.symmetric(vertical: 14.h, horizontal: 24.w),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20.r),
+            borderRadius: BorderRadius.circular(borderRadius ?? 15.r),
           ),
         ),
         onPressed: onPressed,
@@ -50,12 +52,16 @@ class CustomElevatedButton extends StatelessWidget {
             if (icon != null)
               Padding(
                 padding: EdgeInsets.only(bottom: 2.h),
-                child: Transform.scale(
-                    scale: 0.72,
-                    child: Image.asset(icon!)),
+                child: Transform.scale(scale: 0.72, child: Image.asset(icon!)),
               ),
-            SizedBox(width: 5.w,),
-            CustomText(data: text, color: textColor, fontSize: fontSize,fontWeight:fontWeight ,fontFamily:fontFamily,),
+            SizedBox(width: 5.w),
+            CustomText(
+              data: text,
+              color: textColor,
+              fontSize: fontSize,
+              fontWeight: fontWeight,
+              fontFamily: andersonGrotesk,
+            ),
           ],
         ),
       ),

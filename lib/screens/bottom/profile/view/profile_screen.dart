@@ -2,9 +2,9 @@ import 'package:boxify/custom_widgets/text.dart';
 import 'package:boxify/screens/auth/sign_in/view/signin_screen.dart';
 import 'package:boxify/screens/bottom/profile/cubit/profile_cubit/profilescreen_cubit.dart';
 import 'package:boxify/screens/bottom/profile/cubit/profile_cubit/profilescreen_state.dart';
+import 'package:boxify/screens/password/change_password/view/change_password_screen.dart';
 import 'package:boxify/screens/bottom/profile/view/edit_profile_screen.dart';
 import 'package:boxify/utils/string.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -32,96 +32,122 @@ class _ProfileScreenState extends State<ProfileScreen> {
             listener: (BuildContext context, ProfileState state) {},
             builder: (context, state) {
               var profileCubit = ProfileCubit.get(context);
-              return Column(
-                children: [
-                  SizedBox(height: 30.h),
-                  ListTile(
-                    iconPath: locationIcon,
-                    title: location,
-                    iconHeight: 30,
-                    iconWidth: 30,
-                    trailing: Transform.scale(
-                      scale: 0.8,
-                      child: Switch(
-                        value: state.locationEnabled,
-                        activeColor: Colors.blue,
-                        onChanged: (value) {
-                          profileCubit.toggleLocation(value);
-                        },
+              return Padding(
+                padding:  EdgeInsets.symmetric(horizontal: 30.w),
+                child: Column(
+                  children: [
+                    SizedBox(height: 30.h),
+                    ListTile(
+                      iconPath: locationIcon,
+                      title: location,
+                      iconHeight: 22,
+                      iconWidth: 22,
+                      trailing: Transform.scale(
+                        scale: 0.8,
+                        child: Switch(
+                          value: state.locationEnabled,
+                          trackColor: WidgetStateProperty.all(
+                            state.locationEnabled ? Colors.blue : Colors.white,
+                          ),
+                          onChanged: (value) {
+                            profileCubit.toggleLocation(value);
+                          },
+                        ),
                       ),
                     ),
-                  ),
-                  SizedBox(height: 5.h),
-                  ListTile(
-                    iconPath: notificationIcon,
-                    title: notification,
-                    trailing: Transform.scale(
-                      scale: 0.8,
-                      child: Switch(
-                        value: state.notificationsEnabled,
-                        activeColor: Colors.blue,
-                        onChanged: (value) {
-                          profileCubit.toggleNotifications(value);
-                        },
+                    SizedBox(height: 5.h),
+                    ListTile(
+                      iconPath: notificationIcon,
+                      title: notification,
+                      trailing: Transform.scale(
+                        scale: 0.8,
+                        child: Switch(
+                          value: state.notificationsEnabled,
+                          trackColor: WidgetStateProperty.all(
+                            state.notificationsEnabled
+                                ? Colors.blue
+                                : Colors.white,
+                          ),
+                          onChanged: (value) {
+                            profileCubit.toggleNotifications(value);
+                          },
+                        ),
                       ),
                     ),
-                  ),
-                  SizedBox(height: 15.h),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 25.w),
-                    child: Divider(),
-                  ),
-                  SizedBox(height: 15.h),
-                  ListTile(
-                    iconPath: inviteFriendsIcon,
-                    title: friendInvite,
-                    trailing: Image.asset(
-                      rightArrowIcon,
-                      height: 20.h,
-                      width: 10.w,
+                    SizedBox(height: 15.h),
+                    Divider(),
+                    SizedBox(height: 15.h),
+                    ListTile(
+                      iconPath: inviteFriendsIcon,
+                      title: friendInvite,
+                      trailing: Image.asset(
+                        rightArrowIcon,
+                        height: 20.h,
+                        width: 10.w,
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 5.h),
-                  ListTile(
-                    iconPath: helpSupportIcon,
-                    title: helpAndSupport,
-                    trailing: Image.asset(
-                      rightArrowIcon,
-                      height: 20.h,
-                      width: 10.w,
+                    SizedBox(height: 5.h),
+                    ListTile(
+                      iconPath: helpSupportIcon,
+                      title: helpAndSupport,
+                      trailing: Image.asset(
+                        rightArrowIcon,
+                        height: 20.h,
+                        width: 10.w,
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 5.h),
-                  ListTile(
-                    iconPath: privacyIcon,
-                    title: privacy,
-                    trailing: Image.asset(
-                      rightArrowIcon,
-                      height: 20.h,
-                      width: 10.w,
+                    SizedBox(height: 5.h),
+                    ListTile(
+                      iconPath: privacyIcon,
+                      title: privacy,
+                      trailing: Image.asset(
+                        rightArrowIcon,
+                        height: 20.h,
+                        width: 10.w,
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 15.h),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 25.w),
-                    child: Divider(),
-                  ),
-                  SizedBox(height: 15.h),
-                  GestureDetector(
-                    onTap: () async {
-                      SharedPreferences prefs =
-                          await SharedPreferences.getInstance();
-                      prefs.clear();
-                      Navigator.of(context).pushAndRemoveUntil(
-                        MaterialPageRoute(builder: (context) => SignInScreen()),
-                        (route) => false,
-                      );
-                    },
-                    child: ListTile(iconPath: logoutIcon, title: logout),
-                  ),
-                  SizedBox(height: 15.h),
-                  ListTile(iconPath: deleteIcon, title: deleteAccount),
-                ],
+                    SizedBox(height: 5.h),
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ChangePasswordScreen(),
+                          ),
+                        );
+                      },
+                      child: ListTile(
+                        iconPath: lockIcon,
+                        title: changePassword,
+                        iconHeight: 20,
+                        iconWidth: 20,
+                        trailing: Image.asset(
+                          rightArrowIcon,
+                          height: 20.h,
+                          width: 10.w,
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 15.h),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 25.w),
+                      child: Divider(),
+                    ),
+                    SizedBox(height: 15.h),
+                    GestureDetector(
+                      onTap: () async {
+                        SharedPreferences prefs =
+                            await SharedPreferences.getInstance();
+                        prefs.clear();
+                        Navigator.of(context).pushAndRemoveUntil(
+                          MaterialPageRoute(builder: (context) => SignInScreen()),
+                          (route) => false,
+                        );
+                      },
+                      child: ListTile(iconPath: logoutIcon, title: logout),
+                    ),
+                  ],
+                ),
               );
             },
           ),
@@ -143,8 +169,8 @@ class ListTile extends StatelessWidget {
     super.key,
     required this.iconPath,
     this.iconColor = const Color(0xFF0E7AFF),
-    this.iconHeight = 25,
-    this.iconWidth = 25,
+    this.iconHeight = 18,
+    this.iconWidth = 18,
     required this.title,
     this.trailing,
   });
@@ -152,20 +178,20 @@ class ListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 60.h,
+      height: 50.h,
       width: 340.w,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(15.r),
+        borderRadius: BorderRadius.circular(10.r),
         color: Colors.white,
       ),
       child: Row(
         children: [
           SizedBox(width: 8.w),
           Container(
-            height: 45.h,
-            width: 45.w,
+            height: 34.h,
+            width: 34.w,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10.r),
+              borderRadius: BorderRadius.circular(5.r),
               color: Color(0xFFF3F4F8),
             ),
             child: Center(
@@ -182,7 +208,7 @@ class ListTile extends StatelessWidget {
           SizedBox(width: 10.w),
           CustomText(
             data: title,
-            fontSize: 18.sp,
+            fontSize: 15.sp,
             fontWeight: FontWeight.w700,
             color: Color(0xFF636363),
           ),
@@ -199,6 +225,7 @@ class ListTile extends StatelessWidget {
 
 AppBar appBar(BuildContext context) {
   return AppBar(
+    automaticallyImplyLeading: false,
     backgroundColor: Color(0xFFFFFFFF),
     toolbarHeight: 100.h,
     surfaceTintColor: Colors.transparent,
