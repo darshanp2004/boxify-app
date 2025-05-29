@@ -11,7 +11,8 @@ class CustomTextField extends StatelessWidget {
   final double? fontSize;
   final Color? fillColor;
   final Function(String)? onChanged;
-
+  final TextInputType? keyboardType;
+  final bool readOnly;
 
   const CustomTextField({
     super.key,
@@ -22,7 +23,9 @@ class CustomTextField extends StatelessWidget {
     this.validator,
     this.fontSize,
     this.fillColor,
-    this.onChanged
+    this.onChanged,
+    this.keyboardType,
+    this.readOnly=false
   });
 
   @override
@@ -32,9 +35,11 @@ class CustomTextField extends StatelessWidget {
       child: TextFormField(
         controller: controller,
         obscureText: obscureText,
+        keyboardType: keyboardType,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         validator: validator,
         onChanged: onChanged,
+        readOnly: readOnly,
         decoration: InputDecoration(
           filled: true,
           fillColor: fillColor ?? Colors.transparent,

@@ -49,6 +49,6 @@ class SignInCubit extends Cubit<SignInState> {
         MaterialPageRoute(builder: (context) => BottomNavigationScreen()),
       );
     }
-  } 
+  }
 
 }

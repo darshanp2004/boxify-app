@@ -40,7 +40,7 @@ class _SignInScreenState extends State<SignInScreen> {
               child: SingleChildScrollView(
                 child: Padding(
                   padding: EdgeInsets.symmetric(
-                    vertical: 100.h,
+                    vertical: MediaQuery.of(context).size.height / 9,
                     horizontal: 30.w,
                   ),
                   child: Form(
@@ -174,7 +174,6 @@ class _SignInScreenState extends State<SignInScreen> {
     );
   }
 }
-
 
 // Dialog
 

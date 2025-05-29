@@ -1,5 +1,6 @@
 import 'package:boxify/screens/auth/sign_in/view/signin_screen.dart';
 import 'package:boxify/screens/bottom/bottom_navigation/view/bottom_navigation_screen.dart';
+import 'package:boxify/screens/owner/details/owner_details/view/owner_details_screen.dart';
 import 'package:boxify/screens/splash/cubit/splashscreen_cubit.dart';
 import 'package:boxify/screens/splash/cubit/splashscreen_state.dart';
 import 'package:flutter/material.dart';
@@ -16,12 +17,11 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
     return BlocProvider(
-      create: (context)=>SplashCubit()..showSplash(),
+      create: (context) => SplashCubit()..showSplash(),
       child: Scaffold(
         body: BlocListener<SplashCubit, SplashState>(
           listener: (context, state) {
@@ -32,10 +32,17 @@ class _SplashScreenState extends State<SplashScreen> {
                   builder: (context) => BottomNavigationScreen(),
                 ),
               );
-            } else if (state is SplashNavigateToLogin) {
+            }
+             else if (state is SplashNavigateToLogin) {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(builder: (context) => SignInScreen()),
+              );
+            }
+            else if (state is SplashNavigateToOwner) {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => OwnerDetailsScreen(username: '', email: '',)),
               );
             }
           },

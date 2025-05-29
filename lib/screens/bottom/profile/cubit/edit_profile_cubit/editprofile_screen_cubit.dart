@@ -20,13 +20,26 @@ class EditProfileCubit extends Cubit<EditProfileState> {
     emit(state.copyWith(image: image));
   }
 
-  Future pickImageFromGallery() async {
+  Future pickImageFromGallery(BuildContext context) async {
     final returnedImage = await ImagePicker().pickImage(
       source: ImageSource.gallery,
     );
     if (returnedImage != null) {
       selectedImage = File(returnedImage.path);
       updateImage(selectedImage!);
+      Navigator.pop(context);
+    }
+  }
+
+
+  Future pickImageFromCamera(BuildContext context) async {
+    final returnedImage = await ImagePicker().pickImage(
+      source: ImageSource.camera,
+    );
+    if (returnedImage != null) {
+      selectedImage = File(returnedImage.path);
+      updateImage(selectedImage!);
+      Navigator.pop(context);
     }
   }
 

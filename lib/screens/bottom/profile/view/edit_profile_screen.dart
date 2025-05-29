@@ -90,7 +90,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     padding: EdgeInsets.only(left: 120.w, top: 20.h),
                     child: IconButton(
                       onPressed: () {
-                        editProfileCubit.pickImageFromGallery();
+                        imagePickerBottomSheet(context, editProfileCubit);
                       },
                       icon: Icon(Icons.edit),
                     ),
@@ -257,4 +257,63 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       ),
     );
   }
+}
+
+
+
+// ImagePickerBottomSheet
+
+Future<void> imagePickerBottomSheet(
+    BuildContext context,
+    EditProfileCubit cubit,
+    ) {
+  return showModalBottomSheet(
+    context: context,
+    builder: (BuildContext context) {
+      return Container(
+        height: 150.h,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(30.r),
+            topRight: Radius.circular(30.r),
+          ),
+        ),
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: 30.h),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Column(
+                children: [
+                  IconButton(
+                    icon: Icon(Icons.camera_alt),
+                    iconSize: 50,
+                    color: Color(0xFFD9D9D9),
+                    onPressed: () {
+                      cubit.pickImageFromCamera(context);
+                    },
+                  ),
+                  CustomText(data: camera, fontSize: 12.sp),
+                ],
+              ),
+              Column(
+                children: [
+                  IconButton(
+                    icon: Icon(Icons.photo),
+                    iconSize: 50,
+                    color: Color(0xFFD9D9D9),
+                    onPressed: () {
+                      cubit.pickImageFromGallery(context);
+                    },
+                  ),
+                  CustomText(data: gallery, fontSize: 12.sp),
+                ],
+              ),
+            ],
+          ),
+        ),
+      );
+    },
+  );
 }

@@ -150,3 +150,26 @@ const String signUpAsOwner="Signup as Owner";
 const String key="role";
 const String user="user";
 const String owner="owner";
+
+
+// Owner
+const String personalDetails="PERSONAL DETAILS";
+const String phoneNo="Phone Number";
+const String businessName="Business Name";
+const String signUpKey="user_type";
+const String courtDetails="COURT DETAILS";
+const String addCourtDetails="Add Court Details";
+const String turfName="Turf Name";
+const String courtName="Court Name";
+const String courtType="Court Type";
+const String addressText="Address";
+const String description="Description";
+const String businessNameValidator="Please Enter Businessname";
+const String emptyMobileNumber="Please Enter Mobilenumber";
+const String mobileNumberValidator="Enter Valid Number";
+const String turfNameValidator="Please Enter Turfname";
+const String courtNameValidator="Please Enter Courtname";
+const String addressValidator="Please Enter Address";
+const String descriptionValidator="Please Enter Description";
+const String camera="Camera";
+const String gallery="Gallery";
