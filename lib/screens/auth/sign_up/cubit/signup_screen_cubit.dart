@@ -61,27 +61,11 @@ class SignUpCubit extends Cubit<SignUpState> {
 
   Future<void> validateInputs(BuildContext context) async {
     if (formKey.currentState!.validate()) {
-      final prefs = await SharedPreferences.getInstance();
-      final signUpType = prefs.getString(key);
-      if (signUpType == user) {
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (context) => BottomNavigationScreen()),
-          (route) => false,
-        );
-      } else if (signUpType == owner) {
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-            builder:
-                (context) => OwnerDetailsScreen(
-                  username: userNameController.text,
-                  email: emailController.text,
-                ),
-          ),
-          (route) => false,
-        );
-      }
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => BottomNavigationScreen()),
+        (route) => false,
+      );
     }
   }
 }

@@ -8,7 +8,6 @@ import 'package:boxify/utils/string.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:intl_phone_field/intl_phone_field.dart';
 
 class OwnerDetailsScreen extends StatefulWidget {
   final String username;
@@ -135,40 +134,12 @@ class _OwnerDetailsScreenState extends State<OwnerDetailsScreen> {
                         readOnly: true,
                       ),
                       SizedBox(height: 10.h),
-                      Theme(
-                        data: Theme.of(context).copyWith(
-                          dialogTheme: DialogTheme(
-                            backgroundColor: Color(0xFFF3F4F8),
-                          ),
-                        ),
-                        child: IntlPhoneField(
-                          decoration: InputDecoration(
-                            hintText: phoneNo,
-                            hintStyle: TextStyle(
-                              fontSize: 12.sp,
-                              color: Color(0xFF1E1E1E),
-                            ),
-                            prefixIcon: Padding(
-                              padding: EdgeInsets.all(12),
-                              child: Image.asset(mobileIcon, width: 24.w, height: 24.h),
-                            ),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(15.r),
-                            ),
-                            counterText: "",
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(15.r),
-                              borderSide: BorderSide(color: Color(0XFFD2D4DA)),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(15.r),
-                              borderSide: BorderSide(color: Color(0XFF0E7AFF)),
-                            ),
-                          ),
-                          initialCountryCode: "IN",
-                          showCountryFlag: false,
-                          validator: ownerDetailsCubit.validateMobileNumber,
-                        ),
+                      CustomTextField(
+                        controller: ownerDetailsCubit.phoneNoController,
+                        hintText: phoneNo,
+                        icon: mobileIcon,
+                        validator: ownerDetailsCubit.validateMobileNumber,
+                        keyboardType: TextInputType.number,
                       ),
                       SizedBox(height: 10.h),
                       CustomTextField(

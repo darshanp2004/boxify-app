@@ -1,3 +1,4 @@
+import 'package:boxify/custom_widgets/elevatedbutton.dart';
 import 'package:boxify/custom_widgets/text.dart';
 import 'package:boxify/screens/bottom/booking/cubit/booking_screen_cubit/bookingscreen_cubit.dart';
 import 'package:boxify/screens/bottom/booking/cubit/booking_screen_cubit/bookingscreen_state.dart';
@@ -7,6 +8,7 @@ import 'package:boxify/utils/string.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class BookingScreen extends StatefulWidget {
@@ -44,8 +46,13 @@ class _BookingScreenState extends State<BookingScreen>
                       controller: bookingCubit.tabController,
                       children: [
                         upcomingList(cards),
-                        historyList(cards),
-                        Center(child: CustomText(data: noCancelled)),
+                        GestureDetector(
+                          onTap: () {
+                            ratingsBottomSheet(context);
+                          },
+                          child: historyList(cards),
+                        ),
+                        cancelledList(cards),
                       ],
                     ),
                   ),
@@ -92,7 +99,8 @@ class Card extends StatelessWidget {
   final String date;
   final String time;
   final String imagePath;
-  final bool isExpired;
+  final bool isCancelled;
+  final bool showStatus;
 
   const Card({
     super.key,
@@ -100,7 +108,8 @@ class Card extends StatelessWidget {
     required this.date,
     required this.time,
     required this.imagePath,
-    required this.isExpired,
+    this.isCancelled = false,
+    this.showStatus = true,
   });
 
   @override
@@ -143,19 +152,31 @@ class Card extends StatelessWidget {
                         fontWeight: FontWeight.w800,
                         fontSize: 16.sp,
                       ),
-                      if (isExpired == true)
+                      if (showStatus)
                         Padding(
-                          padding: EdgeInsets.only(left: 30.w),
+                          padding: EdgeInsets.only(left: 25.w),
                           child: Container(
                             height: 15.h,
-                            width: 40.w,
+                            width: 50.w,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(5.r),
-                              color: Color(0x4DFF0000),
+                              color:
+                                  isCancelled
+                                      ? Color(0x33EF2D2D)
+                                      : Color(0x3334A853),
                             ),
                             child: Padding(
-                              padding: EdgeInsets.only(left: 6.w, top: 3.h),
-                              child: CustomText(data: expired, fontSize: 8.sp),
+                              padding: EdgeInsets.only(top: 3.h),
+                              child: Center(
+                                child: CustomText(
+                                  data: isCancelled ? cancelled : completed,
+                                  fontSize: 8.sp,
+                                  color:
+                                      isCancelled
+                                          ? Color(0xFFEF2D2D)
+                                          : Color(0xFF34A853),
+                                ),
+                              ),
                             ),
                           ),
                         ),
@@ -246,7 +267,6 @@ AppBar appBar(BookingCubit bookingCubit, BookingState state) {
   );
 }
 
-
 // ListView
 
 Widget upcomingList(List cards) {
@@ -269,7 +289,7 @@ Widget upcomingList(List cards) {
             date: card.date,
             time: card.time,
             imagePath: card.image,
-            isExpired: false,
+            showStatus: false,
           ),
         ),
       );
@@ -290,7 +310,146 @@ Widget historyList(List cards) {
           date: card.date,
           time: card.time,
           imagePath: card.image,
-          isExpired: true,
+          isCancelled: false,
+        ),
+      );
+    },
+  );
+}
+
+Widget cancelledList(List cards) {
+  return ListView.builder(
+    padding: EdgeInsets.only(top: 25.h),
+    itemCount: 3,
+    itemBuilder: (context, index) {
+      final card = cards[0];
+      return Padding(
+        padding: EdgeInsets.only(bottom: 15.h),
+        child: Card(
+          title: card.title,
+          date: card.date,
+          time: card.time,
+          imagePath: card.image,
+          isCancelled: true,
+        ),
+      );
+    },
+  );
+}
+
+Future<void> ratingsBottomSheet(BuildContext context) {
+  return showModalBottomSheet(
+    context: context,
+    builder: (BuildContext context) {
+      return Container(
+        height: 368.h,
+        width: double.infinity,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(30.r),
+            topRight: Radius.circular(30.r),
+          ),
+        ),
+        child: Padding(
+          padding: EdgeInsets.only(top: 30.h, left: 30.w, right: 30.w),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  CustomText(
+                    data: rateBoxCricket,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 24.sp,
+                  ),
+                  Spacer(),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: Icon(
+                      Icons.close,
+                      color: Color(0xFF1E1E1E),
+                      size: 30,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 20.h),
+              RatingBar(
+                initialRating: 1,
+                minRating: 1,
+                direction: Axis.horizontal,
+                allowHalfRating: true,
+                itemCount: 5,
+                itemPadding: EdgeInsets.symmetric(horizontal: 10.w),
+                ratingWidget: RatingWidget(
+                  full: Icon(Icons.star, color: Color(0xFF0E7AFF)),
+                  half: Icon(Icons.star_half, color: Color(0xFF0E7AFF)),
+                  empty: Icon(Icons.star_border, color: Color(0xFF0E7AFF)),
+                ),
+                onRatingUpdate: (rating) {},
+              ),
+              SizedBox(height: 20.h),
+              SizedBox(
+                height: 127.h,
+                child: TextFormField(
+                  maxLines: 10,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Colors.transparent,
+                    hintText: postComment,
+                    hintStyle: TextStyle(
+                      fontSize: 12.sp,
+                      fontFamily: andersonGrotesk,
+                      color: Color(0xFF999999),
+                    ),
+                    contentPadding: EdgeInsets.only(top: 10.h, left: 15.w),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15.r),
+                      borderSide: BorderSide(color: Color(0XFFD2D4DA)),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15.r),
+                      borderSide: BorderSide(color: Color(0XFF0E7AFF)),
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15.r),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height: 20.h),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  CustomText(
+                    data: cancel,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 12.sp,
+                  ),
+                  SizedBox(width: 10.w,),
+                  Container(
+                    width: 63.w,
+                    height: 31.h,
+                    decoration: BoxDecoration(
+                      color: Color(0xFF0E7AFF),
+                      borderRadius: BorderRadius.circular(8.r),
+                    ),
+                    child: Center(
+                      child: CustomText(
+                        data: post,
+                        color: Color(0xFFFFFFFF),
+                        fontWeight: FontWeight.w700,
+                        fontSize: 12.sp,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       );
     },

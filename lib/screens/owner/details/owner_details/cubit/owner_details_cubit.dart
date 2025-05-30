@@ -4,7 +4,6 @@ import 'package:boxify/utils/string.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:intl_phone_field/phone_number.dart';
 import 'owner_details_state.dart';
 
 class OwnerDetailsCubit extends Cubit<OwnerDetailsState> {
@@ -18,7 +17,7 @@ class OwnerDetailsCubit extends Cubit<OwnerDetailsState> {
 
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
-  PhoneNumber? currentPhoneNumber;
+  final TextEditingController phoneNoController = TextEditingController();
   final TextEditingController businessNameController = TextEditingController();
   final formKey = GlobalKey<FormState>();
 
@@ -38,8 +37,8 @@ class OwnerDetailsCubit extends Cubit<OwnerDetailsState> {
     return null;
   }
 
-  String? validateMobileNumber(PhoneNumber? phoneNumber) {
-    if (phoneNumber == null || phoneNumber.number.isEmpty) {
+  String? validateMobileNumber(String? value) {
+    if (value == null || value.isEmpty) {
       return emptyMobileNumber;
     }
     return null;

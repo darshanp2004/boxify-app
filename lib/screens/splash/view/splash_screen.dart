@@ -39,12 +39,6 @@ class _SplashScreenState extends State<SplashScreen> {
                 MaterialPageRoute(builder: (context) => SignInScreen()),
               );
             }
-            else if (state is SplashNavigateToOwner) {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => OwnerDetailsScreen(username: '', email: '',)),
-              );
-            }
           },
           child: BlocBuilder<SplashCubit, SplashState>(
             builder: (context, state) {

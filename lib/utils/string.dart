@@ -61,7 +61,6 @@ const String bookingText = "My Bookings";
 const String upcoming = "Upcoming";
 const String history = "History";
 const String cancelled = "Cancelled";
-const String expired = "Expired";
 const String noCancelled = "No Cancelled Matches";
 const String cancelBooking = "Cancel Booking";
 const String chatWithOwner = "Chat With Owner";
@@ -145,12 +144,11 @@ const String golf = "Golf";
 const String badminton="Badminton";
 const String baseBall="Base Ball";
 const String direction="Direction";
-const String signUpAsUser="Signup as User";
-const String signUpAsOwner="Signup as Owner";
-const String key="role";
-const String user="user";
-const String owner="owner";
-
+const String completed="Completed";
+const String rateBoxCricket="Rate Urban Box Cricket";
+const String postComment="Post a Comment (optional)";
+const String cancel="Cancel";
+const String post="Post";
 
 // Owner
 const String personalDetails="PERSONAL DETAILS";
