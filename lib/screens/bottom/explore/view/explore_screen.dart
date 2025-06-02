@@ -3,6 +3,7 @@ import 'package:boxify/screens/bottom/bottom_navigation/cubit/bottom_navigation_
 import 'package:boxify/screens/bottom/explore/cubit/explore_screen_cubit.dart';
 import 'package:boxify/screens/bottom/explore/cubit/explore_screen_state.dart';
 import 'package:boxify/screens/location/view/location_screen.dart';
+import 'package:boxify/screens/notification/view/notification_screen.dart';
 import 'package:boxify/utils/string.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -13,7 +14,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 import '../../../../utils/image_resources.dart';
-
 
 class ExploreScreen extends StatefulWidget {
   const ExploreScreen({super.key});
@@ -204,7 +204,10 @@ AppBar appBar(
     actions: [
       GestureDetector(
         onTap: () async {
-          exploreCubit.checkPermission(Permission.notification, context);
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => NotificationScreen()),
+          );
         },
         child: Image.asset(notificationIcon, height: 24.h, width: 24.w),
       ),

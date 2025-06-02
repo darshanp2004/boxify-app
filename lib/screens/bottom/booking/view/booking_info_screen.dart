@@ -30,6 +30,7 @@ class _BookingInfoScreenState extends State<BookingInfoScreen> {
         appBar: AppBar(
           surfaceTintColor: Colors.transparent,
           backgroundColor: Color(0xFFFFFFFF),
+          toolbarHeight: 70.h,
           title: CustomText(data: yourBookings, fontWeight: FontWeight.w700),
         ),
         body: SingleChildScrollView(

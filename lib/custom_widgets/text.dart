@@ -65,7 +65,7 @@ class CustomText extends StatelessWidget {
     this.inherit=true,
     this.backgroundColor,
     this.fontSize,
-    this.fontWeight,
+    this.fontWeight=FontWeight.w400,
     this.fontStyle,
     this.letterSpacing,
     this.wordSpacing,

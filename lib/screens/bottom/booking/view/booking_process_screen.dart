@@ -261,6 +261,7 @@ AppBar appBar(BuildContext context) {
       statusBarIconBrightness: Brightness.dark,
     ),
     backgroundColor: Colors.transparent,
+    centerTitle: true,
     leading: Padding(
       padding: EdgeInsets.only(left: 25.w),
       child: GestureDetector(
@@ -271,13 +272,10 @@ AppBar appBar(BuildContext context) {
         ),
       ),
     ),
-    title: Padding(
-      padding: EdgeInsets.only(left: 50.w),
-      child: CustomText(
-        data: boxName,
-        fontWeight: FontWeight.w800,
-        fontSize: 18.sp,
-      ),
+    title: CustomText(
+      data: boxName,
+      fontWeight: FontWeight.w800,
+      fontSize: 18.sp,
     ),
   );
 }

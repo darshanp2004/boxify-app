@@ -1,5 +1,3 @@
-
-
 import 'package:boxify/models/sport_categories_model.dart';
 import 'package:boxify/utils/image_resources.dart';
 import 'package:boxify/utils/string.dart';
@@ -34,17 +32,4 @@ class ExploreCubit extends Cubit<ExploreState> {
   }
 
 
-  Future<void> checkPermission(
-      Permission permission,
-      BuildContext context,
-      ) async {
-    PermissionStatus status = await permission.request();
-    if (status.isGranted) {
-      return;
-    }
-    if (status.isPermanentlyDenied) {
-      openAppSettings();
-      return;
-    }
-  }
 }

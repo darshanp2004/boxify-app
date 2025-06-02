@@ -26,21 +26,17 @@ class _DirectionScreenState extends State<DirectionScreen> {
         appBar: AppBar(
           backgroundColor: Color(0xFFFFFFFF),
           automaticallyImplyLeading: false,
+          centerTitle: true,
           leading: IconButton(
             onPressed: () {
               Navigator.of(context).pop();
             },
             icon: Icon(Icons.close, color: Colors.black),
           ),
-          title: Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: MediaQuery.of(context).size.width / 8,
-            ),
-            child: CustomText(
-              data: boxName,
-              fontWeight: FontWeight.w800,
-              fontSize: 15.sp,
-            ),
+          title: CustomText(
+            data: boxName,
+            fontWeight: FontWeight.w800,
+            fontSize: 15.sp,
           ),
         ),
         body: BlocConsumer<DirectionCubit, DirectionState>(

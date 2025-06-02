@@ -54,17 +54,4 @@ class HomeCubit extends Cubit<HomeState> {
     }
   }
 
-  Future<void> checkPermission(
-      Permission permission,
-      BuildContext context,
-      ) async {
-    PermissionStatus status = await permission.request();
-    if (status.isGranted) {
-      return;
-    }
-    if (status.isPermanentlyDenied) {
-      openAppSettings();
-      return;
-    }
-  }
 }

@@ -30,14 +30,14 @@ class SportCard extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: Color(0xFFFFFFFF),
-        borderRadius: BorderRadius.circular(15.r),
+        borderRadius: BorderRadius.circular(14.r),
       ),
       height: 200.h,
       width: 320.w,
       child: Padding(
         padding: EdgeInsets.all(7.w),
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(15.r),
+          borderRadius: BorderRadius.circular(10.r),
           child: Stack(
             children: [
               Image.asset(
@@ -77,7 +77,6 @@ class SportCard extends StatelessWidget {
                           CustomText(
                             data: "$place  • $distance",
                             fontSize: 12.sp,
-                            fontWeight: FontWeight.w400,
                           ),
                           Spacer(),
                           Padding(
@@ -91,7 +90,7 @@ class SportCard extends StatelessWidget {
                           SizedBox(width: 5.w),
                           CustomText(
                             data: ratings,
-                            fontWeight: FontWeight.w400,
+                            fontSize: 12.sp,
                           ),
                         ],
                       ),

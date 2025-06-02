@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:boxify/custom_widgets/text.dart';
 import 'package:boxify/custom_widgets/textfield.dart';
 import 'package:boxify/screens/bottom/profile/cubit/edit_profile_cubit/editprofile_screen_cubit.dart';
@@ -87,7 +89,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     ],
                   ),
                   Padding(
-                    padding: EdgeInsets.only(left: 120.w, top: 20.h),
+                    padding: EdgeInsets.only(
+                      left: MediaQuery.of(context).size.width / 4 + 10,
+                      top: MediaQuery.of(context).size.height / 25 ,
+                    ),
                     child: IconButton(
                       onPressed: () {
                         imagePickerBottomSheet(context, editProfileCubit);
@@ -95,7 +100,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       icon: Icon(Icons.edit),
                     ),
                   ),
-                  SizedBox(height: 80.h),
+                  SizedBox(height: 30.h),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 30.w),
                     child: CustomTextField(
@@ -259,58 +264,59 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   }
 }
 
-
-
 // ImagePickerBottomSheet
 
 Future<void> imagePickerBottomSheet(
-    BuildContext context,
-    EditProfileCubit cubit,
-    ) {
+  BuildContext context,
+  EditProfileCubit cubit,
+) {
   return showModalBottomSheet(
     context: context,
     builder: (BuildContext context) {
-      return Container(
-        height: 150.h,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(30.r),
-            topRight: Radius.circular(30.r),
+      return BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+        child: Container(
+          height: 150.h,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(30.r),
+              topRight: Radius.circular(30.r),
+            ),
           ),
-        ),
-        child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 30.h),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Column(
-                children: [
-                  IconButton(
-                    icon: Icon(Icons.camera_alt),
-                    iconSize: 50,
-                    color: Color(0xFFD9D9D9),
-                    onPressed: () {
-                      cubit.pickImageFromCamera(context);
-                    },
-                  ),
-                  CustomText(data: camera, fontSize: 12.sp),
-                ],
-              ),
-              Column(
-                children: [
-                  IconButton(
-                    icon: Icon(Icons.photo),
-                    iconSize: 50,
-                    color: Color(0xFFD9D9D9),
-                    onPressed: () {
-                      cubit.pickImageFromGallery(context);
-                    },
-                  ),
-                  CustomText(data: gallery, fontSize: 12.sp),
-                ],
-              ),
-            ],
+          child: Padding(
+            padding: EdgeInsets.symmetric(vertical: 30.h),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Column(
+                  children: [
+                    IconButton(
+                      icon: Icon(Icons.camera_alt),
+                      iconSize: 50,
+                      color: Color(0xFFD9D9D9),
+                      onPressed: () {
+                        cubit.pickImageFromCamera(context);
+                      },
+                    ),
+                    CustomText(data: camera, fontSize: 12.sp),
+                  ],
+                ),
+                Column(
+                  children: [
+                    IconButton(
+                      icon: Icon(Icons.photo),
+                      iconSize: 50,
+                      color: Color(0xFFD9D9D9),
+                      onPressed: () {
+                        cubit.pickImageFromGallery(context);
+                      },
+                    ),
+                    CustomText(data: gallery, fontSize: 12.sp),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       );

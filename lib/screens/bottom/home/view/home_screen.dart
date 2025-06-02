@@ -6,6 +6,7 @@ import 'package:boxify/screens/bottom/home/cubit/homescreen_cubit.dart';
 import 'package:boxify/screens/bottom/home/cubit/homescreen_state.dart';
 import 'package:boxify/screens/bottom/home/view/see_all_screen.dart';
 import 'package:boxify/screens/location/view/location_screen.dart';
+import 'package:boxify/screens/notification/view/notification_screen.dart';
 import 'package:boxify/utils/string.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -74,7 +75,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                         trailing: [SvgPicture.asset(searchIcon)],
-                        backgroundColor: WidgetStatePropertyAll(Color(0xFFFFFFFF)),
+                        backgroundColor: WidgetStatePropertyAll(
+                          Color(0xFFFFFFFF),
+                        ),
                         elevation: WidgetStatePropertyAll(0),
                         shape: WidgetStatePropertyAll(
                           RoundedRectangleBorder(
@@ -87,7 +90,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   SizedBox(height: 25.h),
                   if (state is CardsLoaded)
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 25.w),
+                      padding: EdgeInsets.only(left: 25.w),
                       child: SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
                         child: Row(
@@ -112,11 +115,12 @@ class _HomeScreenState extends State<HomeScreen> {
                               isSelected: state.selectedCategory == tennis,
                               onTap: () => homeCubit.selectCategory(tennis),
                             ),
+                            SizedBox(width: 25.w,)
                           ],
                         ),
                       ),
                     ),
-                  SizedBox(height: 15.h),
+                  SizedBox(height: 20.h),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 25.w),
                     child: Row(
@@ -141,9 +145,18 @@ class _HomeScreenState extends State<HomeScreen> {
                             children: [
                               CustomText(
                                 data: seeAll,
+                                fontSize: 12.sp,
                                 color: Color(0xFF0E7AFF),
                               ),
-                              Icon(Icons.chevron_right, color: Colors.blue),
+                              SizedBox(width: 5.w),
+                              Transform.translate(
+                                offset: Offset(0, -2),
+                                child: Icon(
+                                  Icons.arrow_forward_ios,
+                                  size: 12.sp,
+                                  color: Color(0xFF0E7AFF),
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -183,9 +196,18 @@ class _HomeScreenState extends State<HomeScreen> {
                             children: [
                               CustomText(
                                 data: seeAll,
+                                fontSize: 12.sp,
                                 color: Color(0xFF0E7AFF),
                               ),
-                              Icon(Icons.chevron_right, color: Colors.blue),
+                              SizedBox(width: 5.w),
+                              Transform.translate(
+                                offset: Offset(0, -2),
+                                child: Icon(
+                                  Icons.arrow_forward_ios,
+                                  size: 12.sp,
+                                  color: Color(0xFF0E7AFF),
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -224,9 +246,18 @@ class _HomeScreenState extends State<HomeScreen> {
                             children: [
                               CustomText(
                                 data: seeAll,
+                                fontSize: 12.sp,
                                 color: Color(0xFF0E7AFF),
                               ),
-                              Icon(Icons.chevron_right, color: Colors.blue),
+                              SizedBox(width: 5.w),
+                              Transform.translate(
+                                offset: Offset(0, -2),
+                                child: Icon(
+                                  Icons.arrow_forward_ios,
+                                  size: 12.sp,
+                                  color: Color(0xFF0E7AFF),
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -250,6 +281,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
+
 
 // AppBar
 
@@ -304,7 +336,10 @@ AppBar appBar(
     actions: [
       GestureDetector(
         onTap: () async {
-          homeCubit.checkPermission(Permission.notification, context);
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => NotificationScreen()),
+          );
         },
         child: Image.asset(notificationIcon, height: 24.h, width: 24.w),
       ),
@@ -333,7 +368,6 @@ AppBar appBar(
   );
 }
 
-
 // SportCard List
 
 Widget sportCardList(List<Map<String, String>> cards) {
@@ -343,14 +377,18 @@ Widget sportCardList(List<Map<String, String>> cards) {
     itemBuilder: (context, index) {
       final card = cards[0];
       return Padding(
-        padding: EdgeInsets.only(left: 25.w),
-        child: SportCard(
-          image: card[image]!,
-          title: card[title]!,
-          price: card[price]!,
-          place: card[place]!,
-          distance: card[distance]!,
-          ratings: card[ratings]!,
+        padding: EdgeInsets.only(left: 25.w, right: index == 3 ? 25.w : 0),
+        child: Row(
+          children: [
+            SportCard(
+              image: card[image]!,
+              title: card[title]!,
+              price: card[price]!,
+              place: card[place]!,
+              distance: card[distance]!,
+              ratings: card[ratings]!,
+            ),
+          ],
         ),
       );
     },

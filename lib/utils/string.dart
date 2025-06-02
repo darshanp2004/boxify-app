@@ -149,6 +149,12 @@ const String rateBoxCricket="Rate Urban Box Cricket";
 const String postComment="Post a Comment (optional)";
 const String cancel="Cancel";
 const String post="Post";
+const String enableNotification="Enable Notification";
+const String missingUpdates="You are missing notifications for game updates,\noffers and many more.";
+const String noThanks="No Thanks";
+const String enable="Enable";
+const String noDataFound="No Data Found";
+
 
 // Owner
 const String personalDetails="PERSONAL DETAILS";

@@ -62,7 +62,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     SizedBox(height: 20.h),
                     Container(
                       height: 115.h,
-                      width: 340.w,
+                      width: MediaQuery.of(context).size.width * 0.9,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15.r),
                         color: Color(0xFFFFFFFF),
@@ -151,28 +151,29 @@ class _PaymentScreenState extends State<PaymentScreen> {
                         ),
                         Spacer(),
                         CustomText(
-                          data: state.isSelected?rate:halfAmount,
+                          data: state.isSelected ? rate : halfAmount,
                           color: Color(0xFF636363),
                           fontWeight: FontWeight.w700,
                         ),
                       ],
                     ),
-                    !state.isSelected?
-                    Row(
-                      children: [
-                        CustomText(
-                          data: payAtVenue,
-                          color: Color(0xFF636363),
-                          fontWeight: FontWeight.w700,
-                        ),
-                        Spacer(),
-                        CustomText(
-                          data: halfAmount,
-                          color: Color(0xFF636363),
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ],
-                    ):SizedBox(height: 22.h,),
+                    !state.isSelected
+                        ? Row(
+                          children: [
+                            CustomText(
+                              data: payAtVenue,
+                              color: Color(0xFF636363),
+                              fontWeight: FontWeight.w700,
+                            ),
+                            Spacer(),
+                            CustomText(
+                              data: halfAmount,
+                              color: Color(0xFF636363),
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ],
+                        )
+                        : SizedBox(height: 22.h),
                     SizedBox(height: 20.h),
                     Stack(
                       children: [
@@ -221,7 +222,10 @@ class _PaymentScreenState extends State<PaymentScreen> {
                               fontWeight: FontWeight.w700,
                             ),
                             Spacer(),
-                            CustomText(data: state.isSelected?rate:halfAmount, fontWeight: FontWeight.w700),
+                            CustomText(
+                              data: state.isSelected ? rate : halfAmount,
+                              fontWeight: FontWeight.w700,
+                            ),
                           ],
                         ),
                       ),
@@ -276,6 +280,7 @@ AppBar appBar(BuildContext context) {
       statusBarIconBrightness: Brightness.dark,
     ),
     backgroundColor: Colors.transparent,
+    centerTitle: true,
     leading: Padding(
       padding: EdgeInsets.only(left: 25.w),
       child: GestureDetector(
@@ -286,13 +291,10 @@ AppBar appBar(BuildContext context) {
         ),
       ),
     ),
-    title: Padding(
-      padding: EdgeInsets.only(left: 50.w),
-      child: CustomText(
-        data: boxName,
-        fontWeight: FontWeight.w800,
-        fontSize: 18.sp,
-      ),
+    title: CustomText(
+      data: boxName,
+      fontWeight: FontWeight.w800,
+      fontSize: 18.sp,
     ),
   );
 }

@@ -1,11 +1,10 @@
-import 'package:boxify/custom_widgets/elevatedbutton.dart';
+import 'dart:ui';
 import 'package:boxify/custom_widgets/text.dart';
 import 'package:boxify/screens/bottom/booking/cubit/booking_screen_cubit/bookingscreen_cubit.dart';
 import 'package:boxify/screens/bottom/booking/cubit/booking_screen_cubit/bookingscreen_state.dart';
 import 'package:boxify/screens/bottom/booking/view/booking_info_screen.dart';
 import 'package:boxify/utils/image_resources.dart';
 import 'package:boxify/utils/string.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -46,12 +45,7 @@ class _BookingScreenState extends State<BookingScreen>
                       controller: bookingCubit.tabController,
                       children: [
                         upcomingList(cards),
-                        GestureDetector(
-                          onTap: () {
-                            ratingsBottomSheet(context);
-                          },
-                          child: historyList(cards),
-                        ),
+                        historyList(cards),
                         cancelledList(cards),
                       ],
                     ),
@@ -81,13 +75,14 @@ class Button extends StatelessWidget {
         borderRadius: BorderRadius.circular(10.r),
         color: Colors.white,
         border: Border.all(
-          color: isSelected ? Colors.blue : Colors.transparent,
+          color: isSelected ?Color(0xFF0E7AFF) : Colors.transparent,
         ),
       ),
       child: Center(
         child: CustomText(
           data: text,
-          color: isSelected ? Colors.blue : Colors.grey,
+          fontSize: 12.sp,
+          color: isSelected ? Color(0xFF0E7AFF): Color(0xFF636363),
         ),
       ),
     );
@@ -101,6 +96,7 @@ class Card extends StatelessWidget {
   final String imagePath;
   final bool isCancelled;
   final bool showStatus;
+  final bool showRatingPrompt;
 
   const Card({
     super.key,
@@ -110,6 +106,7 @@ class Card extends StatelessWidget {
     required this.imagePath,
     this.isCancelled = false,
     this.showStatus = true,
+    this.showRatingPrompt = false,
   });
 
   @override
@@ -117,7 +114,7 @@ class Card extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 25.w),
       child: Container(
-        height: 115.h,
+        height: 122.h,
         width: 340.w,
         decoration: BoxDecoration(
           color: Colors.white,
@@ -126,10 +123,10 @@ class Card extends StatelessWidget {
         child: Row(
           children: [
             Padding(
-              padding: EdgeInsets.only(left: 8.w),
+              padding: EdgeInsets.only(left: 8.w, top: 8, bottom: 8),
               child: Container(
-                height: 100.h,
-                width: 100.h,
+                height: showRatingPrompt ? 140.h : 110.h,
+                width: 110.h,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10.r),
                   border: Border.all(color: Colors.grey, width: 2),
@@ -141,7 +138,10 @@ class Card extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(left: 10.w, top: 15.h),
+              padding: EdgeInsets.only(
+                left: 10.w,
+                top: showRatingPrompt ? 8.h : 20.h,
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -151,10 +151,11 @@ class Card extends StatelessWidget {
                         data: title,
                         fontWeight: FontWeight.w800,
                         fontSize: 16.sp,
+                        color: Color(0xFF1E1E1E),
                       ),
                       if (showStatus)
                         Padding(
-                          padding: EdgeInsets.only(left: 25.w),
+                          padding: EdgeInsets.only(left: 15.w),
                           child: Container(
                             height: 15.h,
                             width: 50.w,
@@ -189,6 +190,7 @@ class Card extends StatelessWidget {
                       SizedBox(width: 6.w),
                       CustomText(
                         data: date,
+                        fontSize: 15.sp,
                         color: Color(0xFF636363),
                         fontWeight: FontWeight.w700,
                       ),
@@ -201,11 +203,30 @@ class Card extends StatelessWidget {
                       SizedBox(width: 6.w),
                       CustomText(
                         data: time,
+                        fontSize: 15.sp,
                         color: Color(0xFF636363),
                         fontWeight: FontWeight.w700,
                       ),
                     ],
                   ),
+                  if (showRatingPrompt)
+                    Padding(
+                      padding: EdgeInsets.only(top: 8.h),
+                      child: GestureDetector(
+                       onTap: (){ratingsBottomSheet(context);},
+                        child: Row(
+                          children: [
+                            CustomText(
+                              data: rateBoxCricket,
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w700,
+                              color: Color(0xFF0E7AFF),
+                            ),
+                            Icon(Icons.arrow_forward_ios,size: 9.sp,color: Color(0xFF0E7AFF),)
+                          ],
+                        ),
+                      ),
+                    ),
                 ],
               ),
             ),
@@ -311,6 +332,7 @@ Widget historyList(List cards) {
           time: card.time,
           imagePath: card.image,
           isCancelled: false,
+          showRatingPrompt: true,
         ),
       );
     },
@@ -339,116 +361,126 @@ Widget cancelledList(List cards) {
 
 Future<void> ratingsBottomSheet(BuildContext context) {
   return showModalBottomSheet(
+    isScrollControlled: true,
     context: context,
     builder: (BuildContext context) {
-      return Container(
-        height: 368.h,
-        width: double.infinity,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(30.r),
-            topRight: Radius.circular(30.r),
-          ),
+      return Padding(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom,
         ),
-        child: Padding(
-          padding: EdgeInsets.only(top: 30.h, left: 30.w, right: 30.w),
-          child: Column(
-            children: [
-              Row(
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+          child: Container(
+            height: 368.h,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(30.r),
+                topRight: Radius.circular(30.r),
+              ),
+            ),
+            child: Padding(
+              padding: EdgeInsets.only(top: 30.h, left: 30.w, right: 30.w),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  CustomText(
-                    data: rateBoxCricket,
-                    fontWeight: FontWeight.w700,
-                    fontSize: 24.sp,
-                  ),
-                  Spacer(),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                    child: Icon(
-                      Icons.close,
-                      color: Color(0xFF1E1E1E),
-                      size: 30,
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 20.h),
-              RatingBar(
-                initialRating: 1,
-                minRating: 1,
-                direction: Axis.horizontal,
-                allowHalfRating: true,
-                itemCount: 5,
-                itemPadding: EdgeInsets.symmetric(horizontal: 10.w),
-                ratingWidget: RatingWidget(
-                  full: Icon(Icons.star, color: Color(0xFF0E7AFF)),
-                  half: Icon(Icons.star_half, color: Color(0xFF0E7AFF)),
-                  empty: Icon(Icons.star_border, color: Color(0xFF0E7AFF)),
-                ),
-                onRatingUpdate: (rating) {},
-              ),
-              SizedBox(height: 20.h),
-              SizedBox(
-                height: 127.h,
-                child: TextFormField(
-                  maxLines: 10,
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Colors.transparent,
-                    hintText: postComment,
-                    hintStyle: TextStyle(
-                      fontSize: 12.sp,
-                      fontFamily: andersonGrotesk,
-                      color: Color(0xFF999999),
-                    ),
-                    contentPadding: EdgeInsets.only(top: 10.h, left: 15.w),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(15.r),
-                      borderSide: BorderSide(color: Color(0XFFD2D4DA)),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(15.r),
-                      borderSide: BorderSide(color: Color(0XFF0E7AFF)),
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(15.r),
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(height: 20.h),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  CustomText(
-                    data: cancel,
-                    fontWeight: FontWeight.w700,
-                    fontSize: 12.sp,
-                  ),
-                  SizedBox(width: 10.w,),
-                  Container(
-                    width: 63.w,
-                    height: 31.h,
-                    decoration: BoxDecoration(
-                      color: Color(0xFF0E7AFF),
-                      borderRadius: BorderRadius.circular(8.r),
-                    ),
-                    child: Center(
-                      child: CustomText(
-                        data: post,
-                        color: Color(0xFFFFFFFF),
+                  Row(
+                    children: [
+                      CustomText(
+                        data: rateBoxCricket,
                         fontWeight: FontWeight.w700,
-                        fontSize: 12.sp,
+                        fontSize: 24.sp,
+                      ),
+                      Spacer(),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Icon(
+                          Icons.close,
+                          color: Color(0xFF1E1E1E),
+                          size: 30,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 20.h),
+                  RatingBar(
+                    initialRating: 1,
+                    minRating: 1,
+                    direction: Axis.horizontal,
+                    allowHalfRating: true,
+                    itemCount: 5,
+                    itemPadding: EdgeInsets.symmetric(horizontal: 10.w),
+                    ratingWidget: RatingWidget(
+                      full: Icon(Icons.star, color: Color(0xFF0E7AFF)),
+                      half: Icon(Icons.star_half, color: Color(0xFF0E7AFF)),
+                      empty: Icon(Icons.star_border, color: Color(0xFF0E7AFF)),
+                    ),
+                    onRatingUpdate: (rating) {},
+                  ),
+                  SizedBox(height: 20.h),
+                  SizedBox(
+                    height: 127.h,
+                    child: TextFormField(
+                      maxLines: 10,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.transparent,
+                        hintText: postComment,
+                        hintStyle: TextStyle(
+                          fontSize: 12.sp,
+                          fontFamily: andersonGrotesk,
+                          color: Color(0xFF999999),
+                        ),
+                        contentPadding: EdgeInsets.only(top: 10.h, left: 15.w),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15.r),
+                          borderSide: BorderSide(color: Color(0XFFD2D4DA)),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15.r),
+                          borderSide: BorderSide(color: Color(0XFF0E7AFF)),
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15.r),
+                        ),
                       ),
                     ),
                   ),
+                  SizedBox(height: 20.h),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      CustomText(
+                        data: cancel,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 12.sp,
+                      ),
+                      SizedBox(width: 10.w),
+                      Container(
+                        width: 63.w,
+                        height: 31.h,
+                        decoration: BoxDecoration(
+                          color: Color(0xFF0E7AFF),
+                          borderRadius: BorderRadius.circular(8.r),
+                        ),
+                        child: Center(
+                          child: CustomText(
+                            data: post,
+                            color: Color(0xFFFFFFFF),
+                            fontWeight: FontWeight.w700,
+                            fontSize: 12.sp,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ],
               ),
-            ],
+            ),
           ),
         ),
       );

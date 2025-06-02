@@ -31,12 +31,10 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
           toolbarHeight: 70.h,
           surfaceTintColor: Colors.transparent,
           backgroundColor: Color(0XFFFFFFFF),
-          title: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 80.w),
-            child: CustomText(
-              data: widget.category ?? "",
-              fontWeight: FontWeight.bold,
-            ),
+          centerTitle: true,
+          title: CustomText(
+            data: widget.category ?? "",
+            fontWeight: FontWeight.bold,
           ),
         ),
         body: SingleChildScrollView(
