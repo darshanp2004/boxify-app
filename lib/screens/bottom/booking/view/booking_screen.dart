@@ -188,11 +188,14 @@ class Card extends StatelessWidget {
                     children: [
                       Image.asset(calenderIcon, height: 16.w, width: 16.w),
                       SizedBox(width: 6.w),
-                      CustomText(
-                        data: date,
-                        fontSize: 15.sp,
-                        color: Color(0xFF636363),
-                        fontWeight: FontWeight.w700,
+                      Transform.translate(
+                        offset: Offset(0, 1),
+                        child: CustomText(
+                          data: date,
+                          fontSize: 15.sp,
+                          color: Color(0xFF636363),
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                     ],
                   ),
@@ -201,11 +204,14 @@ class Card extends StatelessWidget {
                     children: [
                       Image.asset(clockIcon, height: 16.h, width: 16.w),
                       SizedBox(width: 6.w),
-                      CustomText(
-                        data: time,
-                        fontSize: 15.sp,
-                        color: Color(0xFF636363),
-                        fontWeight: FontWeight.w700,
+                      Transform.translate(
+                        offset: Offset(0, 1),
+                        child: CustomText(
+                          data: time,
+                          fontSize: 15.sp,
+                          color: Color(0xFF636363),
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                     ],
                   ),
@@ -359,6 +365,8 @@ Widget cancelledList(List cards) {
   );
 }
 
+// Ratings BottomSheet
+
 Future<void> ratingsBottomSheet(BuildContext context) {
   return showModalBottomSheet(
     isScrollControlled: true,
@@ -414,9 +422,9 @@ Future<void> ratingsBottomSheet(BuildContext context) {
                     itemCount: 5,
                     itemPadding: EdgeInsets.symmetric(horizontal: 10.w),
                     ratingWidget: RatingWidget(
-                      full: Icon(Icons.star, color: Color(0xFF0E7AFF)),
-                      half: Icon(Icons.star_half, color: Color(0xFF0E7AFF)),
-                      empty: Icon(Icons.star_border, color: Color(0xFF0E7AFF)),
+                      full: Icon(Icons.star_rounded, color: Color(0xFF0E7AFF)),
+                      half: Icon(Icons.star_half_rounded, color: Color(0xFF0E7AFF)),
+                      empty: Icon(Icons.star_border_rounded, color: Color(0xFF0E7AFF)),
                     ),
                     onRatingUpdate: (rating) {},
                   ),

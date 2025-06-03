@@ -45,20 +45,40 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         ),
                       ),
                       Positioned(
-                        top: 160.h,
-                        left: MediaQuery.of(context).size.width / 2 - 60.w,
-                        child: CircleAvatar(
-                          radius: 64.r,
-                          backgroundColor: Color(0xFFD2D4DA),
-                          child: CircleAvatar(
-                            backgroundColor: Color(0xFFFFFFFF),
-                            radius: 62.r,
-                            child: CircleAvatar(
-                              backgroundImage:
-                                  state.image != null
-                                      ? FileImage(state.image!)
-                                      : AssetImage(profileImage),
-                              radius: 57.r,
+                        top: 140.h,
+                        left: MediaQuery.of(context).size.width / 3 - 10.w,
+                        child: Container(
+                          height: 150.h,
+                          width: 150.w,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Color(0xFFD2D4DA),
+                          ),
+                          child: Center(
+                            child: Container(
+                              height: 144.h,
+                              width: 144.w,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Color(0xFFFFFFFF),
+                              ),
+                              child: Center(
+                                child: Container(
+                                  height: 135.h,
+                                  width: 135.w,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    image: DecorationImage(
+                                      image:
+                                          state.image != null
+                                              ? FileImage(state.image!)
+                                                  as ImageProvider
+                                              : AssetImage(profileImage),
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                              ),
                             ),
                           ),
                         ),
@@ -89,15 +109,28 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     ],
                   ),
                   Padding(
-                    padding: EdgeInsets.only(
-                      left: MediaQuery.of(context).size.width / 4 + 10,
-                      top: MediaQuery.of(context).size.height / 25 ,
-                    ),
-                    child: IconButton(
-                      onPressed: () {
+                    padding: EdgeInsets.only(left: 90.w, top: 35.h),
+                    child: GestureDetector(
+                      onTap: () {
                         imagePickerBottomSheet(context, editProfileCubit);
                       },
-                      icon: Icon(Icons.edit),
+                      child: Container(
+                        height: 35.h,
+                        width: 35.w,
+                        decoration: BoxDecoration(
+                          color: Color(0xFF0E7AFF),
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: Color(0xFFFFFFFF),
+                            width: 3,
+                          ),
+                        ),
+                        child: Icon(
+                          Icons.edit_outlined,
+                          color: Color(0xFFFFFFFF),
+                          size: 20.sp,
+                        ),
+                      ),
                     ),
                   ),
                   SizedBox(height: 30.h),

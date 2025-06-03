@@ -3,6 +3,7 @@ import 'package:boxify/custom_widgets/text.dart';
 import 'package:boxify/screens/bottom/booking/cubit/booking_venue_cubit/booking_venue_cubit.dart';
 import 'package:boxify/screens/bottom/booking/cubit/booking_venue_cubit/booking_venue_state.dart';
 import 'package:boxify/screens/bottom/booking/view/booking_process_screen.dart';
+import 'package:boxify/screens/ratings/view/ratings_screen.dart';
 import 'package:boxify/utils/image_resources.dart';
 import 'package:boxify/utils/string.dart';
 import 'package:flutter/material.dart';
@@ -123,7 +124,11 @@ class _BookingVenueScreenState extends State<BookingVenueScreen> {
                                   vertical: 15.h,
                                   horizontal: 20.h,
                                 ),
-                                child: CustomText(data: venueDistance),
+                                child: CustomText(
+                                  data: venueDistance,
+                                  fontSize: 15.sp,
+                                  color: Color(0xFF1E1E1E),
+                                ),
                               ),
                             ),
                             Spacer(),
@@ -150,7 +155,11 @@ class _BookingVenueScreenState extends State<BookingVenueScreen> {
                                     padding: EdgeInsets.symmetric(
                                       vertical: 15.h,
                                     ),
-                                    child: CustomText(data: getDirection),
+                                    child: CustomText(
+                                      data: getDirection,
+                                      fontSize: 15.sp,
+                                      color: Color(0xFF1E1E1E),
+                                      ),
                                   ),
                                 ],
                               ),
@@ -163,7 +172,7 @@ class _BookingVenueScreenState extends State<BookingVenueScreen> {
                             CustomText(
                               data: rating,
                               fontWeight: FontWeight.w800,
-                              fontSize: 18.sp,
+                              fontSize: 15.sp,
                             ),
                             SizedBox(width: 10.w),
                             Container(
@@ -177,13 +186,12 @@ class _BookingVenueScreenState extends State<BookingVenueScreen> {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Padding(
-                                      padding: EdgeInsets.symmetric(
-                                        vertical: 4.h,
-                                      ),
+                                    Transform.translate(
+                                      offset: Offset(0, 2),
                                       child: CustomText(
                                         data: ratingValue,
                                         color: Colors.white,
+                                        fontSize: 15.sp,
                                       ),
                                     ),
                                     SizedBox(width: 5.w),
@@ -196,6 +204,23 @@ class _BookingVenueScreenState extends State<BookingVenueScreen> {
                                 ),
                               ),
                             ),
+                            Spacer(),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => RatingsScreen(),
+                                  ),
+                                );
+                              },
+                              child: CustomText(
+                                data: seeAll,
+                                color: Color(0xFF0E7AFF),
+                                fontSize: 15.sp,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
                           ],
                         ),
                         SizedBox(height: 5.h),
@@ -203,7 +228,7 @@ class _BookingVenueScreenState extends State<BookingVenueScreen> {
                         SizedBox(height: 5.h),
                         CustomText(
                           data: amenitiesText,
-                          fontSize: 18.sp,
+                          fontSize: 15.sp,
                           fontWeight: FontWeight.w800,
                         ),
                         SizedBox(height: 15.h),
@@ -446,27 +471,32 @@ class _BookingVenueScreenState extends State<BookingVenueScreen> {
                       child: Image.asset(heartIcon),
                     ),
                   ),
-                   GestureDetector(
-                     onTap: (){
-                       Navigator.push(context, MaterialPageRoute(builder: (context)=>BookingProcessScreen()));
-                     },
-                     child: Container(
-                        width: 250.w,
-                        height: 50.h,
-                        decoration: BoxDecoration(
-                          color: Color(0xFF0E7AFF),
-                          borderRadius: BorderRadius.circular(10.r),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => BookingProcessScreen(),
                         ),
-                        child: Center(
-                          child: CustomText(
-                            data: bookNow,
-                            fontWeight: FontWeight.w800,
-                            fontSize: 15.sp,
-                            color: Color(0xFFF3F4F8),
-                          ),
+                      );
+                    },
+                    child: Container(
+                      width: 250.w,
+                      height: 50.h,
+                      decoration: BoxDecoration(
+                        color: Color(0xFF0E7AFF),
+                        borderRadius: BorderRadius.circular(10.r),
+                      ),
+                      child: Center(
+                        child: CustomText(
+                          data: bookNow,
+                          fontWeight: FontWeight.w800,
+                          fontSize: 15.sp,
+                          color: Color(0xFFF3F4F8),
                         ),
                       ),
-                   ),
+                    ),
+                  ),
                 ],
               ),
             ),

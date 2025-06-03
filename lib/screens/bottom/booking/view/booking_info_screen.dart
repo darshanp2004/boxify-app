@@ -67,6 +67,7 @@ class _BookingInfoScreenState extends State<BookingInfoScreen> {
                             flex: 2,
                             child: CustomElevatedButton(
                               text: chatWithOwner,
+                              fontWeight: FontWeight.w700,
                               onPressed: () {
                                 Navigator.push(
                                   context,
@@ -81,11 +82,11 @@ class _BookingInfoScreenState extends State<BookingInfoScreen> {
                                   ),
                                 );
                               },
-                              width: 180.w,
-                              fontSize: 14.sp,
+                              fontSize: 12.sp,
                               backgroundColor: Color(0xFF0E7AFF),
                               borderColor: Colors.transparent,
                               textColor: Colors.white,
+                              borderRadius: 10.r,
                             ),
                           ),
                           SizedBox(width: 5.w),
@@ -93,6 +94,7 @@ class _BookingInfoScreenState extends State<BookingInfoScreen> {
                             flex: 2,
                             child: CustomElevatedButton(
                               text: getDirection,
+                              fontWeight: FontWeight.w700,
                               onPressed: () {
                                 Navigator.push(
                                   context,
@@ -101,11 +103,11 @@ class _BookingInfoScreenState extends State<BookingInfoScreen> {
                                   ),
                                 );
                               },
-                              width: 180.w,
-                              fontSize: 14.sp,
+                              fontSize: 12.sp,
                               backgroundColor: Color(0xFF0E7AFF),
                               borderColor: Colors.transparent,
                               textColor: Colors.white,
+                              borderRadius: 10.r,
                             ),
                           ),
                         ],
@@ -124,8 +126,9 @@ class _BookingInfoScreenState extends State<BookingInfoScreen> {
                         },
                         textColor: Color(0xFF636363),
                         borderColor: Color(0xFFC4C4C4),
-                        fontSize: 18.sp,
+                        fontSize: 15.sp,
                         fontWeight: FontWeight.w700,
+                        borderRadius: 10.r,
                       ),
                     ),
                   ],
@@ -201,10 +204,14 @@ class BookingInfoCard extends StatelessWidget {
               children: [
                 Image.asset(courtIcon, height: 16.h, width: 16.w),
                 SizedBox(width: 10.w),
-                CustomText(
-                  data: court,
-                  fontWeight: FontWeight.w700,
-                  color: Color(0xFF636363),
+                Transform.translate(
+                  offset: Offset(0, 1),
+                  child: CustomText(
+                    data: court,
+                    fontSize: 15.sp,
+                    fontWeight: FontWeight.w700,
+                    color: Color(0xFF636363),
+                  ),
                 ),
               ],
             ),
@@ -216,10 +223,14 @@ class BookingInfoCard extends StatelessWidget {
               children: [
                 Image.asset(calenderIcon, height: 16.h, width: 16.w),
                 SizedBox(width: 10.w),
-                CustomText(
-                  data: date,
-                  fontWeight: FontWeight.w700,
-                  color: Color(0xFF636363),
+                Transform.translate(
+                  offset: Offset(0, 1),
+                  child: CustomText(
+                    data: date,
+                    fontSize: 15.sp,
+                    fontWeight: FontWeight.w700,
+                    color: Color(0xFF636363),
+                  ),
                 ),
               ],
             ),
@@ -231,10 +242,14 @@ class BookingInfoCard extends StatelessWidget {
               children: [
                 Image.asset(clockIcon, height: 16.h, width: 16.w),
                 SizedBox(width: 10.w),
-                CustomText(
-                  data: time,
-                  fontWeight: FontWeight.w700,
-                  color: Color(0xFF636363),
+                Transform.translate(
+                  offset: Offset(0, 1),
+                  child: CustomText(
+                    data: time,
+                    fontSize: 15.sp,
+                    fontWeight: FontWeight.w700,
+                    color: Color(0xFF636363),
+                  ),
                 ),
               ],
             ),

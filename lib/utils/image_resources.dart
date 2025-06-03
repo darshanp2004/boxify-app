@@ -64,3 +64,6 @@ const String turfIcon = "assets/images/turfIcon.png";
 const String courtNameIcon = "assets/images/courtNameIcon.png";
 const String courtTypeIcon = "assets/images/courtTypeIcon.png";
 const String addressIcon="assets/images/addressIcon.png";
+const String user1="assets/images/user1.png";
+const String user2="assets/images/user2.png";
+

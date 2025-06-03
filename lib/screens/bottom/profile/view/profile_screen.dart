@@ -238,7 +238,7 @@ AppBar appBar(BuildContext context) {
           padding: EdgeInsets.only(left: 15.w),
           child: Container(
             height: 50.h,
-            padding: EdgeInsets.all(3),
+            padding: EdgeInsets.all(3.w),
             decoration: BoxDecoration(
               border: Border.all(color: Color(0xFFD2D4DA)),
               color: Colors.white,

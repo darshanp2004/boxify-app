@@ -41,7 +41,7 @@ const String searchHint = "Search Venues";
 const String venueNear = "Venue Nearby!";
 const String footballVenue = "Football Grounds";
 const String tennisVenue = "Tennis Grounds";
-const String seeAll = "See all";
+const String seeAll = "See All";
 const String loc = "Location";
 const String locText = "Current Location using GPS";
 const String loginKey = "loggedIn";
@@ -153,8 +153,6 @@ const String enableNotification="Enable Notification";
 const String missingUpdates="You are missing notifications for game updates,\noffers and many more.";
 const String noThanks="No Thanks";
 const String enable="Enable";
-const String noDataFound="No Data Found";
-
 
 // Owner
 const String personalDetails="PERSONAL DETAILS";

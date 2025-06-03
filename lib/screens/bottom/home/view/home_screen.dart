@@ -12,7 +12,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 import '../../../../utils/image_resources.dart';
 
@@ -150,7 +149,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                               SizedBox(width: 5.w),
                               Transform.translate(
-                                offset: Offset(0, -2),
+                                offset: Offset(0, -1.5),
                                 child: Icon(
                                   Icons.arrow_forward_ios,
                                   size: 12.sp,
@@ -201,7 +200,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                               SizedBox(width: 5.w),
                               Transform.translate(
-                                offset: Offset(0, -2),
+                                offset: Offset(0, -1.5),
                                 child: Icon(
                                   Icons.arrow_forward_ios,
                                   size: 12.sp,
@@ -251,7 +250,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                               SizedBox(width: 5.w),
                               Transform.translate(
-                                offset: Offset(0, -2),
+                                offset: Offset(0, -1.5),
                                 child: Icon(
                                   Icons.arrow_forward_ios,
                                   size: 12.sp,

@@ -28,7 +28,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
         listener: (BuildContext context, NotificationState state) {},
         builder: (BuildContext context, NotificationState state) {
           var notificationCubit = NotificationCubit.get(context);
-          final showDialog = state is! NotificationPermissionGranted;
+          final showDialog =
+              state is NotificationPermissionDenied ||
+              state is NotificationPermissionDeniedPermanently;
           return Scaffold(
             backgroundColor: Color(0xFFF3F4F8),
             appBar: appBar(context),
@@ -39,33 +41,14 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 child:
                     showDialog
                         ? notificationContainer(context, notificationCubit)
-                        : Center(
-                          child: Container(
-                            height: 60.h,
-                            width: 342.w,
-                            decoration: BoxDecoration(
-                              color: Color(0xFF0E7AFF),
-                              borderRadius: BorderRadius.circular(6.r),
+                        : Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            filterButton(notificationCubit),
+                            Expanded(
+                              child: notificationList(notificationCubit),
                             ),
-                            child: Row(
-                              children: [
-                                SizedBox(width: 3.w),
-                                Container(
-                                  width: 337.w,
-                                  height: double.infinity,
-                                  decoration: BoxDecoration(
-                                    color: Color(0xFFFFFFFF),
-                                    borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(4.r),
-                                      bottomLeft: Radius.circular(4.r),
-                                      topRight: Radius.circular(6.r),
-                                      bottomRight: Radius.circular(6.r),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
+                          ],
                         ),
               ),
             ),
@@ -184,5 +167,130 @@ Widget notificationContainer(BuildContext context, NotificationCubit cubit) {
         ],
       ),
     ),
+  );
+}
+
+//  NotificationList
+
+Widget notificationList(NotificationCubit cubit) {
+  return ListView.builder(
+    itemCount: cubit.filteredNotifications.length,
+    itemBuilder: (context, index) {
+      final notification = cubit.filteredNotifications[index];
+      return Padding(
+        padding: EdgeInsets.only(bottom: 10.h),
+        child: Container(
+          decoration: BoxDecoration(
+            color: notification.isRead ? Color(0xFFBFC2C8) : Color(0xFF0E7AFF),
+            borderRadius: BorderRadius.circular(6.r),
+          ),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(width: 3.w),
+              Expanded(
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(4.r),
+                      bottomLeft: Radius.circular(4.r),
+                      topRight: Radius.circular(6.r),
+                      bottomRight: Radius.circular(6.r),
+                    ),
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 15.w,
+                      vertical: 10.h,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Row(
+                          children: [
+                            Image.asset(
+                              calenderIcon,
+                              height: 10.h,
+                              width: 10.w,
+                            ),
+                            SizedBox(width: 8.w),
+                            Transform.translate(
+                            offset: Offset(0, 1),
+                              child: CustomText(
+                                data: cubit.showTime(notification.timestamp),
+                                fontSize: 8.sp,
+                              ),
+                            ),
+                            Spacer(),
+                            if (!notification.isRead)
+                              Padding(
+                                padding: EdgeInsets.only(right: 15.w),
+                                child: Container(
+                                  height: 6.h,
+                                  width: 6.w,
+                                  decoration: BoxDecoration(
+                                    color: Color(0xFF0E7AFF),
+                                    shape: BoxShape.circle,
+                                  ),
+                                ),
+                              ),
+                          ],
+                        ),
+                        SizedBox(height: 8.h),
+                        CustomText(
+                          data: notification.message,
+                          fontSize: 10.sp,
+                          maxLines: null,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    },
+  );
+}
+
+// FilterButton
+
+Widget filterButton(NotificationCubit cubit) {
+  return Row(
+    children: List.generate(cubit.filters.length, (index) {
+      final filter = cubit.filters[index];
+      final isSelected = (filter == cubit.selectedFilter);
+      return GestureDetector(
+        onTap: () {
+          cubit.filterNotifications(filter);
+        },
+        child: Padding(
+          padding: EdgeInsets.only(right: 10.w, top: 25.h, bottom: 25.h),
+          child: Container(
+            height: 35.h,
+            width: 80.w,
+            decoration: BoxDecoration(
+              color: Color(0xFFFFFFFF),
+              borderRadius: BorderRadius.circular(10.r),
+              border: Border.all(
+                color: isSelected ? Color(0xFF0E7AFF) : Color(0xFFBFC2C8),
+              ),
+            ),
+            child: Center(
+              child: CustomText(
+                data: filter,
+                fontSize: 12.sp,
+                fontWeight: FontWeight.w700,
+                color: Color(0xFF000000),
+              ),
+            ),
+          ),
+        ),
+      );
+    }),
   );
 }

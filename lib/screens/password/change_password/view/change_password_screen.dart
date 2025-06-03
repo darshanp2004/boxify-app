@@ -4,6 +4,7 @@ import 'package:boxify/custom_widgets/text.dart';
 import 'package:boxify/custom_widgets/textfield.dart';
 import 'package:boxify/screens/password/change_password/cubit/change_password_cubit/change_password_cubit.dart';
 import 'package:boxify/screens/password/change_password/cubit/change_password_cubit/change_password_state.dart';
+import 'package:boxify/screens/password/forgot_password/view/forgot_password_screen.dart';
 import 'package:boxify/utils/string.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -25,10 +26,10 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
       child: Scaffold(
         backgroundColor: Color(0xFFF3F4F8),
         appBar: appBar(context),
-        body: BlocConsumer<ChangePasswordCubit,ChangePasswordState>(
+        body: BlocConsumer<ChangePasswordCubit, ChangePasswordState>(
           listener: (BuildContext context, Object? state) {},
           builder: (BuildContext context, state) {
-            var changePasswordCubit=ChangePasswordCubit.get(context);
+            var changePasswordCubit = ChangePasswordCubit.get(context);
             return Padding(
               padding: EdgeInsets.symmetric(horizontal: 35.w),
               child: Column(
@@ -68,15 +69,27 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                     fontWeight: FontWeight.w800,
                     backgroundColor: Color(0xFF0E7AFF),
                     textColor: Color(0xFFFFFFFF),
-                    onPressed: () {changePasswordCubit.submitChangePassword(context);},
+                    onPressed: () {
+                      changePasswordCubit.submitChangePassword(context);
+                    },
                   ),
                   SizedBox(height: 10.h),
                   Center(
-                    child: CustomText(
-                      data: forgotPassText,
-                      fontWeight: FontWeight.w700,
-                      fontSize: 12.sp,
-                      color: Color(0xFF1E1E1E),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ForgotPasswordScreen(),
+                          ),
+                        );
+                      },
+                      child: CustomText(
+                        data: forgotPassText,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 12.sp,
+                        color: Color(0xFF1E1E1E),
+                      ),
                     ),
                   ),
                 ],

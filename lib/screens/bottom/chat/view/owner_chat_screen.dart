@@ -121,8 +121,8 @@ class _OwnerChatScreenState extends State<OwnerChatScreen> {
                     ),
                   ),
                   Positioned(
-                    top: 5,
-                    right: 5,
+                    top: 5.h,
+                    right: 5.w,
                     child: GestureDetector(
                       onTap: () =>chatCubit.sendMessage(),
                       child: Container(

@@ -1,3 +1,4 @@
+import 'package:boxify/screens/ratings/view/ratings_screen.dart';
 import 'package:boxify/screens/splash/view/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

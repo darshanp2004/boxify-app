@@ -23,6 +23,7 @@ class _DirectionScreenState extends State<DirectionScreen> {
     return BlocProvider(
       create: (context) => DirectionCubit()..loadDirections(),
       child: Scaffold(
+        backgroundColor: Color(0xFFF3F4F8),
         appBar: AppBar(
           backgroundColor: Color(0xFFFFFFFF),
           automaticallyImplyLeading: false,
