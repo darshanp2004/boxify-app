@@ -2,6 +2,7 @@ import 'package:boxify/custom_widgets/text.dart';
 import 'package:boxify/screens/auth/sign_in/view/signin_screen.dart';
 import 'package:boxify/screens/bottom/profile/cubit/profile_cubit/profilescreen_cubit.dart';
 import 'package:boxify/screens/bottom/profile/cubit/profile_cubit/profilescreen_state.dart';
+import 'package:boxify/screens/help_support/view/help_support_screen.dart';
 import 'package:boxify/screens/password/change_password/view/change_password_screen.dart';
 import 'package:boxify/screens/bottom/profile/view/edit_profile_screen.dart';
 import 'package:boxify/utils/string.dart';
@@ -33,7 +34,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             builder: (context, state) {
               var profileCubit = ProfileCubit.get(context);
               return Padding(
-                padding:  EdgeInsets.symmetric(horizontal: 30.w),
+                padding: EdgeInsets.symmetric(horizontal: 25.w),
                 child: Column(
                   children: [
                     SizedBox(height: 30.h),
@@ -87,13 +88,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                     ),
                     SizedBox(height: 5.h),
-                    ListTile(
-                      iconPath: helpSupportIcon,
-                      title: helpAndSupport,
-                      trailing: Image.asset(
-                        rightArrowIcon,
-                        height: 20.h,
-                        width: 10.w,
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => HelpSupportScreen(),
+                          ),
+                        );
+                      },
+                      child: ListTile(
+                        iconPath: helpSupportIcon,
+                        title: helpAndSupport,
+                        trailing: Image.asset(
+                          rightArrowIcon,
+                          height: 20.h,
+                          width: 10.w,
+                        ),
                       ),
                     ),
                     SizedBox(height: 5.h),
@@ -140,7 +151,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             await SharedPreferences.getInstance();
                         prefs.clear();
                         Navigator.of(context).pushAndRemoveUntil(
-                          MaterialPageRoute(builder: (context) => SignInScreen()),
+                          MaterialPageRoute(
+                            builder: (context) => SignInScreen(),
+                          ),
                           (route) => false,
                         );
                       },
@@ -179,7 +192,6 @@ class ListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 50.h,
-      width: 340.w,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10.r),
         color: Colors.white,

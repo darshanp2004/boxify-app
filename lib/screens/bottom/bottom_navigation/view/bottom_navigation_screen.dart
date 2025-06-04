@@ -7,7 +7,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class BottomNavigationScreen extends StatefulWidget {
-
   const BottomNavigationScreen({super.key});
 
   @override
@@ -20,7 +19,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
     return BlocProvider(
       create: (context) => BottomNavigationCubit(),
       child: BlocConsumer<BottomNavigationCubit, BottomNavigationState>(
-        listener: (BuildContext context, BottomNavigationState state) {  },
+        listener: (BuildContext context, BottomNavigationState state) {},
         builder: (context, state) {
           var bottomNavigationCubit = BottomNavigationCubit.get(context);
           return Scaffold(
@@ -30,7 +29,8 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
               child: SizedBox(
                 height: 100.h,
                 child: BottomNavigationBar(
-                  currentIndex: state.currentIndex,type: BottomNavigationBarType.fixed,
+                  currentIndex: state.currentIndex,
+                  type: BottomNavigationBarType.fixed,
                   onTap: (index) {
                     bottomNavigationCubit.updateIndex(index);
                   },
@@ -39,58 +39,79 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
                   showSelectedLabels: true,
                   showUnselectedLabels: false,
                   selectedLabelStyle: TextStyle(
-                    fontFamily:lexend,
+                    fontFamily: lexend,
                     fontWeight: FontWeight.w400,
                     fontSize: 8.sp,
                   ),
                   items: [
                     BottomNavigationBarItem(
-                      icon: ColorFiltered(
-                        colorFilter: ColorFilter.mode(
-                          state.currentIndex == 0
-                              ? Color(0XFF0E7AFF)
-                              : Color(0XFF999999),
-                          BlendMode.srcIn,
-                        ),
-                        child: Image.asset(homeIcon, width: 25.w),
+                      icon: Column(
+                        children: [
+                          ColorFiltered(
+                            colorFilter: ColorFilter.mode(
+                              state.currentIndex == 0
+                                  ? Color(0XFF0E7AFF)
+                                  : Color(0XFF999999),
+                              BlendMode.srcIn,
+                            ),
+                            child: Image.asset(homeIcon, width: 25.w),
+                          ),
+                          SizedBox(height: 4.h,)
+                        ],
                       ),
                       label: homeLabel,
                     ),
                     BottomNavigationBarItem(
-                      icon: ColorFiltered(
-                        colorFilter: ColorFilter.mode(
-                          state.currentIndex == 1
-                              ? Color(0XFF0E7AFF)
-                              : Color(0XFF999999),
-                          BlendMode.srcIn,
-                        ),
-                        child: Image.asset(exploreIcon, width: 25.w),
+                      icon: Column(
+                        children: [
+                          ColorFiltered(
+                            colorFilter: ColorFilter.mode(
+                              state.currentIndex == 1
+                                  ? Color(0XFF0E7AFF)
+                                  : Color(0XFF999999),
+                              BlendMode.srcIn,
+                            ),
+                            child: Image.asset(exploreIcon, width: 25.w),
+                          ),
+                          SizedBox(height: 4.h,)
+
+                        ],
                       ),
                       label: exploreLabel,
                     ),
                     BottomNavigationBarItem(
-                      icon: ColorFiltered(
-                        colorFilter: ColorFilter.mode(
-                          state.currentIndex == 2
-                              ? Color(0XFF0E7AFF)
-                              : Color(0XFF999999),
-                          BlendMode.srcIn,
-                        ),
-                        child: Image.asset(bookingIcon, width: 25.w),
+                      icon: Column(
+                        children: [
+                          ColorFiltered(
+                            colorFilter: ColorFilter.mode(
+                              state.currentIndex == 2
+                                  ? Color(0XFF0E7AFF)
+                                  : Color(0XFF999999),
+                              BlendMode.srcIn,
+                            ),
+                            child: Image.asset(bookingIcon, width: 25.w),
+                          ),
+                          SizedBox(height: 4.h,)
+                        ],
                       ),
                       label: bookingLabel,
                     ),
                     BottomNavigationBarItem(
-                      icon: ColorFiltered(
-                        colorFilter: ColorFilter.mode(
-                          state.currentIndex == 3
-                              ? Color(0XFF0E7AFF)
-                              : Color(0XFF999999),
-                          BlendMode.srcIn,
-                        ),
-                        child: Image.asset(profileIcon, width: 20.w),
+                      icon: Column(
+                        children: [
+                          ColorFiltered(
+                            colorFilter: ColorFilter.mode(
+                              state.currentIndex == 3
+                                  ? Color(0XFF0E7AFF)
+                                  : Color(0XFF999999),
+                              BlendMode.srcIn,
+                            ),
+                            child: Image.asset(profileIcon, width: 20.w),
+                          ),
+                          SizedBox(height: 6.h,)
+                        ],
                       ),
-                      label: profileLabel,
+                      label: moreLabel,
                     ),
                   ],
                 ),

@@ -61,14 +61,12 @@ class _BookingInfoScreenState extends State<BookingInfoScreen> {
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 25.w),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Expanded(
                             flex: 2,
-                            child: CustomElevatedButton(
-                              text: chatWithOwner,
-                              fontWeight: FontWeight.w700,
-                              onPressed: () {
+                            child: GestureDetector(
+                              onTap: () {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -82,20 +80,39 @@ class _BookingInfoScreenState extends State<BookingInfoScreen> {
                                   ),
                                 );
                               },
-                              fontSize: 12.sp,
-                              backgroundColor: Color(0xFF0E7AFF),
-                              borderColor: Colors.transparent,
-                              textColor: Colors.white,
-                              borderRadius: 10.r,
+                              child: Container(
+                                padding: EdgeInsets.symmetric(horizontal: 20.w),
+                                height: 50.h,
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                  color: Color(0xFF0E7AFF),
+                                  borderRadius: BorderRadius.circular(10.r),
+                                ),
+                                child: Row(
+                                  children: [
+                                    Image.asset(
+                                      helpSupportIcon,
+                                      color: Color(0xFFFFFFFF),
+                                      width: 16.w,
+                                      height: 14.h,
+                                    ),
+                                    SizedBox(width: 5.w),
+                                    CustomText(
+                                      data: chatWithOwner,
+                                      fontSize: 12.sp,
+                                      fontWeight: FontWeight.w700,
+                                      color: Color(0xFFFFFFFF),
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ),
                           ),
-                          SizedBox(width: 5.w),
+                          SizedBox(width: 10.w),
                           Expanded(
                             flex: 2,
-                            child: CustomElevatedButton(
-                              text: getDirection,
-                              fontWeight: FontWeight.w700,
-                              onPressed: () {
+                            child: GestureDetector(
+                              onTap: () {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -103,11 +120,31 @@ class _BookingInfoScreenState extends State<BookingInfoScreen> {
                                   ),
                                 );
                               },
-                              fontSize: 12.sp,
-                              backgroundColor: Color(0xFF0E7AFF),
-                              borderColor: Colors.transparent,
-                              textColor: Colors.white,
-                              borderRadius: 10.r,
+                              child: Container(
+                                padding: EdgeInsets.symmetric(horizontal: 30.w),
+                                height: 50.h,
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                  color: Color(0xFF0E7AFF),
+                                  borderRadius: BorderRadius.circular(10.r),
+                                ),
+                                child: Row(
+                                  children: [
+                                    Image.asset(
+                                      locationIcon1,
+                                      width: 16.w,
+                                      height: 14.h,
+                                    ),
+                                    SizedBox(width: 5.w),
+                                    CustomText(
+                                      data: getDirection,
+                                      fontSize: 12.sp,
+                                      fontWeight: FontWeight.w700,
+                                      color: Color(0xFFFFFFFF),
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ),
                           ),
                         ],
@@ -260,7 +297,6 @@ class BookingInfoCard extends StatelessWidget {
   }
 }
 
-
 // Cancel Dialog
 
 class CancelBookingDialog extends StatelessWidget {
@@ -269,10 +305,12 @@ class CancelBookingDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BackdropFilter(
-      filter: ImageFilter.blur(sigmaX: 10,sigmaY: 10),
+      filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
       child: Dialog(
         backgroundColor: Colors.white,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.r)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15.r),
+        ),
         child: SizedBox(
           height: 300.h,
           child: Padding(

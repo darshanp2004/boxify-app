@@ -75,14 +75,14 @@ class Button extends StatelessWidget {
         borderRadius: BorderRadius.circular(10.r),
         color: Colors.white,
         border: Border.all(
-          color: isSelected ?Color(0xFF0E7AFF) : Colors.transparent,
+          color: isSelected ? Color(0xFF0E7AFF) : Colors.transparent,
         ),
       ),
       child: Center(
         child: CustomText(
           data: text,
           fontSize: 12.sp,
-          color: isSelected ? Color(0xFF0E7AFF): Color(0xFF636363),
+          color: isSelected ? Color(0xFF0E7AFF) : Color(0xFF636363),
         ),
       ),
     );
@@ -219,7 +219,9 @@ class Card extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.only(top: 8.h),
                       child: GestureDetector(
-                       onTap: (){ratingsBottomSheet(context);},
+                        onTap: () {
+                          ratingsBottomSheet(context);
+                        },
                         child: Row(
                           children: [
                             CustomText(
@@ -228,7 +230,11 @@ class Card extends StatelessWidget {
                               fontWeight: FontWeight.w700,
                               color: Color(0xFF0E7AFF),
                             ),
-                            Icon(Icons.arrow_forward_ios,size: 9.sp,color: Color(0xFF0E7AFF),)
+                            Icon(
+                              Icons.arrow_forward_ios,
+                              size: 9.sp,
+                              color: Color(0xFF0E7AFF),
+                            ),
                           ],
                         ),
                       ),
@@ -297,6 +303,16 @@ AppBar appBar(BookingCubit bookingCubit, BookingState state) {
 // ListView
 
 Widget upcomingList(List cards) {
+  if (cards.isEmpty) {
+    return Center(
+      child: CustomText(
+        data: noUpcomingMatches,
+        fontSize: 16.sp,
+        fontWeight: FontWeight.w600,
+        color: Colors.grey,
+      ),
+    );
+  }
   return ListView.builder(
     padding: EdgeInsets.only(top: 25.h),
     itemCount: 6,
@@ -325,6 +341,16 @@ Widget upcomingList(List cards) {
 }
 
 Widget historyList(List cards) {
+  if (cards.isEmpty) {
+    return Center(
+      child: CustomText(
+        data: noHistory,
+        fontSize: 16.sp,
+        fontWeight: FontWeight.w600,
+        color: Colors.grey,
+      ),
+    );
+  }
   return ListView.builder(
     padding: EdgeInsets.only(top: 25.h),
     itemCount: 3,
@@ -346,6 +372,16 @@ Widget historyList(List cards) {
 }
 
 Widget cancelledList(List cards) {
+  if (cards.isEmpty) {
+    return Center(
+      child: CustomText(
+        data: noCancelled,
+        fontSize: 16.sp,
+        fontWeight: FontWeight.w600,
+        color: Colors.grey,
+      ),
+    );
+  }
   return ListView.builder(
     padding: EdgeInsets.only(top: 25.h),
     itemCount: 3,
@@ -423,8 +459,14 @@ Future<void> ratingsBottomSheet(BuildContext context) {
                     itemPadding: EdgeInsets.symmetric(horizontal: 10.w),
                     ratingWidget: RatingWidget(
                       full: Icon(Icons.star_rounded, color: Color(0xFF0E7AFF)),
-                      half: Icon(Icons.star_half_rounded, color: Color(0xFF0E7AFF)),
-                      empty: Icon(Icons.star_border_rounded, color: Color(0xFF0E7AFF)),
+                      half: Icon(
+                        Icons.star_half_rounded,
+                        color: Color(0xFF0E7AFF),
+                      ),
+                      empty: Icon(
+                        Icons.star_border_rounded,
+                        color: Color(0xFF0E7AFF),
+                      ),
                     ),
                     onRatingUpdate: (rating) {},
                   ),

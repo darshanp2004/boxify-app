@@ -20,7 +20,7 @@ const String passNotMatch = "Password Not Match";
 const String homeLabel = "Home";
 const String exploreLabel = "Explore";
 const String bookingLabel = "My Bookings";
-const String profileLabel = "Profile";
+const String moreLabel = "More";
 const String location = "Location";
 const String area = "Sindhu Bhavan Marg";
 const String helloText = "Hello, Joseph";
@@ -153,6 +153,14 @@ const String enableNotification="Enable Notification";
 const String missingUpdates="You are missing notifications for game updates,\noffers and many more.";
 const String noThanks="No Thanks";
 const String enable="Enable";
+const String quickHelp="Quick Help";
+const String liveChat="Live Chat";
+const String callSupport="Call Support";
+const String emailUs="Email Us";
+const String faqs="FAQs";
+const String noUpcomingMatches="No upcoming bookings found.";
+const String noHistory="No Booking History";
+
 
 // Owner
 const String personalDetails="PERSONAL DETAILS";
