@@ -116,6 +116,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                 place: card[place]!,
                                 distance: card[distance]!,
                                 ratings: card[ratings]!,
+                                bookable: index % 2 == 0,
                               ),
                             );
                           },
@@ -136,5 +137,3 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
     );
   }
 }
-
-// CategoryList

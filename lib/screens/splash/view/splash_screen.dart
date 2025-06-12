@@ -1,6 +1,5 @@
 import 'package:boxify/screens/auth/sign_in/view/signin_screen.dart';
 import 'package:boxify/screens/bottom/bottom_navigation/view/bottom_navigation_screen.dart';
-import 'package:boxify/screens/owner/details/owner_details/view/owner_details_screen.dart';
 import 'package:boxify/screens/splash/cubit/splashscreen_cubit.dart';
 import 'package:boxify/screens/splash/cubit/splashscreen_state.dart';
 import 'package:flutter/material.dart';

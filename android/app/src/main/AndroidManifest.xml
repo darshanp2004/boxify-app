@@ -13,7 +13,8 @@
     <application
         android:label="boxify"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        android:usesCleartextTraffic="true">
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCjUsdfLcWq1lHxfPeRO2v0j63Xzav2t_Y"/>

@@ -1,10 +1,13 @@
 import 'package:boxify/screens/splash/view/splash_screen.dart';
+import 'package:boxify/services/api_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:toastification/toastification.dart';
 
 void main() async {
+  final ApiService _ = ApiService();
+
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 

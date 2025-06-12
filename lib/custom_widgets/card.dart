@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:boxify/custom_widgets/text.dart';
+import 'package:boxify/utils/string.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -14,6 +15,7 @@ class SportCard extends StatelessWidget {
   final String place;
   final String distance;
   final String ratings;
+  final bool? bookable;
 
   const SportCard({
     super.key,
@@ -23,6 +25,7 @@ class SportCard extends StatelessWidget {
     required this.place,
     required this.distance,
     required this.ratings,
+    this.bookable,
   });
 
   @override
@@ -46,13 +49,34 @@ class SportCard extends StatelessWidget {
                 height: double.infinity,
                 fit: BoxFit.fill,
               ),
+              if (bookable != null)
+                Positioned(
+                  top: 10.h,
+                  right: 10.w,
+                  child: Container(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 8.w,
+                      vertical: 4.h,
+                    ),
+                    decoration: BoxDecoration(
+                      color: bookable! ? Colors.blue : Colors.grey,
+                      borderRadius: BorderRadius.circular(10.r),
+                    ),
+                    child: CustomText(
+                      data: bookable! ? bookAble : occupied,
+                      fontSize: 12.sp,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
               Align(
                 alignment: Alignment.bottomCenter,
                 child: Container(
-                  height: 70.h,
+                  height: 60.h,
                   width: double.infinity,
                   color: Color(0xF2FFFFFF),
-                  padding: EdgeInsets.all(10.w),
+                  padding: EdgeInsets.only(top: 15.h, left: 10.h, right: 10.h),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -60,13 +84,13 @@ class SportCard extends StatelessWidget {
                         children: [
                           CustomText(
                             data: title,
-                            fontSize: 16.sp,
+                            fontSize: 12.sp,
                             fontWeight: FontWeight.w800,
                           ),
                           Spacer(),
                           CustomText(
                             data: price,
-                            fontSize: 16.sp,
+                            fontSize: 12.sp,
                             fontWeight: FontWeight.w800,
                           ),
                         ],
@@ -76,22 +100,15 @@ class SportCard extends StatelessWidget {
                         children: [
                           CustomText(
                             data: "$place  • $distance",
-                            fontSize: 12.sp,
+                            fontSize: 9.sp,
                           ),
                           Spacer(),
-                          Padding(
-                            padding: EdgeInsets.only(bottom: 5.h),
-                            child: SvgPicture.asset(
-                              starIcon,
-                              height: 13.h,
-                              width: 10.w,
-                            ),
+                          Transform.translate(
+                            offset: Offset(0, -2),
+                            child: Icon(Icons.star_border_rounded, size: 15.sp),
                           ),
                           SizedBox(width: 5.w),
-                          CustomText(
-                            data: ratings,
-                            fontSize: 12.sp,
-                          ),
+                          CustomText(data: ratings, fontSize: 9.sp),
                         ],
                       ),
                     ],

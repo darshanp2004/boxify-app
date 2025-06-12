@@ -11,7 +11,8 @@ class SplashCubit extends Cubit<SplashState> {
     await Future.delayed(Duration(seconds: 2));
     final prefs = await SharedPreferences.getInstance();
     final isLoggedIn = prefs.getBool(loginKey) ?? false;
-    if (isLoggedIn) {
+    final isSignedUp = prefs.getBool(signupKey) ?? false;
+    if (isLoggedIn || isSignedUp) {
       emit(SplashNavigateToHome());
     } else {
       emit(SplashNavigateToLogin());
